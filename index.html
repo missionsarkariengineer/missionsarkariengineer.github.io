@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -16,7 +16,7 @@
       --subbar-bg: #1C2541;
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
-      --bg: #F4F6F9;
+      --bg: #F8FAFC;
       --surface: #FFFFFF;
       --border: #E2E8F0;
       --text: #0F172A;
@@ -41,7 +41,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP HEADER */
+    /* 1. TOP HEADER WITH SHARP VECTOR EMBLEM */
     .top-broad-header {
       background: var(--header-bg);
       padding: 16px 20px;
@@ -54,19 +54,19 @@
     .brand-container {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .portal-logo {
-      width: 54px;
-      height: 54px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       flex-shrink: 0;
       box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
     }
 
     .top-broad-header h1 {
-      font-size: 1.75rem;
+      font-size: 1.65rem;
       font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -133,7 +133,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 24px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
       margin-bottom: 24px;
     }
 
@@ -359,29 +359,39 @@
       font-weight: 700;
     }
 
-    /* MODALS */
+    /* 5. SMOOTH ANIMATED MODALS */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(11, 19, 43, 0.75);
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(4px);
       display: none;
       place-items: center;
       z-index: 1000;
       padding: 20px;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
     }
 
     .modal-overlay.active {
       display: grid;
+      opacity: 1;
     }
 
     .modal-card {
       background: #FFFFFF;
-      border-radius: 6px;
+      border-radius: 10px;
       width: 100%;
-      max-width: 420px;
-      padding: 24px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      max-width: 440px;
+      padding: 28px;
+      box-shadow: 0 25px 50px -12px rgba(11, 19, 43, 0.25);
+      transform: scale(0.95);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid var(--border);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
     }
 
     .modal-card.viewer {
@@ -394,17 +404,44 @@
     }
 
     .modal-header {
-      padding: 12px 18px;
+      padding: 14px 20px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 700;
+      background: #F8FAFC;
+    }
+
+    .modal-icon-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #EFF6FF;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--header-bg);
+      margin-bottom: 4px;
+    }
+
+    .modal-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .form-group label {
@@ -412,52 +449,53 @@
       font-size: 0.76rem;
       font-weight: 700;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .form-control {
       width: 100%;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 0.88rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
       outline: none;
+      transition: all 0.2s ease;
+      background: #FAFBFC;
     }
 
     .form-control:focus {
       border-color: var(--accent);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. TOP HEADER -->
+  <!-- 1. TOP BROAD HEADER -->
   <div class="top-broad-header">
     <div class="brand-container">
-      <svg class="portal-logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="200" cy="200" r="192" fill="#FFFFFF" />
-        <path d="M 65 200 A 135 135 0 0 1 335 200" fill="none" stroke="#EA580C" stroke-width="8" stroke-linecap="round" />
-        <path d="M 65 200 A 135 135 0 0 0 335 200" fill="none" stroke="#0B132B" stroke-width="8" stroke-linecap="round" />
-        <g fill="#0B132B" transform="translate(200,135)">
-          <circle r="44" />
-          <path d="M-8,-52 h16 v12 h-16 z M-8,40 h16 v12 h-16 z M-52,-8 h12 v16 h-12 z M40,-8 h12 v16 h-12 z" />
-          <path d="M-36,-36 l11,-11 l11,11 l-11,11 z M25,25 l11,-11 l11,11 l-11,11 z M-36,25 l11,11 l11,-11 l-11,-11 z M25,-36 l11,11 l11,-11 l-11,-11 z" />
+      <svg class="portal-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="#FFFFFF" stroke="#EA580C" stroke-width="2.5" />
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#0B132B" stroke-width="1.5" stroke-dasharray="4,2" />
+        <g fill="#0B132B" transform="translate(50,50)">
+          <circle r="22" />
+          <rect x="-4" y="-28" width="8" height="6" rx="1.5" />
+          <rect x="-4" y="22" width="8" height="6" rx="1.5" />
+          <rect x="-28" y="-4" width="6" height="8" rx="1.5" />
+          <rect x="22" y="-4" width="6" height="8" rx="1.5" />
+          <rect x="-21" y="-21" width="7" height="7" rx="1.5" transform="rotate(45)" />
+          <rect x="14" y="14" width="7" height="7" rx="1.5" transform="rotate(45)" />
+          <rect x="-21" y="14" width="7" height="7" rx="1.5" transform="rotate(-45)" />
+          <rect x="14" y="-21" width="7" height="7" rx="1.5" transform="rotate(-45)" />
         </g>
-        <g fill="#EA580C" stroke="#FFFFFF" stroke-width="3" transform="translate(200,135)">
-          <path d="M -26 6 A 26 26 0 0 1 26 6 Z" />
-          <path d="M -5 -20 h 10 v 26 h -10 z" />
-          <path d="M -32 6 Q 0 16 32 6 Q 0 10 -32 6 Z" />
+        <g fill="#EA580C" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" transform="translate(50,50)">
+          <path d="M -13 4 A 13 13 0 0 1 13 4 Z" />
+          <path d="M -2.5 -9 h 5 v 13 h -5 z" />
+          <path d="M -16 4 Q 0 9 16 4 Q 0 6 -16 4 Z" />
         </g>
-        <line x1="90" y1="185" x2="135" y2="185" stroke="#0B132B" stroke-width="4" stroke-linecap="round" />
-        <line x1="265" y1="185" x2="310" y2="185" stroke="#0B132B" stroke-width="4" stroke-linecap="round" />
-        <text x="200" y="193" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="28" fill="#0B132B" letter-spacing="4">MISSION</text>
-        <text x="200" y="245" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="44" fill="#EA580C" letter-spacing="2">SARKARI</text>
-        <line x1="95" y1="268" x2="125" y2="268" stroke="#0B132B" stroke-width="4" stroke-linecap="round" />
-        <line x1="275" y1="268" x2="305" y2="268" stroke="#0B132B" stroke-width="4" stroke-linecap="round" />
-        <text x="200" y="276" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="24" fill="#0B132B" letter-spacing="3">ENGINEER</text>
-        <path d="M 120 295 Q 200 300 280 295" fill="none" stroke="#EA580C" stroke-width="1.5" />
-        <text x="200" y="315" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="11" fill="#0B132B" letter-spacing="2">PREPARE • PERSIST • SUCCEED</text>
       </svg>
       <h1>Mission Sarkari Engineer</h1>
     </div>
@@ -513,7 +551,7 @@
     </div>
   </main>
 
-  <!-- 4. BOTTOM FOOTER -->
+  <!-- 4. FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -525,7 +563,7 @@
     </div>
   </footer>
 
-  <!-- Viewer Modal -->
+  <!-- Reader Modal -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="modal-header">
@@ -539,17 +577,20 @@
   <!-- Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
-      <h3 style="font-size: 1.1rem; margin-bottom: 4px;">Admin Access</h3>
-      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Enter security passkey.</p>
+      <div class="modal-icon-badge">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <h3 class="modal-title">Admin Access</h3>
+      <p class="modal-subtitle">Enter security passkey to unlock document management controls.</p>
 
       <div class="form-group">
         <label>Passkey</label>
-        <input type="password" id="authPass" class="form-control" placeholder="Enter password..." />
+        <input type="password" id="authPass" class="form-control" placeholder="Enter administrative passkey..." />
       </div>
 
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px;">
+      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px;">
         <button id="cancelLogin" class="btn-action">Cancel</button>
-        <button id="submitLogin" class="btn-action" style="background:var(--header-bg); color:#FFFFFF;">Unlock</button>
+        <button id="submitLogin" class="btn-action" style="background:var(--header-bg); color:#FFFFFF;">Unlock Portal</button>
       </div>
     </div>
   </div>
@@ -557,8 +598,11 @@
   <!-- Upload Modal -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-card">
-      <h3 style="font-size: 1.1rem; margin-bottom: 4px;">Upload Document</h3>
-      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">Save a new document link.</p>
+      <div class="modal-icon-badge">
+        <i class="fa-solid fa-file-circle-plus"></i>
+      </div>
+      <h3 class="modal-title">Upload Document</h3>
+      <p class="modal-subtitle">Save a new direct Google Drive reference link to the registry.</p>
 
       <div class="form-group">
         <label>Stream</label>
@@ -572,7 +616,7 @@
 
       <div class="form-group">
         <label>Subject Title</label>
-        <input type="text" id="docTitle" class="form-control" placeholder="e.g. Thermodynamics" required />
+        <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" required />
       </div>
 
       <div class="form-group">
@@ -580,9 +624,9 @@
         <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
       </div>
 
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px;">
+      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px;">
         <button id="cancelUpload" class="btn-action">Cancel</button>
-        <button id="saveDoc" class="btn-action" style="background:var(--header-bg); color:#FFFFFF;">Save</button>
+        <button id="saveDoc" class="btn-action" style="background:var(--header-bg); color:#FFFFFF;">Save Entry</button>
       </div>
     </div>
   </div>
@@ -748,7 +792,7 @@
       viewerFrame.src = "";
     });
 
-    // Passkey: Shiv@1212
+    // Passkey Login: Shiv@1212
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
