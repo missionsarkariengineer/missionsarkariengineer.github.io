@@ -44,7 +44,7 @@
     /* 1. BROAD TOP HEADER */
     .top-broad-header {
       background: var(--header-gradient);
-      padding: 24px 36px;
+      padding: 22px 36px;
       border-bottom: 3.5px solid var(--accent);
       box-shadow: 0 10px 30px rgba(9, 17, 36, 0.35);
     }
@@ -61,29 +61,18 @@
       grid-column: 2;
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
     }
 
-    /* Enhanced Logo Framing */
-    .logo-frame {
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      background: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.4), 0 6px 16px rgba(0, 0, 0, 0.4);
-      flex-shrink: 0;
-      padding: 2px;
-    }
-
+    /* Clean & Crisp Logo */
     .portal-logo-img {
-      width: 100%;
-      height: 100%;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
+      background: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
     }
 
     .top-broad-header h1 {
@@ -165,7 +154,6 @@
       margin-bottom: 26px;
     }
 
-    /* High Visibility Search Box */
     .search-box {
       position: relative;
       margin-bottom: 20px;
@@ -174,7 +162,7 @@
     .search-box input {
       width: 100%;
       padding: 16px 20px 16px 52px;
-      border: 2px solid #2563EB; /* Crisp Blue Highlight */
+      border: 2px solid #2563EB;
       border-radius: 10px;
       font-size: 0.96rem;
       font-weight: 500;
@@ -235,7 +223,7 @@
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER */
+    /* 3. CONTINUOUS PHOTO SLIDER (NO SIDE BLUR/FADE) */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
@@ -243,27 +231,6 @@
       border-radius: 14px;
       padding: 8px 0;
       margin-top: 6px;
-    }
-
-    .train-slider-container::before,
-    .train-slider-container::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 80px;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .train-slider-container::before {
-      left: 0;
-      background: linear-gradient(to right, var(--bg), transparent);
-    }
-
-    .train-slider-container::after {
-      right: 0;
-      background: linear-gradient(to left, var(--bg), transparent);
     }
 
     .train-track {
@@ -644,11 +611,9 @@
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
       
-      <!-- Brand Center (Framed High-Contrast Logo) -->
+      <!-- Brand Center (Direct Clean Logo) -->
       <div class="brand-container">
-        <div class="logo-frame">
-          <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
-        </div>
+        <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
@@ -667,7 +632,6 @@
   <!-- 2. MAIN WORKSPACE -->
   <main>
     <div class="filter-wrapper">
-      <!-- High Contrast & Blue-Outlined Search -->
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="Search subject (e.g. SOM, Thermodynamics, Production, Fluid Mechanics)..." />
@@ -681,7 +645,7 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider -->
+    <!-- 3 SSC JE Departments Slider (Full Clarity - No Edge Blur) -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
@@ -706,7 +670,7 @@
           </div>
         </div>
 
-        <!-- Set 2 (Seamless Infinite Loop Clone) -->
+        <!-- Set 2 (Seamless Loop Clone) -->
         <div class="train-card-photo">
           <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
