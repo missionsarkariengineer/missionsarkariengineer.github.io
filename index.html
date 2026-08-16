@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Mission Sarkari Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +41,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. BROAD TOP HEADER */
+    /* 1. TOP BROAD HEADER */
     .top-broad-header {
       background: var(--header-gradient);
       padding: 22px 36px;
@@ -64,7 +64,6 @@
       gap: 16px;
     }
 
-    /* Clean & Crisp Logo */
     .portal-logo-img {
       width: 52px;
       height: 52px;
@@ -73,6 +72,7 @@
       display: block;
       background: #FFFFFF;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      flex-shrink: 0;
     }
 
     .top-broad-header h1 {
@@ -107,6 +107,7 @@
       gap: 8px;
       transition: all 0.2s ease;
       backdrop-filter: blur(6px);
+      white-space: nowrap;
     }
 
     .btn-header-admin:hover {
@@ -129,6 +130,7 @@
       gap: 8px;
       transition: all 0.2s ease;
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+      white-space: nowrap;
     }
 
     .btn-header-upload:hover {
@@ -223,7 +225,7 @@
       box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER (NO SIDE BLUR/FADE) */
+    /* 3. CONTINUOUS PHOTO SLIDER */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
@@ -237,7 +239,7 @@
       display: flex;
       gap: 18px;
       width: max-content;
-      animation: trainSlide 24s linear infinite;
+      animation: trainSlide 10s linear infinite;
     }
 
     .train-track:hover {
@@ -328,6 +330,7 @@
       border-radius: 14px;
       overflow-x: auto;
       box-shadow: var(--card-shadow);
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -335,6 +338,7 @@
       border-collapse: collapse;
       text-align: left;
       font-size: 0.92rem;
+      min-width: 580px; /* Mobile par clean scroll rahega */
     }
 
     thead {
@@ -384,6 +388,7 @@
       color: #334155;
       border: 1px solid #CBD5E1;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .action-group {
@@ -406,6 +411,7 @@
       gap: 6px;
       text-decoration: none;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .btn-action:hover {
@@ -443,6 +449,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
     }
 
     .visitor-box {
@@ -471,7 +478,7 @@
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
@@ -487,7 +494,7 @@
       border-radius: 16px;
       width: 100%;
       max-width: 400px;
-      padding: 32px 28px;
+      padding: 30px 24px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
       transform: scale(0.92) translateY(10px);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -507,7 +514,7 @@
     }
 
     .modal-header {
-      padding: 16px 22px;
+      padding: 16px 20px;
       border-bottom: 1px solid #E2E8F0;
       display: flex;
       justify-content: space-between;
@@ -540,7 +547,7 @@
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .form-control {
@@ -602,6 +609,101 @@
       background: #1E293B;
       transform: translateY(-1px);
     }
+
+    /* ========================================= */
+    /* 6. RESPONSIVE DESIGN (MOBILE / TABLET)    */
+    /* ========================================= */
+
+    @media (max-width: 768px) {
+      .top-broad-header {
+        padding: 16px 18px;
+      }
+
+      .header-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+
+      .brand-container {
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .portal-logo-img {
+        width: 44px;
+        height: 44px;
+      }
+
+      .top-broad-header h1 {
+        font-size: 1.35rem;
+        letter-spacing: 0.02em;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      main {
+        padding: 20px 14px 40px;
+      }
+
+      .filter-wrapper {
+        padding: 16px;
+        border-radius: 12px;
+      }
+
+      .search-box input {
+        padding: 14px 16px 14px 46px;
+        font-size: 0.9rem;
+      }
+
+      .filter-buttons {
+        gap: 8px;
+      }
+
+      .btn-filter {
+        flex: 1 1 calc(50% - 8px); /* 2 items per row on mobile */
+        text-align: center;
+        padding: 9px 10px;
+        font-size: 0.78rem;
+      }
+
+      .train-card-photo {
+        width: 240px;
+        height: 145px;
+      }
+
+      .photo-overlay p {
+        font-size: 0.78rem;
+      }
+
+      footer {
+        padding: 16px 18px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-broad-header h1 {
+        font-size: 1.15rem;
+      }
+
+      .btn-filter {
+        flex: 1 1 100%; /* Single column filter on very small screens */
+      }
+
+      .modal-card.viewer {
+        height: 94vh;
+      }
+    }
   </style>
 </head>
 <body>
@@ -611,7 +713,7 @@
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
       
-      <!-- Brand Center (Direct Clean Logo) -->
+      <!-- Brand Center -->
       <div class="brand-container">
         <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
         <h1>Mission Sarkari Engineer</h1>
@@ -620,7 +722,7 @@
       <!-- Actions Right -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
-          <i class="fa-solid fa-plus"></i> Upload Document
+          <i class="fa-solid fa-plus"></i> Upload
         </button>
         <button id="authBtn" class="btn-header-admin">
           <i class="fa-solid fa-lock"></i> Admin Login
@@ -645,7 +747,7 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider (Full Clarity - No Edge Blur) -->
+    <!-- 3 SSC JE Departments Slider -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
@@ -670,7 +772,7 @@
           </div>
         </div>
 
-        <!-- Set 2 (Seamless Loop Clone) -->
+        <!-- Set 2 (Seamless Infinite Loop Clone) -->
         <div class="train-card-photo">
           <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
@@ -706,8 +808,8 @@
           <thead>
             <tr>
               <th>Subject / Document</th>
-              <th style="width: 220px;">Stream</th>
-              <th style="width: 180px; text-align: right;">Action</th>
+              <th style="width: 200px;">Stream</th>
+              <th style="width: 170px; text-align: right;">Action</th>
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>
