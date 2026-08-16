@@ -40,12 +40,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP BROAD HEADER (Increased Width/Padding) */
+    /* 1. BROAD TOP HEADER */
     .top-broad-header {
       background: var(--header-bg);
-      padding: 24px 32px; /* Chodi / Broad strip */
+      padding: 28px 36px;
       border-bottom: 3px solid var(--accent);
-      box-shadow: 0 4px 20px rgba(11, 19, 43, 0.15);
+      box-shadow: 0 6px 24px rgba(11, 19, 43, 0.18);
     }
 
     .header-inner {
@@ -64,12 +64,13 @@
     }
 
     .portal-logo-img {
-      width: 54px;
-      height: 54px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
-      border: 2px solid rgba(255, 255, 255, 0.25);
+      background: #FFFFFF;
+      border: 2px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
@@ -93,7 +94,7 @@
     .btn-header-admin {
       font-size: 0.82rem;
       font-weight: 600;
-      padding: 9px 18px;
+      padding: 10px 18px;
       border-radius: 6px;
       cursor: pointer;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -113,7 +114,7 @@
     .btn-header-upload {
       font-size: 0.82rem;
       font-weight: 600;
-      padding: 9px 18px;
+      padding: 10px 18px;
       border-radius: 6px;
       cursor: pointer;
       border: 1px solid var(--accent);
@@ -134,7 +135,7 @@
       flex: 1;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 44px 20px 60px;
+      padding: 40px 20px 60px;
       width: 100%;
     }
 
@@ -279,7 +280,7 @@
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(11, 19, 43, 0.92) 0%, rgba(11, 19, 43, 0.25) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(11, 19, 43, 0.88) 0%, rgba(11, 19, 43, 0.2) 60%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -287,18 +288,11 @@
       color: #FFFFFF;
     }
 
-    .photo-overlay h4 {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 2px;
-    }
-
     .photo-overlay p {
-      font-size: 0.74rem;
-      color: #38BDF8;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
+      font-size: 0.82rem;
+      color: #FFFFFF;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
 
     /* DATA TABLE */
@@ -617,11 +611,11 @@
       
       <!-- Brand Center -->
       <div class="brand-container">
-        <img src="./logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" onerror="this.onerror=null; this.src='./logo.jpg';" />
+        <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
-      <!-- Actions Right (Only Admin Login) -->
+      <!-- Actions Right -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
           <i class="fa-solid fa-plus"></i> Upload Document
@@ -649,55 +643,49 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider (Order: MES -> CPWD -> CWC) -->
+    <!-- 3 SSC JE Departments Slider -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
         <div class="train-card-photo">
-          <img src="./Military Engineering Services.jpg" alt="Military Engineering Services" />
+          <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
-            <h4>MES</h4>
             <p>Military Engineering Services</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="./CPWD.jpg" alt="National CPWD Academy" />
+          <img src="CPWD.jpg" alt="National CPWD Academy" />
           <div class="photo-overlay">
-            <h4>CPWD</h4>
-            <p>Central Public Works Dept.</p>
+            <p>Central Public Works Department</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="./Central Water Commision.jpg" alt="Central Water Commission" />
+          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
           <div class="photo-overlay">
-            <h4>CWC</h4>
             <p>Central Water Commission</p>
           </div>
         </div>
 
         <!-- Set 2 (Seamless Infinite Loop Clone) -->
         <div class="train-card-photo">
-          <img src="./Military Engineering Services.jpg" alt="Military Engineering Services" />
+          <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
-            <h4>MES</h4>
             <p>Military Engineering Services</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="./CPWD.jpg" alt="National CPWD Academy" />
+          <img src="CPWD.jpg" alt="National CPWD Academy" />
           <div class="photo-overlay">
-            <h4>CPWD</h4>
-            <p>Central Public Works Dept.</p>
+            <p>Central Public Works Department</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="./Central Water Commision.jpg" alt="Central Water Commission" />
+          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
           <div class="photo-overlay">
-            <h4>CWC</h4>
             <p>Central Water Commission</p>
           </div>
         </div>
