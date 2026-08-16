@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <!-- Force exact desktop viewport on mobile devices -->
+  <meta name="viewport" content="width=1024" />
   <title>Mission Sarkari Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +40,7 @@
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
+      min-width: 1000px; /* Fixed desktop base */
     }
 
     /* 1. TOP BROAD HEADER */
@@ -47,6 +49,7 @@
       padding: 22px 36px;
       border-bottom: 3.5px solid var(--accent);
       box-shadow: 0 10px 30px rgba(9, 17, 36, 0.35);
+      width: 100%;
     }
 
     .header-inner {
@@ -144,7 +147,7 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 36px 20px 60px;
-      width: 100%;
+      width: 1000px;
     }
 
     .filter-wrapper {
@@ -196,7 +199,7 @@
 
     .filter-buttons {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 10px;
     }
 
@@ -210,6 +213,7 @@
       color: #334155;
       cursor: pointer;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .btn-filter:hover {
@@ -239,7 +243,7 @@
       display: flex;
       gap: 18px;
       width: max-content;
-      animation: trainSlide 10s linear infinite;
+      animation: trainSlide 28s linear infinite;
     }
 
     .train-track:hover {
@@ -330,7 +334,6 @@
       border-radius: 14px;
       overflow-x: auto;
       box-shadow: var(--card-shadow);
-      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -338,7 +341,6 @@
       border-collapse: collapse;
       text-align: left;
       font-size: 0.92rem;
-      min-width: 580px; /* Mobile par clean scroll rahega */
     }
 
     thead {
@@ -441,6 +443,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 18px 36px;
       font-size: 0.82rem;
+      width: 100%;
     }
 
     .footer-inner {
@@ -608,101 +611,6 @@
     .btn-modal-submit:hover {
       background: #1E293B;
       transform: translateY(-1px);
-    }
-
-    /* ========================================= */
-    /* 6. RESPONSIVE DESIGN (MOBILE / TABLET)    */
-    /* ========================================= */
-
-    @media (max-width: 768px) {
-      .top-broad-header {
-        padding: 16px 18px;
-      }
-
-      .header-inner {
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        text-align: center;
-      }
-
-      .brand-container {
-        gap: 12px;
-        justify-content: center;
-      }
-
-      .portal-logo-img {
-        width: 44px;
-        height: 44px;
-      }
-
-      .top-broad-header h1 {
-        font-size: 1.35rem;
-        letter-spacing: 0.02em;
-      }
-
-      .header-actions {
-        width: 100%;
-        justify-content: center;
-      }
-
-      main {
-        padding: 20px 14px 40px;
-      }
-
-      .filter-wrapper {
-        padding: 16px;
-        border-radius: 12px;
-      }
-
-      .search-box input {
-        padding: 14px 16px 14px 46px;
-        font-size: 0.9rem;
-      }
-
-      .filter-buttons {
-        gap: 8px;
-      }
-
-      .btn-filter {
-        flex: 1 1 calc(50% - 8px); /* 2 items per row on mobile */
-        text-align: center;
-        padding: 9px 10px;
-        font-size: 0.78rem;
-      }
-
-      .train-card-photo {
-        width: 240px;
-        height: 145px;
-      }
-
-      .photo-overlay p {
-        font-size: 0.78rem;
-      }
-
-      footer {
-        padding: 16px 18px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .top-broad-header h1 {
-        font-size: 1.15rem;
-      }
-
-      .btn-filter {
-        flex: 1 1 100%; /* Single column filter on very small screens */
-      }
-
-      .modal-card.viewer {
-        height: 94vh;
-      }
     }
   </style>
 </head>
