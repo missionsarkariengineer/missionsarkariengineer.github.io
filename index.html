@@ -12,19 +12,17 @@
 
   <style>
     :root {
-      --header-gradient: linear-gradient(135deg, #0A1128 0%, #101F42 50%, #0F172A 100%);
+      --header-gradient: linear-gradient(135deg, #091124 0%, #0F1C3F 50%, #0B132B 100%);
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
-      --accent-glow: rgba(37, 99, 235, 0.18);
-      --bg: #F4F7FB;
+      --accent-light: #EFF6FF;
+      --bg: #F1F5F9;
       --surface: #FFFFFF;
-      --border: #E2E8F0;
-      --border-focus: #3B82F6;
+      --border: #CBD5E1;
       --text: #0F172A;
       --text-muted: #64748B;
-      --tag-bg: #EEF2F6;
       --danger: #EF4444;
-      --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --card-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
     }
 
     * {
@@ -46,9 +44,9 @@
     /* 1. BROAD TOP HEADER */
     .top-broad-header {
       background: var(--header-gradient);
-      padding: 26px 36px;
-      border-bottom: 3px solid var(--accent);
-      box-shadow: 0 8px 30px rgba(10, 17, 40, 0.25);
+      padding: 24px 36px;
+      border-bottom: 3.5px solid var(--accent);
+      box-shadow: 0 10px 30px rgba(9, 17, 36, 0.35);
     }
 
     .header-inner {
@@ -63,28 +61,39 @@
       grid-column: 2;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 18px;
+    }
+
+    /* Enhanced Logo Framing */
+    .logo-frame {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.4), 0 6px 16px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
+      padding: 2px;
     }
 
     .portal-logo-img {
-      width: 52px;
-      height: 52px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      flex-shrink: 0;
-      background: #FFFFFF;
-      border: 2px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      display: block;
     }
 
     .top-broad-header h1 {
-      font-size: 1.8rem;
+      font-size: 1.85rem;
       font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #FFFFFF;
       white-space: nowrap;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .header-actions {
@@ -101,20 +110,20 @@
       padding: 10px 18px;
       border-radius: 8px;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       background: rgba(255, 255, 255, 0.08);
       color: #FFFFFF;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
     }
 
     .btn-header-admin:hover {
       background: #FFFFFF;
       color: #0F172A;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
     }
 
     .btn-header-upload {
@@ -130,62 +139,69 @@
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
     }
 
     .btn-header-upload:hover {
       background: var(--accent-hover);
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
     }
 
-    /* 2. MAIN WORKSPACE */
+    /* 2. MAIN WORKSPACE & PROMINENT SEARCH */
     main {
       flex: 1;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 40px 20px 60px;
+      padding: 36px 20px 60px;
       width: 100%;
     }
 
     .filter-wrapper {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
       padding: 24px;
       box-shadow: var(--card-shadow);
       margin-bottom: 26px;
     }
 
+    /* High Visibility Search Box */
     .search-box {
       position: relative;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .search-box input {
       width: 100%;
-      padding: 14px 18px 14px 46px;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 8px;
-      font-size: 0.92rem;
+      padding: 16px 20px 16px 52px;
+      border: 2px solid #2563EB; /* Crisp Blue Highlight */
+      border-radius: 10px;
+      font-size: 0.96rem;
+      font-weight: 500;
       outline: none;
-      background: #F8FAFC;
-      color: var(--text);
+      background: #FFFFFF;
+      color: #0F172A;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
       transition: all 0.2s ease;
     }
 
+    .search-box input::placeholder {
+      color: #64748B;
+      font-weight: 500;
+    }
+
     .search-box input:focus {
-      border-color: var(--border-focus);
-      background: #FFFFFF;
-      box-shadow: 0 0 0 4px var(--accent-glow);
+      border-color: #1D4ED8;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
     }
 
     .search-box i {
       position: absolute;
-      left: 17px;
+      left: 18px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.95rem;
+      color: #2563EB;
+      font-size: 1.15rem;
     }
 
     .filter-buttons {
@@ -195,11 +211,11 @@
     }
 
     .btn-filter {
-      padding: 9px 18px;
-      font-size: 0.84rem;
+      padding: 10px 18px;
+      font-size: 0.86rem;
       font-weight: 600;
       border-radius: 8px;
-      border: 1px solid #E2E8F0;
+      border: 1.5px solid #CBD5E1;
       background: #FFFFFF;
       color: #334155;
       cursor: pointer;
@@ -207,16 +223,16 @@
     }
 
     .btn-filter:hover {
-      border-color: #94A3B8;
-      background: #F8FAFC;
-      color: var(--text);
+      border-color: #2563EB;
+      color: #2563EB;
+      background: #EFF6FF;
     }
 
     .btn-filter.active {
       background: #0F172A;
       color: #FFFFFF;
       border-color: #0F172A;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
     }
 
     /* 3. CONTINUOUS PHOTO SLIDER */
@@ -226,7 +242,7 @@
       position: relative;
       border-radius: 14px;
       padding: 8px 0;
-      margin-top: 10px;
+      margin-top: 6px;
     }
 
     .train-slider-container::before,
@@ -267,13 +283,13 @@
     }
 
     .train-card-photo {
-      width: 280px;
-      height: 165px;
+      width: 285px;
+      height: 170px;
       border-radius: 12px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.12);
-      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 8px 22px -4px rgba(15, 23, 42, 0.14);
+      border: 1.5px solid #E2E8F0;
       flex-shrink: 0;
       cursor: default;
       background: #E2E8F0;
@@ -293,7 +309,7 @@
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(10, 17, 40, 0.92) 0%, rgba(10, 17, 40, 0.35) 55%, transparent 100%);
+      background: linear-gradient(to top, rgba(9, 17, 36, 0.94) 0%, rgba(9, 17, 36, 0.35) 55%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -302,11 +318,11 @@
     }
 
     .photo-overlay p {
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       color: #F8FAFC;
       font-weight: 700;
       letter-spacing: 0.02em;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
     }
 
     /* DATA TABLE */
@@ -319,7 +335,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -329,7 +345,7 @@
       border: none;
       color: var(--accent);
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.84rem;
       transition: color 0.15s ease;
     }
@@ -341,8 +357,8 @@
 
     .table-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
       overflow-x: auto;
       box-shadow: var(--card-shadow);
     }
@@ -351,12 +367,12 @@
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
     }
 
     thead {
       background: #F8FAFC;
-      border-bottom: 1.5px solid var(--border);
+      border-bottom: 1.5px solid #E2E8F0;
     }
 
     th {
@@ -369,7 +385,7 @@
     }
 
     tbody tr {
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #F1F5F9;
       transition: background 0.15s ease;
     }
 
@@ -397,9 +413,9 @@
       font-weight: 600;
       padding: 4px 9px;
       border-radius: 6px;
-      background: var(--tag-bg);
-      color: #475569;
-      border: 1px solid #E2E8F0;
+      background: #EEF2F6;
+      color: #334155;
+      border: 1px solid #CBD5E1;
       text-transform: uppercase;
     }
 
@@ -411,10 +427,10 @@
 
     .btn-action {
       padding: 7px 14px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
       border-radius: 6px;
-      border: 1px solid #E2E8F0;
+      border: 1px solid #CBD5E1;
       background: #FFFFFF;
       color: #334155;
       cursor: pointer;
@@ -451,7 +467,7 @@
       color: #94A3B8;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 18px 36px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
 
     .footer-inner {
@@ -465,7 +481,7 @@
     .visitor-box {
       font-family: 'JetBrains Mono', monospace;
       color: #CBD5E1;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -481,7 +497,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(10, 17, 40, 0.72);
+      background: rgba(9, 17, 36, 0.75);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex;
@@ -525,7 +541,7 @@
 
     .modal-header {
       padding: 16px 22px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #E2E8F0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -563,7 +579,7 @@
     .form-control {
       width: 100%;
       padding: 12px 14px;
-      border: 1.5px solid #E2E8F0;
+      border: 1.5px solid #CBD5E1;
       border-radius: 8px;
       font-size: 0.92rem;
       outline: none;
@@ -575,7 +591,7 @@
     .form-control:focus {
       border-color: var(--accent);
       background: #FFFFFF;
-      box-shadow: 0 0 0 4px var(--accent-glow);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
     }
 
     .modal-actions {
@@ -590,7 +606,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       border-radius: 8px;
-      border: 1px solid #E2E8F0;
+      border: 1px solid #CBD5E1;
       background: #FFFFFF;
       color: #475569;
       cursor: pointer;
@@ -628,9 +644,11 @@
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
       
-      <!-- Brand Center -->
+      <!-- Brand Center (Framed High-Contrast Logo) -->
       <div class="brand-container">
-        <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
+        <div class="logo-frame">
+          <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
+        </div>
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
@@ -649,6 +667,7 @@
   <!-- 2. MAIN WORKSPACE -->
   <main>
     <div class="filter-wrapper">
+      <!-- High Contrast & Blue-Outlined Search -->
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" placeholder="Search subject (e.g. SOM, Thermodynamics, Production, Fluid Mechanics)..." />
@@ -662,7 +681,7 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider (Enhanced Contrast & Polish) -->
+    <!-- 3 SSC JE Departments Slider -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
@@ -739,7 +758,7 @@
       <div class="visitor-box">
         <i class="fa-solid fa-users"></i>
         <span>PORTAL VISITS:</span>
-        <span id="visitorCountDisplay" class="visitor-count">000000</span>
+        <span id="visitorCountDisplay" class="visitor-count">001249</span>
       </div>
       <div>&copy; Mission Sarkari Engineer</div>
     </div>
@@ -851,7 +870,7 @@
           return;
         }
       } catch (e) {}
-      let current = parseInt(localStorage.getItem('mse_sscje_official_count') || '1240', 10) + 1;
+      let current = parseInt(localStorage.getItem('mse_sscje_official_count') || '1249', 10) + 1;
       localStorage.setItem('mse_sscje_official_count', current.toString());
       display.textContent = current.toString().padStart(6, '0');
     }
@@ -974,7 +993,7 @@
       viewerFrame.src = "";
     });
 
-    // Passkey Login: Shiv@1212
+    // Passkey: Shiv@1212
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
