@@ -40,7 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP BROAD HEADER (SINGLE INTEGRATED STRIP) */
+    /* 1. SINGLE INTEGRATED HEADER */
     .top-broad-header {
       background: var(--header-bg);
       padding: 14px 28px;
@@ -131,7 +131,7 @@
       flex: 1;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 48px 20px 60px;
+      padding: 40px 20px 60px;
       width: 100%;
     }
 
@@ -141,7 +141,7 @@
       border-radius: 8px;
       padding: 24px;
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .search-box {
@@ -201,6 +201,103 @@
       background: var(--header-bg);
       color: #FFFFFF;
       border-color: var(--header-bg);
+    }
+
+    /* 3. CONTINUOUS TRAIN SLIDER / MARQUEE */
+    .train-slider-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+      padding: 10px 0;
+      background: transparent;
+      margin-top: 10px;
+    }
+
+    .train-slider-container::before,
+    .train-slider-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 60px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .train-slider-container::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+
+    .train-slider-container::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+
+    .train-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: trainSlide 24s linear infinite;
+    }
+
+    .train-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes trainSlide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .train-card {
+      width: 220px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+
+    .train-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+      border-color: #cbd5e1;
+    }
+
+    .train-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #eff6ff;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .train-info h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .train-info p {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     /* DATA TABLE */
@@ -335,7 +432,7 @@
       color: #FFFFFF;
     }
 
-    /* 3. FOOTER */
+    /* 4. FOOTER */
     footer {
       background: var(--header-bg);
       color: #94A3B8;
@@ -366,7 +463,7 @@
       font-weight: 700;
     }
 
-    /* 4. MODERN POPUP & MODAL SYSTEM */
+    /* 5. MODAL SYSTEM */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -445,25 +542,8 @@
       letter-spacing: -0.01em;
     }
 
-    .modal-subtitle {
-      font-size: 0.85rem;
-      color: #64748B;
-      margin-bottom: 24px;
-      line-height: 1.4;
-    }
-
     .form-group {
       margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: #475569;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
     .form-control {
@@ -525,15 +605,11 @@
       background: #1E293B;
       transform: translateY(-1px);
     }
-
-    .btn-modal-submit:active {
-      transform: translateY(0);
-    }
   </style>
 </head>
 <body>
 
-  <!-- 1. TOP BROAD HEADER (SINGLE CLEAN HEADER) -->
+  <!-- 1. TOP BROAD HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
@@ -563,7 +639,7 @@
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
-      <!-- Actions Right (Only Admin Login / Management) -->
+      <!-- Actions Right -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
           <i class="fa-solid fa-plus"></i> Upload Document
@@ -588,6 +664,46 @@
         <button class="btn-filter" data-stream="Design & Mechanics">Design & Mechanics</button>
         <button class="btn-filter" data-stream="Production & Materials">Production & Materials</button>
         <button class="btn-filter" data-stream="Revision & PYQs">Revision & PYQs</button>
+      </div>
+    </div>
+
+    <!-- Continuous Train Slider (Visible in Default State) -->
+    <div id="trainSlider" class="train-slider-container">
+      <div class="train-track">
+        <!-- Set 1 -->
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-gears"></i></div>
+          <div class="train-info"><h4>Mechanics & TOM</h4><p>Kinematics & Dyn.</p></div>
+        </div>
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-fire-burner"></i></div>
+          <div class="train-info"><h4>Thermal & Heat</h4><p>Power Plants & IC</p></div>
+        </div>
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-industry"></i></div>
+          <div class="train-info"><h4>Manufacturing</h4><p>Machining & Casting</p></div>
+        </div>
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-water"></i></div>
+          <div class="train-info"><h4>Fluid Power</h4><p>Hydraulics & Turbines</p></div>
+        </div>
+        <!-- Set 2 (Seamless Loop Clone) -->
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-gears"></i></div>
+          <div class="train-info"><h4>Mechanics & TOM</h4><p>Kinematics & Dyn.</p></div>
+        </div>
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-fire-burner"></i></div>
+          <div class="train-info"><h4>Thermal & Heat</h4><p>Power Plants & IC</p></div>
+        </div>
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-industry"></i></div>
+          <div class="train-info"><h4>Manufacturing</h4><p>Machining & Casting</p></div>
+        </div>
+        <div class="train-card">
+          <div class="train-icon"><i class="fa-solid fa-water"></i></div>
+          <div class="train-info"><h4>Fluid Power</h4><p>Hydraulics & Turbines</p></div>
+        </div>
       </div>
     </div>
 
@@ -625,7 +741,7 @@
     </div>
   </footer>
 
-  <!-- Reader Modal -->
+  <!-- Viewer Modal -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="modal-header">
@@ -636,17 +752,15 @@
     </div>
   </div>
 
-  <!-- Admin Login Modal -->
+  <!-- Minimal Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge">
         <i class="fa-solid fa-lock"></i>
       </div>
-      <h3 class="modal-title">Admin Access</h3>
-      <p class="modal-subtitle">Enter your passkey to manage documents & permissions.</p>
+      <h3 class="modal-title">Enter your passkey</h3>
 
-      <div class="form-group">
-        <label for="authPass">Security Passkey</label>
+      <div class="form-group" style="margin-top: 18px; margin-bottom: 20px;">
         <input type="password" id="authPass" class="form-control" placeholder="••••••••••••" autofocus />
       </div>
 
@@ -664,10 +778,9 @@
         <i class="fa-solid fa-file-circle-plus"></i>
       </div>
       <h3 class="modal-title">Upload Document</h3>
-      <p class="modal-subtitle">Save a new direct Google Drive reference link to the registry.</p>
 
-      <div class="form-group">
-        <label>Stream</label>
+      <div class="form-group" style="margin-top: 14px;">
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Stream</label>
         <select id="docFolder" class="form-control">
           <option value="Thermal & Fluids">Thermal & Fluids</option>
           <option value="Design & Mechanics">Design & Mechanics</option>
@@ -677,12 +790,12 @@
       </div>
 
       <div class="form-group">
-        <label>Subject Title</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Title</label>
         <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" required />
       </div>
 
       <div class="form-group">
-        <label>Google Drive Share Link</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Google Drive Share Link</label>
         <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
       </div>
 
@@ -742,6 +855,7 @@
     const tableBody = document.getElementById('tableBody');
     const searchInput = document.getElementById('searchInput');
     const resultsArea = document.getElementById('resultsArea');
+    const trainSlider = document.getElementById('trainSlider');
     const resultsTitle = document.getElementById('resultsTitle');
     const clearFilterBtn = document.getElementById('clearFilterBtn');
     const filterButtons = document.querySelectorAll('.btn-filter');
@@ -765,6 +879,7 @@
 
       if (query !== '' || activeStream !== null) {
         resultsArea.style.display = 'block';
+        trainSlider.style.display = 'none';
 
         let filtered = docs;
         if (activeStream) {
@@ -809,6 +924,7 @@
         tableBody.innerHTML = html;
       } else {
         resultsArea.style.display = 'none';
+        trainSlider.style.display = 'block';
       }
     }
 
