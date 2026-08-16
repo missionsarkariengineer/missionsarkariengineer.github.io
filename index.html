@@ -40,7 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP HEADER */
+    /* 1. TOP BROAD HEADER */
     .top-broad-header {
       background: var(--header-bg);
       padding: 14px 28px;
@@ -637,7 +637,7 @@
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
-      <!-- Actions Right -->
+      <!-- Actions Right (Only Admin Login) -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
           <i class="fa-solid fa-plus"></i> Upload Document
@@ -665,55 +665,55 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider (Order: 1. MES -> 2. CPWD -> 3. CWC) -->
+    <!-- 3 SSC JE Departments Slider (Order: MES -> CPWD -> CWC with exact uploaded filenames) -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
         <div class="train-card-photo">
-          <img src="mes.jpg" alt="Military Engineering Services" />
+          <img src="./Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
-            <h4>1. MES</h4>
+            <h4>MES</h4>
             <p>Military Engineering Services</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="cpwd.jpg" alt="National CPWD Academy" />
+          <img src="./CPWD.jpg" alt="National CPWD Academy" />
           <div class="photo-overlay">
-            <h4>2. CPWD</h4>
+            <h4>CPWD</h4>
             <p>Central Public Works Dept.</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="cwc.jpg" alt="Central Water Commission" />
+          <img src="./Central Water Commision.jpg" alt="Central Water Commission" />
           <div class="photo-overlay">
-            <h4>3. CWC</h4>
+            <h4>CWC</h4>
             <p>Central Water Commission</p>
           </div>
         </div>
 
         <!-- Set 2 (Seamless Infinite Loop Clone) -->
         <div class="train-card-photo">
-          <img src="mes.jpg" alt="Military Engineering Services" />
+          <img src="./Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
-            <h4>1. MES</h4>
+            <h4>MES</h4>
             <p>Military Engineering Services</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="cpwd.jpg" alt="National CPWD Academy" />
+          <img src="./CPWD.jpg" alt="National CPWD Academy" />
           <div class="photo-overlay">
-            <h4>2. CPWD</h4>
+            <h4>CPWD</h4>
             <p>Central Public Works Dept.</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="cwc.jpg" alt="Central Water Commission" />
+          <img src="./Central Water Commision.jpg" alt="Central Water Commission" />
           <div class="photo-overlay">
-            <h4>3. CWC</h4>
+            <h4>CWC</h4>
             <p>Central Water Commission</p>
           </div>
         </div>
@@ -836,12 +836,12 @@
       { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
     ];
 
-    let docs = JSON.parse(localStorage.getItem('mse_sscje_final_docs')) || INITIAL_DOCS;
-    let isAdmin = sessionStorage.getItem('mse_sscje_final_auth') === 'true';
+    let docs = JSON.parse(localStorage.getItem('mse_sscje_official_docs')) || INITIAL_DOCS;
+    let isAdmin = sessionStorage.getItem('mse_sscje_official_auth') === 'true';
     let activeStream = null;
 
     function saveState() {
-      localStorage.setItem('mse_sscje_final_docs', JSON.stringify(docs));
+      localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
     }
 
     function formatDrivePreview(url) {
@@ -856,12 +856,12 @@
         if (response.ok) {
           const data = await response.json();
           display.textContent = data.count.toString().padStart(6, '0');
-          localStorage.setItem('mse_sscje_final_count', data.count.toString());
+          localStorage.setItem('mse_sscje_official_count', data.count.toString());
           return;
         }
       } catch (e) {}
-      let current = parseInt(localStorage.getItem('mse_sscje_final_count') || '1240', 10) + 1;
-      localStorage.setItem('mse_sscje_final_count', current.toString());
+      let current = parseInt(localStorage.getItem('mse_sscje_official_count') || '1240', 10) + 1;
+      localStorage.setItem('mse_sscje_official_count', current.toString());
       display.textContent = current.toString().padStart(6, '0');
     }
 
@@ -987,7 +987,7 @@
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('mse_sscje_final_auth');
+        sessionStorage.removeItem('mse_sscje_official_auth');
         renderView();
       } else {
         loginModal.classList.add('active');
@@ -999,7 +999,7 @@
     document.getElementById('submitLogin').addEventListener('click', () => {
       if (document.getElementById('authPass').value === "Shiv@1212") {
         isAdmin = true;
-        sessionStorage.setItem('mse_sscje_final_auth', 'true');
+        sessionStorage.setItem('mse_sscje_official_auth', 'true');
         loginModal.classList.remove('active');
         document.getElementById('authPass').value = "";
         renderView();
