@@ -12,16 +12,19 @@
 
   <style>
     :root {
-      --header-bg: #0B132B;
+      --header-gradient: linear-gradient(135deg, #0A1128 0%, #101F42 50%, #0F172A 100%);
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
-      --bg: #F8FAFC;
+      --accent-glow: rgba(37, 99, 235, 0.18);
+      --bg: #F4F7FB;
       --surface: #FFFFFF;
       --border: #E2E8F0;
+      --border-focus: #3B82F6;
       --text: #0F172A;
       --text-muted: #64748B;
-      --tag-bg: #F1F5F9;
+      --tag-bg: #EEF2F6;
       --danger: #EF4444;
+      --card-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
     }
 
     * {
@@ -42,10 +45,10 @@
 
     /* 1. BROAD TOP HEADER */
     .top-broad-header {
-      background: var(--header-bg);
-      padding: 28px 36px;
+      background: var(--header-gradient);
+      padding: 26px 36px;
       border-bottom: 3px solid var(--accent);
-      box-shadow: 0 6px 24px rgba(11, 19, 43, 0.18);
+      box-shadow: 0 8px 30px rgba(10, 17, 40, 0.25);
     }
 
     .header-inner {
@@ -70,17 +73,18 @@
       object-fit: cover;
       flex-shrink: 0;
       background: #FFFFFF;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
     }
 
     .top-broad-header h1 {
       font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #FFFFFF;
       white-space: nowrap;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .header-actions {
@@ -95,27 +99,29 @@
       font-size: 0.82rem;
       font-weight: 600;
       padding: 10px 18px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       background: rgba(255, 255, 255, 0.08);
       color: #FFFFFF;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
     }
 
     .btn-header-admin:hover {
       background: #FFFFFF;
-      color: var(--header-bg);
+      color: #0F172A;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
     }
 
     .btn-header-upload {
       font-size: 0.82rem;
       font-weight: 600;
       padding: 10px 18px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       border: 1px solid var(--accent);
       background: var(--accent);
@@ -123,14 +129,16 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
     }
 
     .btn-header-upload:hover {
       background: var(--accent-hover);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
     }
 
-    /* 2. MAIN CENTER WORKSPACE */
+    /* 2. MAIN WORKSPACE */
     main {
       flex: 1;
       max-width: 1000px;
@@ -142,10 +150,10 @@
     .filter-wrapper {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 24px;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
-      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 26px;
     }
 
     .search-box {
@@ -155,27 +163,29 @@
 
     .search-box input {
       width: 100%;
-      padding: 13px 18px 13px 44px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      padding: 14px 18px 14px 46px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
       font-size: 0.92rem;
       outline: none;
-      background: #FAFBFC;
+      background: #F8FAFC;
+      color: var(--text);
       transition: all 0.2s ease;
     }
 
     .search-box input:focus {
-      border-color: var(--accent);
+      border-color: var(--border-focus);
       background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      box-shadow: 0 0 0 4px var(--accent-glow);
     }
 
     .search-box i {
       position: absolute;
-      left: 16px;
+      left: 17px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
+      font-size: 0.95rem;
     }
 
     .filter-buttons {
@@ -185,26 +195,28 @@
     }
 
     .btn-filter {
-      padding: 8px 16px;
+      padding: 9px 18px;
       font-size: 0.84rem;
       font-weight: 600;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
       background: #FFFFFF;
-      color: var(--text);
+      color: #334155;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn-filter:hover {
       border-color: #94A3B8;
       background: #F8FAFC;
+      color: var(--text);
     }
 
     .btn-filter.active {
-      background: var(--header-bg);
+      background: #0F172A;
       color: #FFFFFF;
-      border-color: var(--header-bg);
+      border-color: #0F172A;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
     }
 
     /* 3. CONTINUOUS PHOTO SLIDER */
@@ -212,8 +224,8 @@
       width: 100%;
       overflow: hidden;
       position: relative;
-      border-radius: 12px;
-      padding: 6px 0;
+      border-radius: 14px;
+      padding: 8px 0;
       margin-top: 10px;
     }
 
@@ -222,7 +234,7 @@
       content: "";
       position: absolute;
       top: 0;
-      width: 70px;
+      width: 80px;
       height: 100%;
       z-index: 2;
       pointer-events: none;
@@ -240,7 +252,7 @@
 
     .train-track {
       display: flex;
-      gap: 16px;
+      gap: 18px;
       width: max-content;
       animation: trainSlide 24s linear infinite;
     }
@@ -256,14 +268,15 @@
 
     .train-card-photo {
       width: 280px;
-      height: 160px;
-      border-radius: 10px;
+      height: 165px;
+      border-radius: 12px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-      border: 1px solid var(--border);
+      box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(226, 232, 240, 0.9);
       flex-shrink: 0;
       cursor: default;
+      background: #E2E8F0;
     }
 
     .train-card-photo img {
@@ -280,19 +293,20 @@
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(11, 19, 43, 0.88) 0%, rgba(11, 19, 43, 0.2) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(10, 17, 40, 0.92) 0%, rgba(10, 17, 40, 0.35) 55%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 12px 14px;
+      padding: 14px 16px;
       color: #FFFFFF;
     }
 
     .photo-overlay p {
-      font-size: 0.82rem;
-      color: #FFFFFF;
+      font-size: 0.84rem;
+      color: #F8FAFC;
       font-weight: 700;
       letter-spacing: 0.02em;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     }
 
     /* DATA TABLE */
@@ -304,8 +318,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      font-size: 0.85rem;
+      margin-bottom: 14px;
+      font-size: 0.86rem;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -316,19 +330,21 @@
       color: var(--accent);
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
+      transition: color 0.15s ease;
     }
 
     .btn-clear:hover {
+      color: var(--accent-hover);
       text-decoration: underline;
     }
 
     .table-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 12px;
       overflow-x: auto;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+      box-shadow: var(--card-shadow);
     }
 
     table {
@@ -340,21 +356,21 @@
 
     thead {
       background: #F8FAFC;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1.5px solid var(--border);
     }
 
     th {
-      padding: 12px 18px;
+      padding: 14px 20px;
       font-size: 0.76rem;
       font-weight: 700;
-      color: var(--text-muted);
+      color: #475569;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
     tbody tr {
       border-bottom: 1px solid var(--border);
-      transition: background 0.1s ease;
+      transition: background 0.15s ease;
     }
 
     tbody tr:last-child {
@@ -366,7 +382,7 @@
     }
 
     td {
-      padding: 14px 18px;
+      padding: 16px 20px;
       vertical-align: middle;
     }
 
@@ -379,60 +395,62 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 4px;
+      padding: 4px 9px;
+      border-radius: 6px;
       background: var(--tag-bg);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
+      color: #475569;
+      border: 1px solid #E2E8F0;
       text-transform: uppercase;
     }
 
     .action-group {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       justify-content: flex-end;
     }
 
     .btn-action {
-      padding: 6px 12px;
+      padding: 7px 14px;
       font-size: 0.78rem;
       font-weight: 600;
-      border-radius: 4px;
-      border: 1px solid var(--border);
+      border-radius: 6px;
+      border: 1px solid #E2E8F0;
       background: #FFFFFF;
-      color: var(--text);
+      color: #334155;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       text-decoration: none;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn-action:hover {
-      background: var(--header-bg);
+      background: #0F172A;
       color: #FFFFFF;
-      border-color: var(--header-bg);
+      border-color: #0F172A;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
     }
 
     .btn-del {
       color: var(--danger);
-      border-color: #FECACA;
+      border-color: #FEE2E2;
       background: #FEF2F2;
       display: none;
     }
 
     .btn-del:hover {
       background: var(--danger);
+      border-color: var(--danger);
       color: #FFFFFF;
     }
 
     /* 4. FOOTER */
     footer {
-      background: var(--header-bg);
+      background: var(--header-gradient);
       color: #94A3B8;
-      border-top: 1px solid #1E293B;
-      padding: 16px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 18px 36px;
       font-size: 0.8rem;
     }
 
@@ -447,22 +465,23 @@
     .visitor-box {
       font-family: 'JetBrains Mono', monospace;
       color: #CBD5E1;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .visitor-count {
       color: #38BDF8;
       font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     /* 5. MODAL SYSTEM */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 19, 43, 0.7);
+      background: rgba(10, 17, 40, 0.72);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       display: flex;
@@ -486,7 +505,7 @@
       width: 100%;
       max-width: 400px;
       padding: 32px 28px;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(226, 232, 240, 0.8);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
       transform: scale(0.92) translateY(10px);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -505,7 +524,7 @@
     }
 
     .modal-header {
-      padding: 14px 20px;
+      padding: 16px 22px;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
@@ -556,7 +575,7 @@
     .form-control:focus {
       border-color: var(--accent);
       background: #FFFFFF;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      box-shadow: 0 0 0 4px var(--accent-glow);
     }
 
     .modal-actions {
@@ -627,7 +646,7 @@
     </div>
   </div>
 
-  <!-- 2. MAIN CENTER WORKSPACE -->
+  <!-- 2. MAIN WORKSPACE -->
   <main>
     <div class="filter-wrapper">
       <div class="search-box">
@@ -643,7 +662,7 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider -->
+    <!-- 3 SSC JE Departments Slider (Enhanced Contrast & Polish) -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
