@@ -13,7 +13,6 @@
   <style>
     :root {
       --header-bg: #0B132B;
-      --subbar-bg: #1C2541;
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
       --bg: #F8FAFC;
@@ -41,90 +40,98 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP HEADER WITH SHARP VECTOR EMBLEM */
+    /* 1. TOP BROAD HEADER (SINGLE INTEGRATED STRIP) */
     .top-broad-header {
       background: var(--header-bg);
-      padding: 16px 20px;
-      display: flex;
-      justify-content: center;
+      padding: 14px 28px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .brand-container {
+      grid-column: 2;
       display: flex;
       align-items: center;
       gap: 14px;
     }
 
     .portal-logo {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       flex-shrink: 0;
       box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
     }
 
     .top-broad-header h1 {
-      font-size: 1.65rem;
+      font-size: 1.55rem;
       font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #FFFFFF;
+      white-space: nowrap;
     }
 
-    /* 2. SUB-BAR */
-    .sub-bar {
-      background: var(--subbar-bg);
-      border-bottom: 2px solid var(--accent);
-      padding: 8px 24px;
-    }
-
-    .sub-bar-inner {
-      max-width: 1000px;
-      margin: 0 auto;
+    .header-actions {
+      grid-column: 3;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       gap: 10px;
     }
 
-    .btn-sub {
-      font-size: 0.78rem;
+    .btn-header-admin {
+      font-size: 0.8rem;
       font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 4px;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.08);
       color: #FFFFFF;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: all 0.15s ease;
     }
 
-    .btn-sub:hover {
+    .btn-header-admin:hover {
       background: #FFFFFF;
       color: var(--header-bg);
     }
 
-    .btn-upload {
+    .btn-header-upload {
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid var(--accent);
       background: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .btn-upload:hover {
-      background: var(--accent-hover);
       color: #FFFFFF;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
     }
 
-    /* 3. MAIN WORKSPACE */
+    .btn-header-upload:hover {
+      background: var(--accent-hover);
+    }
+
+    /* 2. MAIN CENTER WORKSPACE */
     main {
       flex: 1;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 40px 20px 60px;
+      padding: 48px 20px 60px;
       width: 100%;
     }
 
@@ -328,7 +335,7 @@
       color: #FFFFFF;
     }
 
-    /* 4. FOOTER */
+    /* 3. FOOTER */
     footer {
       background: var(--header-bg);
       color: #94A3B8;
@@ -359,39 +366,41 @@
       font-weight: 700;
     }
 
-    /* 5. SMOOTH ANIMATED MODALS */
+    /* 4. MODERN POPUP & MODAL SYSTEM */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 19, 43, 0.75);
-      backdrop-filter: blur(4px);
-      display: none;
-      place-items: center;
+      background: rgba(11, 19, 43, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 1000;
       padding: 20px;
       opacity: 0;
-      transition: opacity 0.2s ease-in-out;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
 
     .modal-overlay.active {
-      display: grid;
       opacity: 1;
+      pointer-events: auto;
     }
 
     .modal-card {
       background: #FFFFFF;
-      border-radius: 10px;
+      border-radius: 16px;
       width: 100%;
-      max-width: 440px;
-      padding: 28px;
-      box-shadow: 0 25px 50px -12px rgba(11, 19, 43, 0.25);
-      transform: scale(0.95);
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      border: 1px solid var(--border);
+      max-width: 400px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(226, 232, 240, 0.8);
+      transform: scale(0.92) translateY(10px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .modal-overlay.active .modal-card {
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
 
     .modal-card.viewer {
@@ -415,105 +424,158 @@
     }
 
     .modal-icon-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       background: #EFF6FF;
       color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      margin-bottom: 14px;
+      font-size: 1.25rem;
+      margin-bottom: 18px;
+      border: 1px solid #DBEAFE;
     }
 
     .modal-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      color: var(--header-bg);
-      margin-bottom: 4px;
+      color: #0F172A;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
     }
 
     .modal-subtitle {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
+      font-size: 0.85rem;
+      color: #64748B;
+      margin-bottom: 24px;
+      line-height: 1.4;
     }
 
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+      color: #475569;
+      margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
     }
 
     .form-control {
       width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 0.9rem;
+      padding: 12px 14px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 8px;
+      font-size: 0.92rem;
       outline: none;
+      background: #F8FAFC;
+      color: #0F172A;
       transition: all 0.2s ease;
-      background: #FAFBFC;
     }
 
     .form-control:focus {
       border-color: var(--accent);
       background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+
+    .btn-modal-cancel {
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #F1F5F9;
+      color: #0F172A;
+    }
+
+    .btn-modal-submit {
+      padding: 10px 22px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      background: #0F172A;
+      color: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      transition: all 0.15s ease;
+    }
+
+    .btn-modal-submit:hover {
+      background: #1E293B;
+      transform: translateY(-1px);
+    }
+
+    .btn-modal-submit:active {
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. TOP BROAD HEADER -->
+  <!-- 1. TOP BROAD HEADER (SINGLE CLEAN HEADER) -->
   <div class="top-broad-header">
-    <div class="brand-container">
-      <svg class="portal-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="48" fill="#FFFFFF" stroke="#EA580C" stroke-width="2.5" />
-        <circle cx="50" cy="50" r="42" fill="none" stroke="#0B132B" stroke-width="1.5" stroke-dasharray="4,2" />
-        <g fill="#0B132B" transform="translate(50,50)">
-          <circle r="22" />
-          <rect x="-4" y="-28" width="8" height="6" rx="1.5" />
-          <rect x="-4" y="22" width="8" height="6" rx="1.5" />
-          <rect x="-28" y="-4" width="6" height="8" rx="1.5" />
-          <rect x="22" y="-4" width="6" height="8" rx="1.5" />
-          <rect x="-21" y="-21" width="7" height="7" rx="1.5" transform="rotate(45)" />
-          <rect x="14" y="14" width="7" height="7" rx="1.5" transform="rotate(45)" />
-          <rect x="-21" y="14" width="7" height="7" rx="1.5" transform="rotate(-45)" />
-          <rect x="14" y="-21" width="7" height="7" rx="1.5" transform="rotate(-45)" />
-        </g>
-        <g fill="#EA580C" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" transform="translate(50,50)">
-          <path d="M -13 4 A 13 13 0 0 1 13 4 Z" />
-          <path d="M -2.5 -9 h 5 v 13 h -5 z" />
-          <path d="M -16 4 Q 0 9 16 4 Q 0 6 -16 4 Z" />
-        </g>
-      </svg>
-      <h1>Mission Sarkari Engineer</h1>
+    <div class="header-inner">
+      <div style="grid-column: 1;"></div>
+      
+      <!-- Brand Center -->
+      <div class="brand-container">
+        <svg class="portal-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="#FFFFFF" stroke="#EA580C" stroke-width="2.5" />
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#0B132B" stroke-width="1.5" stroke-dasharray="4,2" />
+          <g fill="#0B132B" transform="translate(50,50)">
+            <circle r="22" />
+            <rect x="-4" y="-28" width="8" height="6" rx="1.5" />
+            <rect x="-4" y="22" width="8" height="6" rx="1.5" />
+            <rect x="-28" y="-4" width="6" height="8" rx="1.5" />
+            <rect x="22" y="-4" width="6" height="8" rx="1.5" />
+            <rect x="-21" y="-21" width="7" height="7" rx="1.5" transform="rotate(45)" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" transform="rotate(45)" />
+            <rect x="-21" y="14" width="7" height="7" rx="1.5" transform="rotate(-45)" />
+            <rect x="14" y="-21" width="7" height="7" rx="1.5" transform="rotate(-45)" />
+          </g>
+          <g fill="#EA580C" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" transform="translate(50,50)">
+            <path d="M -13 4 A 13 13 0 0 1 13 4 Z" />
+            <path d="M -2.5 -9 h 5 v 13 h -5 z" />
+            <path d="M -16 4 Q 0 9 16 4 Q 0 6 -16 4 Z" />
+          </g>
+        </svg>
+        <h1>Mission Sarkari Engineer</h1>
+      </div>
+
+      <!-- Actions Right (Only Admin Login / Management) -->
+      <div class="header-actions">
+        <button id="addBtn" class="btn-header-upload" style="display: none;">
+          <i class="fa-solid fa-plus"></i> Upload Document
+        </button>
+        <button id="authBtn" class="btn-header-admin">
+          <i class="fa-solid fa-lock"></i> Admin Login
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- 2. SUB-BAR -->
-  <div class="sub-bar">
-    <div class="sub-bar-inner">
-      <button id="addBtn" class="btn-sub btn-upload" style="display: none;">
-        <i class="fa-solid fa-plus"></i> Upload Document
-      </button>
-      <button id="authBtn" class="btn-sub">
-        <i class="fa-solid fa-lock"></i> Admin Login
-      </button>
-    </div>
-  </div>
-
-  <!-- 3. CENTER WORKSPACE -->
+  <!-- 2. MAIN CENTER WORKSPACE -->
   <main>
     <div class="filter-wrapper">
       <div class="search-box">
@@ -551,7 +613,7 @@
     </div>
   </main>
 
-  <!-- 4. FOOTER -->
+  <!-- 3. BOTTOM FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -578,19 +640,19 @@
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge">
-        <i class="fa-solid fa-shield-halved"></i>
+        <i class="fa-solid fa-lock"></i>
       </div>
       <h3 class="modal-title">Admin Access</h3>
-      <p class="modal-subtitle">Enter security passkey to unlock document management controls.</p>
+      <p class="modal-subtitle">Enter your passkey to manage documents & permissions.</p>
 
       <div class="form-group">
-        <label>Passkey</label>
-        <input type="password" id="authPass" class="form-control" placeholder="Enter administrative passkey..." />
+        <label for="authPass">Security Passkey</label>
+        <input type="password" id="authPass" class="form-control" placeholder="••••••••••••" autofocus />
       </div>
 
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px;">
-        <button id="cancelLogin" class="btn-action">Cancel</button>
-        <button id="submitLogin" class="btn-action" style="background:var(--header-bg); color:#FFFFFF;">Unlock Portal</button>
+      <div class="modal-actions">
+        <button id="cancelLogin" class="btn-modal-cancel">Cancel</button>
+        <button id="submitLogin" class="btn-modal-submit">Unlock</button>
       </div>
     </div>
   </div>
@@ -624,9 +686,9 @@
         <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
       </div>
 
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 22px;">
-        <button id="cancelUpload" class="btn-action">Cancel</button>
-        <button id="saveDoc" class="btn-action" style="background:var(--header-bg); color:#FFFFFF;">Save Entry</button>
+      <div class="modal-actions">
+        <button id="cancelUpload" class="btn-modal-cancel">Cancel</button>
+        <button id="saveDoc" class="btn-modal-submit">Save Entry</button>
       </div>
     </div>
   </div>
@@ -648,12 +710,12 @@
       { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
     ];
 
-    let docs = JSON.parse(localStorage.getItem('mse_pro_docs')) || INITIAL_DOCS;
-    let isAdmin = sessionStorage.getItem('mse_pro_auth') === 'true';
+    let docs = JSON.parse(localStorage.getItem('mse_final_portal_docs')) || INITIAL_DOCS;
+    let isAdmin = sessionStorage.getItem('mse_final_portal_auth') === 'true';
     let activeStream = null;
 
     function saveState() {
-      localStorage.setItem('mse_pro_docs', JSON.stringify(docs));
+      localStorage.setItem('mse_final_portal_docs', JSON.stringify(docs));
     }
 
     function formatDrivePreview(url) {
@@ -668,12 +730,12 @@
         if (response.ok) {
           const data = await response.json();
           display.textContent = data.count.toString().padStart(6, '0');
-          localStorage.setItem('mse_pro_count', data.count.toString());
+          localStorage.setItem('mse_final_portal_count', data.count.toString());
           return;
         }
       } catch (e) {}
-      let current = parseInt(localStorage.getItem('mse_pro_count') || '1240', 10) + 1;
-      localStorage.setItem('mse_pro_count', current.toString());
+      let current = parseInt(localStorage.getItem('mse_final_portal_count') || '1240', 10) + 1;
+      localStorage.setItem('mse_final_portal_count', current.toString());
       display.textContent = current.toString().padStart(6, '0');
     }
 
@@ -796,7 +858,7 @@
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('mse_pro_auth');
+        sessionStorage.removeItem('mse_final_portal_auth');
         renderView();
       } else {
         loginModal.classList.add('active');
@@ -808,7 +870,7 @@
     document.getElementById('submitLogin').addEventListener('click', () => {
       if (document.getElementById('authPass').value === "Shiv@1212") {
         isAdmin = true;
-        sessionStorage.setItem('mse_pro_auth', 'true');
+        sessionStorage.setItem('mse_final_portal_auth', 'true');
         loginModal.classList.remove('active');
         document.getElementById('authPass').value = "";
         renderView();
