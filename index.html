@@ -3,61 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central Knowledge Repository | Mechanical Engineering</title>
-  
-  <!-- Fonts -->
+  <title>NexusME — Mechanical Engineering Resource Engine</title>
+
+  <!-- Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg: #090d16;
-      --surface: #0f172a;
-      --surface-elevated: #1e293b;
-      --border: #334155;
-      --border-focus: #38bdf8;
+      --bg-base: #060911;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --bg-card-hover: rgba(30, 41, 59, 0.8);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(56, 189, 248, 0.35);
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-indigo: #6366f1;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --danger: #f87171;
+      --text-dim: #64748b;
+      --danger: #f43f5e;
+      --success: #10b981;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
-      background-color: var(--bg);
+      background-color: var(--bg-base);
       color: var(--text-main);
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glow */
+    .ambient-glow {
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 80%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Navbar */
-    nav {
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+    /* Modern Glass Header */
+    header {
       position: sticky;
-      top: 0;
-      z-index: 50;
+      top: 16px;
+      z-index: 100;
+      margin-bottom: 40px;
     }
 
-    .nav-inner {
+    .nav-glass {
+      background: rgba(11, 17, 32, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 64px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
     }
 
     .brand {
@@ -66,274 +92,364 @@
       gap: 12px;
       text-decoration: none;
       color: var(--text-main);
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
     }
 
-    .brand-tag {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.75rem;
-      background: var(--surface-elevated);
-      color: var(--accent);
-      padding: 3px 8px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #040814;
+      font-size: 1.1rem;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
     }
 
-    .admin-controls {
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.03em;
+      background: linear-gradient(to right, #ffffff, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-actions {
       display: flex;
-      gap: 10px;
       align-items: center;
+      gap: 12px;
     }
 
-    .btn-nav {
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 0.82rem;
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
+      border: 1px solid transparent;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-subtle);
+      color: var(--text-main);
+    }
+
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-gradient {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #040814;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+    }
+
+    .btn-gradient:hover {
+      box-shadow: 0 6px 25px rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 20px 0 45px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-
-    .btn-nav:hover {
-      border-color: var(--border-focus);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #000000;
-      border-color: var(--accent);
-    }
-
-    .btn-primary:hover {
-      background: #7dd3fc;
-    }
-
-    .btn-danger {
-      background: rgba(248, 113, 113, 0.1);
-      color: var(--danger);
-      border-color: rgba(248, 113, 113, 0.3);
-    }
-
-    /* Main Section */
-    main {
-      padding: 36px 0 80px;
-    }
-
-    /* Filter & Search Dashboard */
-    .filter-bar {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      color: var(--accent-cyan);
+      font-size: 0.78rem;
+      font-weight: 600;
       margin-bottom: 20px;
+      letter-spacing: 0.04em;
     }
 
-    @media (max-width: 768px) {
-      .filter-bar { grid-template-columns: 1fr; }
-    }
-
-    .search-input {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 12px 16px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      outline: none;
-      width: 100%;
-    }
-
-    .search-input:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 1px var(--border-focus);
-    }
-
-    .pill-tabs {
-      display: flex;
-      gap: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 4px;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-
-    .pill-tab {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 8px 14px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      border-radius: 4px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s;
-    }
-
-    .pill-tab.active {
-      background: var(--surface-elevated);
-      color: var(--text-main);
-      border: 1px solid var(--border);
-    }
-
-    .status-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
       margin-bottom: 16px;
     }
 
-    /* Table */
-    .table-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow-x: auto;
+    .hero h1 span {
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    table {
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Interactive Filters & Search */
+    .control-deck {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 35px;
+    }
+
+    .search-box {
+      position: relative;
       width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
     }
 
-    thead {
-      background: #0b1120;
-      border-bottom: 1px solid var(--border);
+    .search-box i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 1rem;
+      transition: color 0.2s;
     }
 
-    th {
-      padding: 14px 18px;
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.25s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .search-input:focus + i {
+      color: var(--accent-cyan);
+    }
+
+    .filter-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .filter-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-pill:hover {
+      color: var(--text-main);
+      border-color: var(--border-glow);
+    }
+
+    .filter-pill.active {
+      background: var(--accent-cyan);
+      color: #040814;
+      border-color: var(--accent-cyan);
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 22px;
+      padding-bottom: 80px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-card-hover);
+      border-color: var(--border-glow);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .code-tag {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.08);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    .stream-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      color: var(--text-dim);
     }
 
-    tbody tr {
-      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
-      transition: background 0.15s;
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.4;
     }
 
-    tbody tr:hover {
-      background: rgba(30, 41, 59, 0.4);
+    .card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
     }
 
-    td {
-      padding: 14px 18px;
-      vertical-align: middle;
+    .card-footer {
+      display: flex;
+      gap: 10px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 18px;
     }
 
-    .code-chip {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.75rem;
-      color: var(--accent);
+    .btn-preview {
+      flex: 1;
+      justify-content: center;
       background: rgba(56, 189, 248, 0.08);
-      padding: 3px 6px;
-      border-radius: 4px;
+      color: var(--accent-cyan);
       border: 1px solid rgba(56, 189, 248, 0.2);
     }
 
-    .title-cell {
-      font-weight: 600;
-      color: var(--text-main);
-      display: block;
-      margin-bottom: 2px;
+    .btn-preview:hover {
+      background: var(--accent-cyan);
+      color: #040814;
     }
 
-    .desc-cell {
-      font-size: 0.8rem;
+    .btn-icon {
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
       color: var(--text-muted);
-    }
-
-    .badge-stream {
-      font-family: 'Fira Code', monospace;
-      font-size: 0.72rem;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: var(--surface-elevated);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-    }
-
-    .action-flex {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .btn-action {
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 6px 12px;
-      border-radius: 4px;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.15s;
+      display: grid;
+      place-items: center;
+      transition: all 0.2s;
     }
 
-    .btn-read {
-      background: var(--surface-elevated);
-      color: var(--text-main);
-      border: 1px solid var(--border);
+    .btn-icon:hover {
+      color: #fff;
+      border-color: var(--border-glow);
+      background: rgba(255, 255, 255, 0.08);
     }
 
-    .btn-read:hover {
-      border-color: var(--accent);
-    }
-
-    .btn-del {
-      background: transparent;
+    .btn-icon-del {
       color: var(--danger);
-      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-color: rgba(244, 63, 94, 0.2);
       display: none;
     }
 
-    .btn-del:hover {
+    .btn-icon-del:hover {
       background: var(--danger);
-      color: #000;
+      color: #fff;
     }
 
     /* Modal System */
-    .modal-backdrop {
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(9, 13, 22, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(4, 7, 15, 0.85);
+      backdrop-filter: blur(12px);
       display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
+      place-items: center;
+      z-index: 200;
       padding: 20px;
     }
 
-    .modal-backdrop.active {
-      display: flex;
+    .modal-overlay.active {
+      display: grid;
     }
 
-    .modal-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+    .modal-card {
+      background: #0f172a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
       width: 100%;
-      max-width: 500px;
-      padding: 24px;
+      max-width: 480px;
+      padding: 28px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      position: relative;
     }
 
-    .modal-panel.large {
+    .modal-card.viewer {
       max-width: 1100px;
       height: 90vh;
       display: flex;
@@ -342,188 +458,176 @@
       overflow: hidden;
     }
 
-    .modal-head {
+    .modal-viewer-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      background: #0b1120;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: #090d16;
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.82rem;
+      font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
-    .form-input, .form-select {
+    .form-control {
       width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      padding: 10px 12px;
-      border-radius: 6px;
+      background: #090d16;
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
       font-size: 0.9rem;
       outline: none;
+      transition: all 0.2s;
     }
 
-    .form-input:focus, .form-select:focus {
-      border-color: var(--accent);
-    }
-
-    .admin-indicator {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #4ade80;
-      margin-right: 4px;
+    .form-control:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="container nav-inner">
+  <div class="ambient-glow"></div>
+
+  <!-- Glass Nav -->
+  <header class="container">
+    <nav class="nav-glass">
       <a href="#" class="brand">
-        <span>⚙️ MECHANICAL RESOURCE DIRECTORY</span>
-        <span class="brand-tag">v3.0 ENTERPRISE</span>
+        <div class="brand-icon">
+          <i class="fa-solid fa-cube"></i>
+        </div>
+        <div>
+          <span class="brand-title">NexusME</span>
+        </div>
       </a>
 
-      <div class="admin-controls">
-        <div id="adminBadge" style="display: none; font-family: 'Fira Code', monospace; font-size: 0.78rem; color: #4ade80; margin-right: 8px;">
-          <span class="admin-indicator"></span>ADMIN ACTIVE
-        </div>
-        <button id="addMaterialBtn" class="btn-nav btn-primary" style="display: none;">+ Add Material</button>
-        <button id="loginToggleBtn" class="btn-nav">Admin Login</button>
+      <div class="nav-actions">
+        <button id="addBtn" class="btn btn-gradient" style="display: none;">
+          <i class="fa-solid fa-plus"></i> Upload Document
+        </button>
+        <button id="authBtn" class="btn btn-glass">
+          <i class="fa-solid fa-lock"></i> Admin Access
+        </button>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <!-- Main Directory -->
+  <!-- Hero Header -->
+  <section class="container hero">
+    <div class="hero-pill">
+      <i class="fa-solid fa-bolt-lightning"></i> MECHANICAL ENGINEERING REPOSITORY
+    </div>
+    <h1>Engineered for <span>Peak Performance</span></h1>
+    <p>Direct access to streamlined subject modules, comprehensive formula capsules, and previous exam question papers.</p>
+  </section>
+
+  <!-- Controls Section -->
   <main class="container">
-    
-    <!-- Controls -->
-    <div class="filter-bar">
-      <input 
-        type="text" 
-        id="searchInput" 
-        class="search-input" 
-        placeholder="Filter records by code, title, or keywords..." 
-      />
+    <div class="control-deck">
+      <div class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search across theory, formulas, codes (e.g. SOM, MCL-140, IC Engine)..." />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
 
-      <div class="pill-tabs">
-        <button class="pill-tab active" data-stream="all">All Modules</button>
-        <button class="pill-tab" data-stream="Thermal">Thermal & Fluid</button>
-        <button class="pill-tab" data-stream="Design">Solid Mechanics & Design</button>
-        <button class="pill-tab" data-stream="Manufacturing">Manufacturing & Materials</button>
-        <button class="pill-tab" data-stream="Capsule">Archives & PYQs</button>
+      <div class="filter-scroll">
+        <button class="filter-pill active" data-stream="all"><i class="fa-solid fa-border-all"></i> All Streams</button>
+        <button class="filter-pill" data-stream="Thermal"><i class="fa-solid fa-fire-flame-curved"></i> Thermal & Fluids</button>
+        <button class="filter-pill" data-stream="Design"><i class="fa-solid fa-compass-drafting"></i> Design & Mechanics</button>
+        <button class="filter-pill" data-stream="Manufacturing"><i class="fa-solid fa-gears"></i> Production & Materials</button>
+        <button class="filter-pill" data-stream="Capsule"><i class="fa-solid fa-book-bookmark"></i> Handbooks & PYQs</button>
       </div>
     </div>
 
-    <div class="status-row">
-      <span id="recordCount">INDEXED: 0 RECORDS</span>
-      <span>STORAGE: PERSISTENT HYBRID STORAGE</span>
-    </div>
-
-    <!-- Data Table -->
-    <div class="table-box">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 120px;">Code</th>
-            <th>Academic Material</th>
-            <th style="width: 160px;">Discipline</th>
-            <th style="width: 180px; text-align: right;">Access Action</th>
-          </tr>
-        </thead>
-        <tbody id="materialTableBody"></tbody>
-      </table>
-    </div>
+    <!-- Cards Dynamic Grid -->
+    <div id="gridContainer" class="grid"></div>
   </main>
 
+  <!-- Reader Modal -->
+  <div id="readerModal" class="modal-overlay">
+    <div class="modal-card viewer">
+      <div class="modal-viewer-header">
+        <h4 id="readerTitle" style="font-weight: 700; font-size: 0.95rem;">Document Viewer</h4>
+        <button id="closeReader" class="btn-icon" style="border:none;"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <iframe id="readerFrame" style="flex: 1; width: 100%; border: none; background: #000;" src="" allow="autoplay"></iframe>
+    </div>
+  </div>
+
   <!-- Admin Login Modal -->
-  <div id="loginModal" class="modal-backdrop">
-    <div class="modal-panel">
-      <h3 style="margin-bottom: 8px;">Portal Authentication</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Enter security passkey to access administrative write permissions.</p>
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 6px;">Portal Authentication</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;">Enter administrator security passkey to gain write access.</p>
       
       <div class="form-group">
         <label>Passkey</label>
-        <input type="password" id="adminPassword" class="form-input" placeholder="Default passkey: admin123" />
+        <input type="password" id="adminPass" class="form-control" placeholder="Default passkey: admin123" />
       </div>
 
-      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
-        <button id="closeLoginModal" class="btn-nav">Cancel</button>
-        <button id="submitLogin" class="btn-nav btn-primary">Authenticate</button>
+      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px;">
+        <button id="cancelLogin" class="btn btn-glass">Dismiss</button>
+        <button id="submitLogin" class="btn btn-gradient">Verify Session</button>
       </div>
     </div>
   </div>
 
-  <!-- Add New Material Modal -->
-  <div id="addModal" class="modal-backdrop">
-    <div class="modal-panel">
-      <h3 style="margin-bottom: 6px;">Register New Material</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Material will automatically be indexed into portal registry.</p>
-      
+  <!-- Upload Material Modal -->
+  <div id="uploadModal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 6px;">Upload Resource</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">Add verified study notes or handbooks to the live stream.</p>
+
       <div class="form-group">
-        <label>Course Code (e.g. MCL-140)</label>
-        <input type="text" id="newCode" class="form-input" placeholder="MCL-XXX" required />
+        <label>Course Code</label>
+        <input type="text" id="matCode" class="form-control" placeholder="MCL-XXX" required />
       </div>
       <div class="form-group">
-        <label>Subject / Document Title</label>
-        <input type="text" id="newTitle" class="form-input" placeholder="e.g. Heat & Mass Transfer" required />
+        <label>Module Title</label>
+        <input type="text" id="matTitle" class="form-control" placeholder="e.g. Finite Element Analysis" required />
       </div>
       <div class="form-group">
         <label>Discipline</label>
-        <select id="newStream" class="form-select">
-          <option value="Thermal">Thermal & Fluid</option>
-          <option value="Design">Solid Mechanics & Design</option>
-          <option value="Manufacturing">Manufacturing & Materials</option>
-          <option value="Capsule">Archives & PYQs</option>
+        <select id="matStream" class="form-control">
+          <option value="Thermal">Thermal & Fluids</option>
+          <option value="Design">Design & Mechanics</option>
+          <option value="Manufacturing">Production & Materials</option>
+          <option value="Capsule">Handbooks & PYQs</option>
         </select>
       </div>
       <div class="form-group">
-        <label>Description / Syllabus Highlights</label>
-        <input type="text" id="newDesc" class="form-input" placeholder="Brief topics covered..." required />
+        <label>Brief Topic Scope</label>
+        <input type="text" id="matDesc" class="form-control" placeholder="Key topics covered..." required />
       </div>
       <div class="form-group">
         <label>Google Drive Share Link</label>
-        <input type="url" id="newLink" class="form-input" placeholder="https://drive.google.com/file/d/..." required />
+        <input type="url" id="matLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
       </div>
 
-      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
-        <button id="closeAddModal" class="btn-nav">Cancel</button>
-        <button id="saveMaterialBtn" class="btn-nav btn-primary">Save to Registry</button>
+      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px;">
+        <button id="cancelUpload" class="btn btn-glass">Cancel</button>
+        <button id="saveMaterial" class="btn btn-gradient">Commit to Cloud</button>
       </div>
-    </div>
-  </div>
-
-  <!-- Document Viewer Modal -->
-  <div id="readerModal" class="modal-backdrop">
-    <div class="modal-panel large">
-      <div class="modal-head">
-        <h4 id="readerTitle" style="font-size: 0.9rem;">Document Preview</h4>
-        <button id="closeReaderModal" class="btn-nav" style="padding: 4px 8px;">✕ Close</button>
-      </div>
-      <iframe id="readerFrame" style="flex: 1; border: none; background: #1e293b;" src="" allow="autoplay"></iframe>
     </div>
   </div>
 
   <script>
-    const INITIAL_CATALOG = [
+    const INITIAL_REPOSITORIES = [
       {
         id: "1",
         code: "MCL-CAP01",
-        title: "Mechanical Engineering Theory & Revision Capsule",
+        title: "Mechanical Theory Revision Capsule",
         stream: "Capsule",
         description: "Official comprehensive quick revision handbook containing condensed theory, state diagrams, and formula derivation tables.",
         link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-"
@@ -531,7 +635,7 @@
       {
         id: "2",
         code: "MCL-PYQ02",
-        title: "Mechanical AE/JE & SSC JE Solved Question Bank",
+        title: "Competitive Exam Solved PYQs",
         stream: "Capsule",
         description: "Exhaustive previous year solved question repository categorized chapter-wise with detailed analytical solutions.",
         link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ"
@@ -539,7 +643,7 @@
       {
         id: "3",
         code: "MCL-140",
-        title: "Thermodynamics",
+        title: "Thermodynamics & Heat Engines",
         stream: "Thermal",
         description: "Macroscopic vs microscopic continuum analysis, Zeroth, First and Second laws of thermodynamics, ideal gas equations, and pure substance phase diagrams.",
         link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc"
@@ -547,7 +651,7 @@
       {
         id: "4",
         code: "MCL-141",
-        title: "Fluid Mechanics & Hydraulic Machinery",
+        title: "Fluid Mechanics & Turbo-Machinery",
         stream: "Thermal",
         description: "Hydrostatics, continuity formulation, Bernoulli's momentum equations, boundary layer mechanics, and operational principles of turbines and pumps.",
         link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI"
@@ -571,7 +675,7 @@
       {
         id: "7",
         code: "MCL-343",
-        title: "Refrigeration & Air Conditioning (RAC)",
+        title: "Refrigeration & Air Conditioning",
         stream: "Thermal",
         description: "Reversed Carnot cycle, Bell-Coleman air refrigeration, single/multi-stage vapour compression cycles (VCR), COP metrics, and psychrometric chart analysis.",
         link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr"
@@ -579,7 +683,7 @@
       {
         id: "8",
         code: "MCL-111",
-        title: "Strength of Materials",
+        title: "Strength of Materials (SOM)",
         stream: "Design",
         description: "Stress-strain tensors, isotropic/orthotropic elastic constants (E, G, K, μ), axial elongation equations, Shear Force & Bending Moment diagrams, and thermal stresses.",
         link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN"
@@ -587,7 +691,7 @@
       {
         id: "9",
         code: "MCL-211",
-        title: "Theory of Machines",
+        title: "Theory of Machines (TOM)",
         stream: "Design",
         description: "Kinematic pair classifications, inversion geometry, velocity & acceleration analysis of mechanisms, gear tooth profiles, dynamic balancing, and governors.",
         link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf"
@@ -603,7 +707,7 @@
       {
         id: "11",
         code: "MCL-212",
-        title: "Design of Machine Elements",
+        title: "Machine Design",
         stream: "Design",
         description: "Static & variable stress analysis, S-N endurance limit, Soderberg and Goodman criteria, welded/riveted joint configurations, and power transmission shafting.",
         link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw"
@@ -611,7 +715,7 @@
       {
         id: "12",
         code: "MCL-131",
-        title: "Manufacturing & Production Engineering",
+        title: "Production Engineering",
         stream: "Manufacturing",
         description: "Orthogonal & oblique cutting mechanics, Merchant circle formulation, single-point tool signatures, gating system calculations in casting, and welding metallurgy.",
         link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz"
@@ -626,213 +730,179 @@
       }
     ];
 
-    // State & Persistent Storage Handling
-    let materials = JSON.parse(localStorage.getItem('mech_repo_materials')) || INITIAL_CATALOG;
-    let isAdmin = sessionStorage.getItem('mech_admin_session') === 'true';
-    let currentStream = 'all';
+    let items = JSON.parse(localStorage.getItem('nexus_me_items')) || INITIAL_REPOSITORIES;
+    let isAdmin = sessionStorage.getItem('nexus_auth') === 'true';
+    let currentFilter = 'all';
 
     function saveState() {
-      localStorage.setItem('mech_repo_materials', JSON.stringify(materials));
+      localStorage.setItem('nexus_me_items', JSON.stringify(items));
     }
 
-    function extractPreviewUrl(url) {
+    function formatDrivePreview(url) {
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) {
-        return `https://drive.google.com/file/d/${match[1]}/preview`;
-      }
-      return url;
+      return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    // DOM Elements
-    const tableBody = document.getElementById("materialTableBody");
+    const grid = document.getElementById("gridContainer");
     const searchInput = document.getElementById("searchInput");
-    const recordCount = document.getElementById("recordCount");
-    const pillTabs = document.querySelectorAll(".pill-tab");
+    const filterPills = document.querySelectorAll(".filter-pill");
+    const authBtn = document.getElementById("authBtn");
+    const addBtn = document.getElementById("addBtn");
 
-    // Admin UI DOM
-    const loginToggleBtn = document.getElementById("loginToggleBtn");
-    const adminBadge = document.getElementById("adminBadge");
-    const addMaterialBtn = document.getElementById("addMaterialBtn");
-    const loginModal = document.getElementById("loginModal");
-    const addModal = document.getElementById("addModal");
     const readerModal = document.getElementById("readerModal");
     const readerFrame = document.getElementById("readerFrame");
     const readerTitle = document.getElementById("readerTitle");
+    const closeReader = document.getElementById("closeReader");
 
-    function updateAdminUI() {
-      if (isAdmin) {
-        loginToggleBtn.textContent = "Logout";
-        loginToggleBtn.classList.add("btn-danger");
-        adminBadge.style.display = "block";
-        addMaterialBtn.style.display = "flex";
-      } else {
-        loginToggleBtn.textContent = "Admin Login";
-        loginToggleBtn.classList.remove("btn-danger");
-        adminBadge.style.display = "none";
-        addMaterialBtn.style.display = "none";
-      }
-      renderTable();
-    }
+    const loginModal = document.getElementById("loginModal");
+    const uploadModal = document.getElementById("uploadModal");
 
-    function renderTable() {
+    function renderUI() {
+      authBtn.innerHTML = isAdmin 
+        ? '<i class="fa-solid fa-arrow-right-from-bracket"></i> Logout'
+        : '<i class="fa-solid fa-lock"></i> Admin Access';
+      
+      addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+
       const term = searchInput.value.toLowerCase().trim();
-      tableBody.innerHTML = "";
+      grid.innerHTML = "";
 
-      const filtered = materials.filter(item => {
-        const matchesQuery = item.title.toLowerCase().includes(term) ||
-                             item.code.toLowerCase().includes(term) ||
-                             item.description.toLowerCase().includes(term) ||
-                             item.stream.toLowerCase().includes(term);
+      const filtered = items.filter(item => {
+        const matchesTerm = item.title.toLowerCase().includes(term) ||
+                            item.code.toLowerCase().includes(term) ||
+                            item.description.toLowerCase().includes(term);
 
-        const matchesStream = currentStream === 'all' || item.stream === currentStream;
-        return matchesQuery && matchesStream;
+        const matchesStream = currentFilter === 'all' || item.stream === currentFilter;
+        return matchesTerm && matchesStream;
       });
 
-      recordCount.textContent = `INDEXED: ${filtered.length} RECORDS`;
-
       if (filtered.length === 0) {
-        tableBody.innerHTML = `
-          <tr>
-            <td colspan="4" style="text-align: center; padding: 40px; color: var(--text-muted); font-family: 'Fira Code', monospace;">
-              // NO MATCHING ACADEMIC RECORDS FOUND IN DIRECTORY
-            </td>
-          </tr>
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-dim);">
+            <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; margin-bottom: 12px;"></i>
+            <p>No matching resources indexed in current directory.</p>
+          </div>
         `;
         return;
       }
 
       filtered.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><span class="code-chip">${item.code}</span></td>
-          <td>
-            <span class="title-cell">${item.title}</span>
-            <span class="desc-cell">${item.description}</span>
-          </td>
-          <td><span class="badge-stream">${item.stream}</span></td>
-          <td>
-            <div class="action-flex">
-              <button class="btn-action btn-read" onclick="openReader('${item.title}', '${item.link}')">
-                Read
-              </button>
-              <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-action btn-read">
-                Drive ↗
-              </a>
-              ${isAdmin ? `<button class="btn-action btn-del" style="display:inline-block;" onclick="deleteMaterial('${item.id}')">Delete</button>` : ''}
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <span class="code-tag">${item.code}</span>
+              <span class="stream-tag">${item.stream}</span>
             </div>
-          </td>
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-preview" onclick="openReader('${item.title}', '${item.link}')">
+              <i class="fa-solid fa-book-open"></i> Read Now
+            </button>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Open Drive Source">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            ${isAdmin ? `<button class="btn-icon btn-icon-del" style="display:grid;" onclick="deleteMat('${item.id}')" title="Delete Document"><i class="fa-solid fa-trash"></i></button>` : ''}
+          </div>
         `;
-        tableBody.appendChild(row);
+        grid.appendChild(card);
       });
     }
 
-    // Search & Filter Listeners
-    searchInput.addEventListener("input", renderTable);
+    searchInput.addEventListener("input", renderUI);
 
-    pillTabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        pillTabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-        currentStream = tab.getAttribute("data-stream");
-        renderTable();
+    filterPills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        filterPills.forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+        currentFilter = pill.getAttribute("data-stream");
+        renderUI();
       });
     });
 
-    // Reader Handling
     window.openReader = function(title, link) {
-      readerTitle.textContent = `${title} — In-Portal Preview`;
-      readerFrame.src = extractPreviewUrl(link);
+      readerTitle.textContent = title;
+      readerFrame.src = formatDrivePreview(link);
       readerModal.classList.add("active");
     };
 
-    document.getElementById("closeReaderModal").addEventListener("click", () => {
+    closeReader.addEventListener("click", () => {
       readerModal.classList.remove("active");
       readerFrame.src = "";
     });
 
-    // Admin Auth
-    loginToggleBtn.addEventListener("click", () => {
+    // Authentication
+    authBtn.addEventListener("click", () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('mech_admin_session');
-        updateAdminUI();
+        sessionStorage.removeItem('nexus_auth');
+        renderUI();
       } else {
         loginModal.classList.add("active");
       }
     });
 
-    document.getElementById("closeLoginModal").addEventListener("click", () => {
-      loginModal.classList.remove("active");
-    });
-
+    document.getElementById("cancelLogin").addEventListener("click", () => loginModal.classList.remove("active"));
+    
     document.getElementById("submitLogin").addEventListener("click", () => {
-      const pass = document.getElementById("adminPassword").value;
-      if (pass === "admin123") {
+      if (document.getElementById("adminPass").value === "admin123") {
         isAdmin = true;
-        sessionStorage.setItem('mech_admin_session', 'true');
+        sessionStorage.setItem('nexus_auth', 'true');
         loginModal.classList.remove("active");
-        document.getElementById("adminPassword").value = "";
-        updateAdminUI();
+        document.getElementById("adminPass").value = "";
+        renderUI();
       } else {
-        alert("Invalid security passkey.");
+        alert("Incorrect security passkey.");
       }
     });
 
-    // Add Material Handling
-    addMaterialBtn.addEventListener("click", () => {
-      addModal.classList.add("active");
-    });
+    // Upload Resource
+    addBtn.addEventListener("click", () => uploadModal.classList.add("active"));
+    document.getElementById("cancelUpload").addEventListener("click", () => uploadModal.classList.remove("active"));
 
-    document.getElementById("closeAddModal").addEventListener("click", () => {
-      addModal.classList.remove("active");
-    });
-
-    document.getElementById("saveMaterialBtn").addEventListener("click", () => {
-      const code = document.getElementById("newCode").value.trim();
-      const title = document.getElementById("newTitle").value.trim();
-      const stream = document.getElementById("newStream").value;
-      const desc = document.getElementById("newDesc").value.trim();
-      const link = document.getElementById("newLink").value.trim();
+    document.getElementById("saveMaterial").addEventListener("click", () => {
+      const code = document.getElementById("matCode").value.trim();
+      const title = document.getElementById("matTitle").value.trim();
+      const stream = document.getElementById("matStream").value;
+      const desc = document.getElementById("matDesc").value.trim();
+      const link = document.getElementById("matLink").value.trim();
 
       if (!code || !title || !link) {
         alert("Please complete all mandatory fields.");
         return;
       }
 
-      const newItem = {
+      items.unshift({
         id: Date.now().toString(),
         code,
         title,
         stream,
-        description: desc || "Curated academic course handout and analytical notes.",
+        description: desc || "Standard mechanical engineering academic material.",
         link
-      };
+      });
 
-      materials.unshift(newItem);
       saveState();
-      addModal.classList.remove("active");
-
-      // Reset form
-      document.getElementById("newCode").value = "";
-      document.getElementById("newTitle").value = "";
-      document.getElementById("newDesc").value = "";
-      document.getElementById("newLink").value = "";
-
-      renderTable();
+      uploadModal.classList.remove("active");
+      document.getElementById("matCode").value = "";
+      document.getElementById("matTitle").value = "";
+      document.getElementById("matDesc").value = "";
+      document.getElementById("matLink").value = "";
+      renderUI();
     });
 
-    // Delete Material
-    window.deleteMaterial = function(id) {
-      if (confirm("Permanently remove this resource from the indexed registry?")) {
-        materials = materials.filter(item => item.id !== id);
+    window.deleteMat = function(id) {
+      if (confirm("Remove this resource permanently?")) {
+        items = items.filter(x => x.id !== id);
         saveState();
-        renderTable();
+        renderUI();
       }
     };
 
-    // Close Modals on Outer Click
-    [loginModal, addModal, readerModal].forEach(modal => {
-      modal.addEventListener("click", (e) => {
+    [readerModal, loginModal, uploadModal].forEach(modal => {
+      modal.addEventListener("click", e => {
         if (e.target === modal) {
           modal.classList.remove("active");
           if (modal === readerModal) readerFrame.src = "";
@@ -840,8 +910,7 @@
       });
     });
 
-    // Initialize
-    updateAdminUI();
+    renderUI();
   </script>
 </body>
 </html>
