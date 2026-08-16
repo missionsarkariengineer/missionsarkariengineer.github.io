@@ -3,482 +3,424 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Central Academic Repository | Department of Mechanical Engineering</title>
+  <title>DriveHub — Mechanical Engineering Vault</title>
 
-  <!-- Typography & Icons -->
+  <!-- Google Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --gov-navy: #0d233a;
-      --gov-navy-dark: #081625;
-      --gov-gold: #c59b27;
-      --gov-gold-light: #e5b945;
-      --gov-red: #8b1d24;
-      --gov-bg: #f0f2f5;
-      --gov-surface: #ffffff;
-      --gov-border: #d0d7de;
-      --gov-text: #1c2430;
-      --gov-text-muted: #57606a;
-      --gov-blue-link: #0969da;
+      --bg-main: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-subtle: #e2e8f0;
+      --border-focus: #0f172a;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --accent-blue: #2563eb;
+      --accent-blue-soft: #eff6ff;
+      --accent-red: #ef4444;
+      --accent-red-soft: #fef2f2;
+      --sidebar-width: 250px;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'IBM Plex Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
-      background-color: var(--gov-bg);
-      color: var(--gov-text);
+      background-color: var(--bg-main);
+      color: var(--text-dark);
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .container {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Top Tricolor Strip */
-    .tricolor-strip {
-      height: 4px;
-      background: linear-gradient(to right, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%);
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-
-    /* Top Utility Header */
-    .top-meta-bar {
-      background: var(--gov-navy-dark);
-      color: #cbd5e1;
-      font-size: 0.72rem;
-      padding: 5px 0;
-      font-family: 'IBM Plex Mono', monospace;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .top-meta-inner {
       display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Cloud Bar */
+    .top-bar {
+      height: 64px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    /* Official Institute Emblem Header */
-    header {
-      background: var(--gov-surface);
-      border-bottom: 2px solid var(--gov-navy);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-    }
-
-    .institute-brand {
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       text-decoration: none;
-      color: inherit;
+      color: var(--text-dark);
     }
 
-    .gov-emblem {
-      width: 58px;
-      height: 58px;
-      background: var(--gov-navy);
-      border: 2px solid var(--gov-gold);
-      border-radius: 4px;
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--text-dark);
+      border-radius: 10px;
       display: grid;
       place-items: center;
       color: #fff;
-      font-size: 1.6rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      font-size: 1.1rem;
     }
 
-    .gov-titles h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.35rem;
+    .brand-name {
+      font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      color: var(--gov-navy);
-      letter-spacing: 0.02em;
-      line-height: 1.2;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
     }
 
-    .gov-titles h2 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
+    .brand-tag {
+      font-size: 0.72rem;
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
       font-weight: 600;
-      color: var(--gov-red);
-      letter-spacing: 0.05em;
-      margin-top: 2px;
+      padding: 2px 8px;
+      border-radius: 6px;
     }
 
-    .admin-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-gov {
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 3px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      transition: all 0.15s ease-in-out;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .btn-gov-outline {
-      background: #fff;
-      border: 1px solid var(--gov-border);
-      color: var(--gov-navy);
-    }
-
-    .btn-gov-outline:hover {
-      background: #f1f5f9;
-      border-color: var(--gov-navy);
-    }
-
-    .btn-gov-primary {
-      background: var(--gov-navy);
-      color: #ffffff;
-      border: 1px solid var(--gov-navy);
-    }
-
-    .btn-gov-primary:hover {
-      background: var(--gov-navy-dark);
-    }
-
-    /* Breadcrumbs Bar */
-    .portal-subbar {
-      background: var(--gov-navy);
-      color: #ffffff;
-      padding: 8px 0;
-      font-size: 0.8rem;
-      border-bottom: 2px solid var(--gov-gold);
-    }
-
-    .subbar-flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* Main Container */
-    main {
-      padding: 24px 0 60px;
-    }
-
-    /* Official Notice Ticker */
-    .official-notice {
-      background: #fff9db;
-      border: 1px solid #f59f00;
-      border-left: 4px solid #f59f00;
-      padding: 10px 16px;
-      font-size: 0.82rem;
-      margin-bottom: 20px;
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #664d03;
-    }
-
-    .official-notice strong {
-      text-transform: uppercase;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    /* Filter & Search Deck */
-    .search-panel {
-      background: var(--gov-surface);
-      border: 1px solid var(--gov-border);
-      padding: 16px 20px;
-      border-radius: 4px;
-      margin-bottom: 20px;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr auto;
-      gap: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    }
-
-    @media (max-width: 860px) {
-      .search-panel { grid-template-columns: 1fr; }
-    }
-
-    .input-wrap {
+    /* Search Bar */
+    .search-wrapper {
+      flex: 1;
+      max-width: 580px;
+      margin: 0 30px;
       position: relative;
     }
 
-    .input-wrap input {
+    .search-input {
       width: 100%;
-      padding: 9px 12px 9px 36px;
-      border: 1px solid var(--gov-border);
-      border-radius: 3px;
-      font-size: 0.88rem;
+      height: 42px;
+      padding: 0 16px 0 42px;
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text-dark);
       outline: none;
-      background: #fafbfc;
+      transition: all 0.2s;
     }
 
-    .input-wrap input:focus {
-      border-color: var(--gov-navy);
+    .search-input:focus {
       background: #fff;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.06);
     }
 
-    .input-wrap i {
+    .search-icon {
       position: absolute;
-      left: 12px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--gov-text-muted);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 8px;
       font-size: 0.85rem;
-    }
-
-    .select-gov {
-      padding: 9px 12px;
-      border: 1px solid var(--gov-border);
-      border-radius: 3px;
-      font-size: 0.88rem;
-      background: #fafbfc;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .select-gov:focus {
-      border-color: var(--gov-navy);
-    }
-
-    /* Discipline Folders Section (Directory Layout) */
-    .folders-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-
-    .folder-card {
-      background: var(--gov-surface);
-      border: 1px solid var(--gov-border);
-      border-top: 3px solid var(--gov-navy);
-      padding: 16px 18px;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: all 0.15s ease-in-out;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .folder-card:hover, .folder-card.active {
-      border-color: var(--gov-navy);
-      background: #f8fafc;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
-      transform: translateY(-2px);
-    }
-
-    .folder-card.active {
-      border-top-color: var(--gov-gold);
-      background: #ffffff;
-      box-shadow: inset 0 0 0 1px var(--gov-navy);
-    }
-
-    .folder-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .folder-icon {
-      font-size: 1.5rem;
-      color: var(--gov-gold);
-    }
-
-    .folder-name {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--gov-navy);
-    }
-
-    .folder-count {
-      font-size: 0.75rem;
-      color: var(--gov-text-muted);
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    /* Academic Ledger Table */
-    .table-wrapper {
-      background: var(--gov-surface);
-      border: 1px solid var(--gov-border);
-      border-radius: 4px;
-      overflow-x: auto;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
-    }
-
-    thead {
-      background: #e9ecef;
-      border-bottom: 2px solid var(--gov-border);
-    }
-
-    th {
-      padding: 12px 16px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--gov-navy);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-family: 'IBM Plex Mono', monospace;
-    }
-
-    tbody tr {
-      border-bottom: 1px solid var(--gov-border);
-      transition: background-color 0.1s;
-    }
-
-    tbody tr:nth-child(even) {
-      background-color: #fdfdfe;
-    }
-
-    tbody tr:hover {
-      background-color: #f1f5f9;
-    }
-
-    td {
-      padding: 14px 16px;
-      vertical-align: middle;
-    }
-
-    .code-badge {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem;
       font-weight: 600;
-      color: var(--gov-navy);
-      background: #e2e8f0;
-      padding: 2px 6px;
-      border-radius: 2px;
-      border: 1px solid #cbd5e1;
-      display: inline-block;
-    }
-
-    .doc-link-title {
-      font-weight: 600;
-      color: var(--gov-navy);
-      font-size: 0.95rem;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .doc-meta-desc {
-      font-size: 0.78rem;
-      color: var(--gov-text-muted);
-      line-height: 1.4;
-      max-width: 520px;
-    }
-
-    .stream-tag {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 2px;
-      background: #eef2f6;
-      color: #334155;
-      border: 1px solid #d0d7de;
-      text-transform: uppercase;
-    }
-
-    .action-btn-group {
-      display: flex;
-      gap: 6px;
-      justify-content: flex-end;
-    }
-
-    .btn-action-dossier {
-      background: #ffffff;
-      color: var(--gov-navy);
-      border: 1px solid var(--gov-navy);
-      padding: 6px 12px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      border-radius: 2px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 8px;
+      transition: all 0.15s;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .btn-dark {
+      background: var(--text-dark);
+      color: #fff;
+    }
+
+    .btn-dark:hover {
+      background: #1e293b;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: var(--text-dark);
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+    }
+
+    /* Layout Workspace */
+    .app-workspace {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Left Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border-subtle);
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+    }
+
+    .sidebar-section-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      padding: 8px 12px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
       transition: all 0.15s;
     }
 
-    .btn-action-dossier:hover {
-      background: var(--gov-navy);
-      color: #ffffff;
+    .nav-item:hover {
+      background: #f1f5f9;
+      color: var(--text-dark);
     }
 
-    .btn-action-del {
-      background: transparent;
-      color: var(--gov-red);
-      border: 1px solid rgba(139, 29, 36, 0.3);
-      padding: 6px 10px;
+    .nav-item.active {
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
+    }
+
+    /* Main File Explorer View */
+    .file-manager {
+      flex: 1;
+      padding: 24px 32px;
+      overflow-y: auto;
+    }
+
+    .header-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .stats-pill {
       font-size: 0.78rem;
-      border-radius: 2px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      background: #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* File Cards Grid */
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .file-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .file-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border-color: #cbd5e1;
+    }
+
+    .file-preview-block {
+      height: 120px;
+      background: #f8fafc;
+      border: 1px dashed var(--border-subtle);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--accent-red);
+    }
+
+    .file-preview-block i {
+      font-size: 2.2rem;
+    }
+
+    .file-code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      background: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .file-info h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-info p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      height: 32px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      margin-bottom: 14px;
+    }
+
+    .file-actions-strip {
+      display: flex;
+      gap: 6px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 12px;
+    }
+
+    .btn-file-open {
+      flex: 1;
+      height: 32px;
+      background: var(--accent-blue-soft);
+      color: var(--accent-blue);
+      border: none;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-file-open:hover {
+      background: var(--accent-blue);
+      color: #fff;
+    }
+
+    .btn-file-ext {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .btn-file-ext:hover {
+      background: #f1f5f9;
+      color: var(--text-dark);
+    }
+
+    .btn-file-del {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-red-soft);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 6px;
+      color: var(--accent-red);
       cursor: pointer;
       display: none;
+      place-items: center;
+      font-size: 0.8rem;
     }
 
-    .btn-action-del:hover {
-      background: var(--gov-red);
-      color: #ffffff;
+    .btn-file-del:hover {
+      background: var(--accent-red);
+      color: #fff;
     }
 
     /* Modal System */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(8, 22, 37, 0.75);
-      backdrop-filter: blur(2px);
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
       display: none;
-      justify-content: center;
-      align-items: center;
+      place-items: center;
       z-index: 1000;
       padding: 20px;
     }
 
     .modal-overlay.active {
-      display: flex;
+      display: grid;
     }
 
-    .modal-window {
-      background: #ffffff;
-      border: 1px solid var(--gov-border);
-      border-radius: 4px;
+    .modal-card {
+      background: #fff;
+      border-radius: 16px;
       width: 100%;
-      max-width: 500px;
+      max-width: 460px;
       padding: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
 
-    .modal-window.large {
-      max-width: 1100px;
+    .modal-card.viewer {
+      max-width: 1050px;
       height: 90vh;
       display: flex;
       flex-direction: column;
@@ -486,349 +428,176 @@
       overflow: hidden;
     }
 
-    .modal-bar-top {
-      background: var(--gov-navy);
-      color: #fff;
-      padding: 12px 18px;
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--gov-gold);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .form-group {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--gov-navy);
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
     }
 
-    .form-group input, .form-group select {
+    .form-control {
       width: 100%;
-      padding: 8px 10px;
-      border: 1px solid var(--gov-border);
-      border-radius: 2px;
+      padding: 10px 12px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
       font-size: 0.88rem;
       outline: none;
     }
 
-    .form-group input:focus, .form-group select:focus {
-      border-color: var(--gov-navy);
-    }
-
-    /* Official Dossier Detail View in Modal */
-    .dossier-body {
-      padding: 24px;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .dossier-grid {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 12px 16px;
-      font-size: 0.88rem;
-      background: #f8fafc;
-      border: 1px solid var(--gov-border);
-      padding: 18px;
-      border-radius: 3px;
-      margin-bottom: 20px;
-    }
-
-    .dossier-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-weight: 600;
-      color: var(--gov-text-muted);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-    }
-
-    .dossier-val {
-      font-weight: 600;
-      color: var(--gov-navy);
-    }
-
-    .viewer-frame-container {
-      border: 1px solid var(--gov-border);
-      height: 480px;
-      background: #e2e8f0;
-    }
-
-    /* Institutional Footer */
-    footer {
-      background: var(--gov-navy-dark);
-      color: #94a3b8;
-      padding: 30px 0;
-      border-top: 3px solid var(--gov-gold);
-      font-size: 0.78rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+    .form-control:focus {
+      border-color: var(--border-focus);
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Tricolor Bar -->
-  <div class="tricolor-strip"></div>
+  <!-- Top Cloud Navigation -->
+  <nav class="top-bar">
+    <a href="#" class="brand-group">
+      <div class="brand-icon">
+        <i class="fa-solid fa-hard-drive"></i>
+      </div>
+      <span class="brand-name">DriveHub</span>
+      <span class="brand-tag">ME Cloud</span>
+    </a>
 
-  <!-- Top Metadata Bar -->
-  <div class="top-meta-bar">
-    <div class="container top-meta-inner">
-      <span>NATIONAL REPOSITORY FOR TECHNICAL & ENGINEERING EDUCATION</span>
-      <span>ACADEMIC AUDIT: 2026 // OPEN ACCESS</span>
+    <!-- Universal Search -->
+    <div class="search-wrapper">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search files, subjects, notes..." />
+    </div>
+
+    <!-- Actions -->
+    <div class="top-actions">
+      <button id="addBtn" class="btn btn-dark" style="display: none;">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Upload File
+      </button>
+      <button id="authBtn" class="btn btn-outline">
+        <i class="fa-solid fa-key"></i> Passkey Login
+      </button>
+    </div>
+  </nav>
+
+  <!-- Workspace Shell -->
+  <div class="app-workspace">
+    
+    <!-- Sidebar Filters -->
+    <aside class="sidebar">
+      <span class="sidebar-section-title">Files & Categories</span>
+      <button class="nav-item active" data-stream="all">
+        <i class="fa-regular fa-folder-open"></i> All Files
+      </button>
+      <button class="nav-item" data-stream="Thermal">
+        <i class="fa-solid fa-fire"></i> Thermal & Fluids
+      </button>
+      <button class="nav-item" data-stream="Design">
+        <i class="fa-solid fa-compass-drafting"></i> Design & Mechanics
+      </button>
+      <button class="nav-item" data-stream="Manufacturing">
+        <i class="fa-solid fa-gears"></i> Production & Materials
+      </button>
+      <button class="nav-item" data-stream="Capsule">
+        <i class="fa-solid fa-box-archive"></i> Handbooks & PYQs
+      </button>
+    </aside>
+
+    <!-- File Explorer Grid View -->
+    <main class="file-manager">
+      <div class="header-stat-row">
+        <h2 id="viewCategoryTitle" class="section-title">All Files</h2>
+        <span id="fileCountBadge" class="stats-pill">13 Items</span>
+      </div>
+
+      <div id="fileGrid" class="file-grid"></div>
+    </main>
+  </div>
+
+  <!-- Document Viewer Modal -->
+  <div id="viewerModal" class="modal-overlay">
+    <div class="modal-card viewer">
+      <div class="modal-header">
+        <h4 id="viewerTitle" style="font-weight: 700; font-size: 0.95rem;">Document Viewer</h4>
+        <button id="closeViewer" style="background:transparent; border:none; font-size:1.2rem; cursor:pointer; color:var(--text-muted);">&times;</button>
+      </div>
+      <iframe id="viewerFrame" style="flex:1; width:100%; border:none; background:#f8fafc;" src="" allow="autoplay"></iframe>
     </div>
   </div>
 
-  <!-- Official Header -->
-  <header>
-    <div class="container header-inner">
-      <a href="#" class="institute-brand">
-        <div class="gov-emblem">
-          <i class="fa-solid fa-graduation-cap"></i>
-        </div>
-        <div class="gov-titles">
-          <h1>Department of Mechanical Engineering</h1>
-          <h2>Central Academic Courseware & Technical Archives</h2>
-        </div>
-      </a>
-
-      <div class="admin-controls">
-        <button id="addDocBtn" class="btn-gov btn-gov-primary" style="display: none;">
-          <i class="fa-solid fa-plus"></i> Upload Document
-        </button>
-        <button id="adminAuthBtn" class="btn-gov btn-gov-outline">
-          <i class="fa-solid fa-lock"></i> Faculty / Admin Login
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Subbar / Status -->
-  <div class="portal-subbar">
-    <div class="container subbar-flex">
-      <div><strong>Institutional Directory:</strong> Home / Departmental Repositories / Core Handouts</div>
-      <div id="statCount" style="font-family: 'IBM Plex Mono', monospace;">INDEXED: 13 VERIFIED DOSSIERS</div>
-    </div>
-  </div>
-
-  <!-- Content Section -->
-  <main class="container">
-
-    <!-- Official Notice Banner -->
-    <div class="official-notice">
-      <i class="fa-solid fa-bullhorn" style="font-size: 1.1rem;"></i>
-      <div>
-        <strong>Official Advisory:</strong> All academic materials are categorized by curriculum classification. Access comprehensive syllabus dossiers and verified source archives below.
-      </div>
-    </div>
-
-    <!-- Discipline Folder Directories -->
-    <div class="folders-grid">
-      <div class="folder-card active" data-stream="all">
-        <div class="folder-info">
-          <i class="fa-solid fa-folder-tree folder-icon"></i>
-          <div>
-            <div class="folder-name">Complete Archive</div>
-            <div class="folder-count">All Classifications</div>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-right" style="color: var(--gov-text-muted); font-size: 0.8rem;"></i>
-      </div>
-
-      <div class="folder-card" data-stream="Thermal">
-        <div class="folder-info">
-          <i class="fa-solid fa-fire-burner folder-icon"></i>
-          <div>
-            <div class="folder-name">Thermal & Fluid Engg.</div>
-            <div class="folder-count">5 Modules</div>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-right" style="color: var(--gov-text-muted); font-size: 0.8rem;"></i>
-      </div>
-
-      <div class="folder-card" data-stream="Design">
-        <div class="folder-info">
-          <i class="fa-solid fa-compass-drafting folder-icon"></i>
-          <div>
-            <div class="folder-name">Design & Mechanics</div>
-            <div class="folder-count">4 Modules</div>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-right" style="color: var(--gov-text-muted); font-size: 0.8rem;"></i>
-      </div>
-
-      <div class="folder-card" data-stream="Manufacturing">
-        <div class="folder-info">
-          <i class="fa-solid fa-gears folder-icon"></i>
-          <div>
-            <div class="folder-name">Production & Materials</div>
-            <div class="folder-count">2 Modules</div>
-          </div>
-        </div>
-        <i class="fa-solid fa-chevron-right" style="color: var(--gov-text-muted); font-size: 0.8rem;"></i>
-      </div>
-    </div>
-
-    <!-- Search & Filter Panel -->
-    <div class="search-panel">
-      <div class="input-wrap">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="Search by Course Code, Subject Title, or Topics (e.g. MCL-140, Thermodynamics, SOM)..." />
-      </div>
-
-      <select id="streamSelect" class="select-gov">
-        <option value="all">All Academic Disciplines</option>
-        <option value="Thermal">Thermal & Fluid Engineering</option>
-        <option value="Design">Applied Mechanics & Machine Design</option>
-        <option value="Manufacturing">Manufacturing & Materials Science</option>
-        <option value="Capsule">Competitive Exam Archives & PYQs</option>
-      </select>
-
-      <button id="resetFilterBtn" class="btn-gov btn-gov-outline">Reset Filter</button>
-    </div>
-
-    <!-- Official Ledger Table -->
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 120px;">Course ID</th>
-            <th>Subject Nomenclature & Synopsis</th>
-            <th style="width: 180px;">Discipline</th>
-            <th style="width: 160px; text-align: right;">Access Document</th>
-          </tr>
-        </thead>
-        <tbody id="ledgerTableBody"></tbody>
-      </table>
-    </div>
-  </main>
-
-  <!-- Document Dossier Detail Modal -->
-  <div id="dossierModal" class="modal-overlay">
-    <div class="modal-window large">
-      <div class="modal-bar-top">
-        <h4 id="dossierModalTitle" style="font-size: 0.95rem; font-weight: 700;">Academic Dossier</h4>
-        <button id="closeDossierBtn" style="background:transparent; border:none; color:#fff; font-size:1.3rem; cursor:pointer;">&times;</button>
-      </div>
-      <div class="dossier-body">
-        <div class="dossier-grid">
-          <div class="dossier-label">Course ID</div>
-          <div class="dossier-val" id="dosCode">-</div>
-
-          <div class="dossier-label">Curriculum</div>
-          <div class="dossier-val" id="dosTitle">-</div>
-
-          <div class="dossier-label">Discipline</div>
-          <div class="dossier-val" id="dosStream">-</div>
-
-          <div class="dossier-label">Scope & Topics</div>
-          <div class="dossier-val" id="dosDesc" style="font-weight: 400; color: var(--gov-text-muted);">-</div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <span style="font-size: 0.8rem; font-weight: 700; color: var(--gov-navy); text-transform: uppercase; font-family: 'IBM Plex Mono', monospace;">
-            <i class="fa-solid fa-file-pdf" style="color: var(--gov-red); margin-right: 6px;"></i> Embedded Reader
-          </span>
-          <a id="dosDirectLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-gov btn-gov-primary">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Drive
-          </a>
-        </div>
-
-        <div class="viewer-frame-container">
-          <iframe id="dossierIframe" style="width: 100%; height: 100%; border: none;" src="" allow="autoplay"></iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Admin Login Modal -->
+  <!-- Passkey Auth Modal -->
   <div id="loginModal" class="modal-overlay">
-    <div class="modal-window">
-      <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--gov-navy); margin-bottom: 4px;">Faculty Authentication</h3>
-      <p style="font-size: 0.8rem; color: var(--gov-text-muted); margin-bottom: 18px;">Enter administrative security key to acquire write permissions.</p>
+    <div class="modal-card">
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Security Authentication</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px;">Enter secret passkey for file upload and delete permissions.</p>
 
       <div class="form-group">
-        <label>Passkey</label>
-        <input type="password" id="authPass" placeholder="Default passkey: admin123" />
+        <label>Secret Passkey</label>
+        <input type="password" id="adminPass" class="form-control" placeholder="Default passkey: admin123" />
       </div>
 
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px;">
-        <button id="cancelLogin" class="btn-gov btn-gov-outline">Cancel</button>
-        <button id="submitLogin" class="btn-gov btn-gov-primary">Authenticate</button>
+      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+        <button id="cancelLogin" class="btn btn-outline">Cancel</button>
+        <button id="submitLogin" class="btn btn-dark">Unlock</button>
       </div>
     </div>
   </div>
 
-  <!-- Add Document Modal -->
-  <div id="addModal" class="modal-overlay">
-    <div class="modal-window">
-      <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--gov-navy); margin-bottom: 4px;">Index New Courseware</h3>
-      <p style="font-size: 0.8rem; color: var(--gov-text-muted); margin-bottom: 16px;">Register new academic dossiers into the institutional directory.</p>
+  <!-- Upload File Modal -->
+  <div id="uploadModal" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Upload File to Vault</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px;">Add a new PDF file or study material.</p>
 
       <div class="form-group">
-        <label>Course ID (e.g. MCL-140)</label>
-        <input type="text" id="addCode" placeholder="MCL-XXX" required />
+        <label>File Code / Tag</label>
+        <input type="text" id="matCode" class="form-control" placeholder="e.g. ME-101" required />
       </div>
       <div class="form-group">
-        <label>Course Title</label>
-        <input type="text" id="addTitle" placeholder="Applied Thermodynamics" required />
+        <label>File Title</label>
+        <input type="text" id="matTitle" class="form-control" placeholder="e.g. Thermodynamics Handout" required />
       </div>
       <div class="form-group">
-        <label>Discipline</label>
-        <select id="addStream">
-          <option value="Thermal">Thermal & Fluid Engg.</option>
-          <option value="Design">Applied Mechanics & Design</option>
-          <option value="Manufacturing">Production & Materials Science</option>
-          <option value="Capsule">Competitive Exam Archives & PYQs</option>
+        <label>Folder / Category</label>
+        <select id="matStream" class="form-control">
+          <option value="Thermal">Thermal & Fluids</option>
+          <option value="Design">Design & Mechanics</option>
+          <option value="Manufacturing">Production & Materials</option>
+          <option value="Capsule">Handbooks & PYQs</option>
         </select>
       </div>
       <div class="form-group">
-        <label>Syllabus / Scope Summary</label>
-        <input type="text" id="addDesc" placeholder="Key topics covered..." required />
+        <label>Short Description</label>
+        <input type="text" id="matDesc" class="form-control" placeholder="Topics covered..." required />
       </div>
       <div class="form-group">
-        <label>Google Drive Share Link</label>
-        <input type="url" id="addLink" placeholder="https://drive.google.com/file/d/..." required />
+        <label>Google Drive Shareable Link</label>
+        <input type="url" id="matLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
       </div>
 
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px;">
-        <button id="cancelAdd" class="btn-gov btn-gov-outline">Cancel</button>
-        <button id="saveDocumentBtn" class="btn-gov btn-gov-primary">Save Dossier</button>
+      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
+        <button id="cancelUpload" class="btn btn-outline">Cancel</button>
+        <button id="saveMaterial" class="btn btn-dark">Save to Drive</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-inner">
-      <div>
-        <strong>Department of Mechanical Engineering</strong> &bull; Central Institutional Knowledge Store<br />
-        Standardized Academic Curriculum, Reference Text Material & Competitive Examination Archives.
-      </div>
-      <div style="font-family: 'IBM Plex Mono', monospace;">
-        SECURE STATUS: VERIFIED CATALOG
-      </div>
-    </div>
-  </footer>
-
   <script>
-    const INITIAL_CATALOG = [
+    const INITIAL_FILES = [
       {
         id: "1",
-        code: "MCL-CAP01",
+        code: "CAPSULE-01",
         title: "Mechanical Theory Revision Capsule",
         stream: "Capsule",
         description: "Official comprehensive quick revision handbook containing condensed theory, state diagrams, and formula derivation tables.",
@@ -836,15 +605,15 @@
       },
       {
         id: "2",
-        code: "MCL-PYQ02",
-        title: "Mechanical AE/JE & SSC JE Solved Question Bank",
+        code: "PYQ-02",
+        title: "Competitive Exam Solved PYQs",
         stream: "Capsule",
         description: "Exhaustive previous year solved question repository categorized chapter-wise with detailed analytical solutions.",
         link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ"
       },
       {
         id: "3",
-        code: "MCL-140",
+        code: "ME-TH-140",
         title: "Thermodynamics & Heat Engines",
         stream: "Thermal",
         description: "Macroscopic vs microscopic continuum analysis, Zeroth, First and Second laws of thermodynamics, ideal gas equations, and pure substance phase diagrams.",
@@ -852,15 +621,15 @@
       },
       {
         id: "4",
-        code: "MCL-141",
-        title: "Fluid Mechanics & Hydraulic Machinery",
+        code: "ME-FM-141",
+        title: "Fluid Mechanics & Turbo-Machinery",
         stream: "Thermal",
         description: "Hydrostatics, continuity formulation, Bernoulli's momentum equations, boundary layer mechanics, and operational principles of turbines and pumps.",
         link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI"
       },
       {
         id: "5",
-        code: "MCL-242",
+        code: "ME-PP-242",
         title: "Power Plant Engineering",
         stream: "Thermal",
         description: "Modern thermal cycles, Rankine regeneration and reheat analysis, boiler mountings and accessories, nozzle gas dynamics, and steam turbine design.",
@@ -868,7 +637,7 @@
       },
       {
         id: "6",
-        code: "MCL-341",
+        code: "ME-ICE-341",
         title: "Internal Combustion (IC) Engines",
         stream: "Thermal",
         description: "Analysis of Otto, Diesel, and Dual cycles, actual valve timing mechanisms, volumetric efficiency, detonation dynamics, and emissions standards.",
@@ -876,31 +645,31 @@
       },
       {
         id: "7",
-        code: "MCL-343",
-        title: "Refrigeration & Air Conditioning (RAC)",
+        code: "ME-RAC-343",
+        title: "Refrigeration & Air Conditioning",
         stream: "Thermal",
         description: "Reversed Carnot cycle, Bell-Coleman air refrigeration, single/multi-stage vapour compression cycles (VCR), COP metrics, and psychrometric chart analysis.",
         link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr"
       },
       {
         id: "8",
-        code: "MCL-111",
-        title: "Strength of Materials (Solid Mechanics)",
+        code: "ME-SOM-111",
+        title: "Strength of Materials (SOM)",
         stream: "Design",
         description: "Stress-strain tensors, isotropic/orthotropic elastic constants (E, G, K, μ), axial elongation equations, Shear Force & Bending Moment diagrams, and thermal stresses.",
         link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN"
       },
       {
         id: "9",
-        code: "MCL-211",
-        title: "Theory of Machines (Kinematics & Dynamics)",
+        code: "ME-TOM-211",
+        title: "Theory of Machines (TOM)",
         stream: "Design",
         description: "Kinematic pair classifications, inversion geometry, velocity & acceleration analysis of mechanisms, gear tooth profiles, dynamic balancing, and governors.",
         link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf"
       },
       {
         id: "10",
-        code: "MCL-112",
+        code: "ME-EM-112",
         title: "Engineering Mechanics",
         stream: "Design",
         description: "Rigid body equilibrium, concurrent & non-concurrent coplanar force systems, Lami’s theorem, centroid & moment of inertia, and Newton's laws of dynamics.",
@@ -908,23 +677,23 @@
       },
       {
         id: "11",
-        code: "MCL-212",
-        title: "Design of Machine Elements",
+        code: "ME-MD-212",
+        title: "Machine Design",
         stream: "Design",
         description: "Static & variable stress analysis, S-N endurance limit, Soderberg and Goodman criteria, welded/riveted joint configurations, and power transmission shafting.",
         link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw"
       },
       {
         id: "12",
-        code: "MCL-131",
-        title: "Manufacturing & Production Engineering",
+        code: "ME-PE-131",
+        title: "Production Engineering & Machining",
         stream: "Manufacturing",
         description: "Orthogonal & oblique cutting mechanics, Merchant circle formulation, single-point tool signatures, gating system calculations in casting, and welding metallurgy.",
         link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz"
       },
       {
         id: "13",
-        code: "MCL-132",
+        code: "ME-MS-132",
         title: "Materials Science & Metallurgy",
         stream: "Manufacturing",
         description: "Crystal lattice structures (BCC, FCC, HCP), Iron-Iron Carbide (Fe-C) equilibrium phase diagrams, TTT transformation curves, mechanical property testing, and heat treatment.",
@@ -932,12 +701,12 @@
       }
     ];
 
-    let items = JSON.parse(localStorage.getItem('gov_academic_dossiers')) || INITIAL_CATALOG;
-    let isAdmin = sessionStorage.getItem('gov_admin_session') === 'true';
+    let files = JSON.parse(localStorage.getItem('drive_hub_files')) || INITIAL_FILES;
+    let isAdmin = sessionStorage.getItem('drive_hub_auth') === 'true';
     let currentStream = 'all';
 
     function saveState() {
-      localStorage.setItem('gov_academic_dossiers', JSON.stringify(items));
+      localStorage.setItem('drive_hub_files', JSON.stringify(files));
     }
 
     function formatDrivePreview(url) {
@@ -945,208 +714,181 @@
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    const tableBody = document.getElementById("ledgerTableBody");
+    const grid = document.getElementById("fileGrid");
     const searchInput = document.getElementById("searchInput");
-    const streamSelect = document.getElementById("streamSelect");
-    const folderCards = document.querySelectorAll(".folder-card");
-    const statCount = document.getElementById("statCount");
-    const resetFilterBtn = document.getElementById("resetFilterBtn");
+    const navItems = document.querySelectorAll(".nav-item");
+    const fileCountBadge = document.getElementById("fileCountBadge");
+    const viewCategoryTitle = document.getElementById("viewCategoryTitle");
+    const authBtn = document.getElementById("authBtn");
+    const addBtn = document.getElementById("addBtn");
 
-    const authBtn = document.getElementById("adminAuthBtn");
-    const addBtn = document.getElementById("addDocBtn");
-
-    const dossierModal = document.getElementById("dossierModal");
-    const dossierModalTitle = document.getElementById("dossierModalTitle");
-    const dosCode = document.getElementById("dosCode");
-    const dosTitle = document.getElementById("dosTitle");
-    const dosStream = document.getElementById("dosStream");
-    const dosDesc = document.getElementById("dosDesc");
-    const dosDirectLink = document.getElementById("dosDirectLink");
-    const dossierIframe = document.getElementById("dossierIframe");
-    const closeDossierBtn = document.getElementById("closeDossierBtn");
+    const viewerModal = document.getElementById("viewerModal");
+    const viewerFrame = document.getElementById("viewerFrame");
+    const viewerTitle = document.getElementById("viewerTitle");
+    const closeViewer = document.getElementById("closeViewer");
 
     const loginModal = document.getElementById("loginModal");
-    const addModal = document.getElementById("addModal");
+    const uploadModal = document.getElementById("uploadModal");
 
-    function renderTable() {
+    function renderGrid() {
       authBtn.innerHTML = isAdmin 
-        ? '<i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out' 
-        : '<i class="fa-solid fa-lock"></i> Faculty / Admin Login';
+        ? '<i class="fa-solid fa-arrow-right-from-bracket"></i> Lock'
+        : '<i class="fa-solid fa-key"></i> Passkey Login';
       
       addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
 
       const term = searchInput.value.toLowerCase().trim();
-      tableBody.innerHTML = "";
+      grid.innerHTML = "";
 
-      const filtered = items.filter(item => {
-        const matchesTerm = item.title.toLowerCase().includes(term) ||
-                            item.code.toLowerCase().includes(term) ||
-                            item.description.toLowerCase().includes(term);
+      const filtered = files.filter(f => {
+        const matchesTerm = f.title.toLowerCase().includes(term) ||
+                            f.code.toLowerCase().includes(term) ||
+                            f.description.toLowerCase().includes(term);
 
-        const matchesStream = currentStream === 'all' || item.stream === currentStream;
+        const matchesStream = currentStream === 'all' || f.stream === currentStream;
         return matchesTerm && matchesStream;
       });
 
-      statCount.textContent = `INDEXED: ${filtered.length} VERIFIED DOSSIERS`;
+      fileCountBadge.textContent = `${filtered.length} Items`;
 
       if (filtered.length === 0) {
-        tableBody.innerHTML = `
-          <tr>
-            <td colspan="4" style="text-align: center; padding: 40px; color: var(--gov-text-muted); font-family: 'IBM Plex Mono', monospace;">
-              NO OFFICIAL DOSSIERS LOCATED UNDER CURRENT QUERY
-            </td>
-          </tr>
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
+            <i class="fa-solid fa-cloud" style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4;"></i>
+            <p>No files found matching your search.</p>
+          </div>
         `;
         return;
       }
 
       filtered.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><span class="code-badge">${item.code}</span></td>
-          <td>
-            <span class="doc-link-title">${item.title}</span>
-            <div class="doc-meta-desc">${item.description}</div>
-          </td>
-          <td><span class="stream-tag">${item.stream}</span></td>
-          <td>
-            <div class="action-btn-group">
-              <button class="btn-action-dossier" onclick="openDossier('${item.id}')">
-                <i class="fa-solid fa-folder-open"></i> View Dossier
-              </button>
-              ${isAdmin ? `<button class="btn-action-del" style="display:inline-block;" onclick="deleteDoc('${item.id}')"><i class="fa-solid fa-trash"></i></button>` : ''}
+        const card = document.createElement("div");
+        card.className = "file-card";
+        card.innerHTML = `
+          <div>
+            <div class="file-preview-block">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span class="file-code-tag">${item.code}</span>
             </div>
-          </td>
+            <div class="file-info">
+              <h4 title="${item.title}">${item.title}</h4>
+              <p>${item.description}</p>
+            </div>
+          </div>
+          <div class="file-actions-strip">
+            <button class="btn-file-open" onclick="openFile('${item.title}', '${item.link}')">
+              <i class="fa-solid fa-eye"></i> View
+            </button>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-file-ext" title="Open Source Drive">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            ${isAdmin ? `<button class="btn-file-del" style="display:grid;" onclick="deleteFile('${item.id}')" title="Delete File"><i class="fa-solid fa-trash"></i></button>` : ''}
+          </div>
         `;
-        tableBody.appendChild(row);
+        grid.appendChild(card);
       });
     }
 
-    function syncFilters(stream) {
-      currentStream = stream;
-      streamSelect.value = stream;
-      folderCards.forEach(f => {
-        f.classList.toggle('active', f.getAttribute('data-stream') === stream);
-      });
-      renderTable();
-    }
+    searchInput.addEventListener("input", renderGrid);
 
-    searchInput.addEventListener("input", renderTable);
-
-    streamSelect.addEventListener("change", (e) => {
-      syncFilters(e.target.value);
-    });
-
-    folderCards.forEach(folder => {
-      folder.addEventListener("click", () => {
-        const stream = folder.getAttribute("data-stream");
-        syncFilters(stream);
+    navItems.forEach(item => {
+      item.addEventListener("click", () => {
+        navItems.forEach(n => n.classList.remove("active"));
+        item.classList.add("active");
+        currentStream = item.getAttribute("data-stream");
+        viewCategoryTitle.textContent = item.innerText.trim();
+        renderGrid();
       });
     });
 
-    resetFilterBtn.addEventListener("click", () => {
-      searchInput.value = "";
-      syncFilters('all');
-    });
-
-    // Dossier Modal System
-    window.openDossier = function(id) {
-      const item = items.find(x => x.id === id);
-      if (!item) return;
-
-      dossierModalTitle.textContent = `${item.title} — Official Course Dossier`;
-      dosCode.textContent = item.code;
-      dosTitle.textContent = item.title;
-      dosStream.textContent = item.stream;
-      dosDesc.textContent = item.description;
-      dosDirectLink.href = item.link;
-      dossierIframe.src = formatDrivePreview(item.link);
-
-      dossierModal.classList.add("active");
+    window.openFile = function(title, link) {
+      viewerTitle.textContent = title;
+      viewerFrame.src = formatDrivePreview(link);
+      viewerModal.classList.add("active");
     };
 
-    closeDossierBtn.addEventListener("click", () => {
-      dossierModal.classList.remove("active");
-      dossierIframe.src = "";
+    closeViewer.addEventListener("click", () => {
+      viewerModal.classList.remove("active");
+      viewerFrame.src = "";
     });
 
-    // Admin Authentication
+    // Passkey Login Logic
     authBtn.addEventListener("click", () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('gov_admin_session');
-        renderTable();
+        sessionStorage.removeItem('drive_hub_auth');
+        renderGrid();
       } else {
         loginModal.classList.add("active");
       }
     });
 
     document.getElementById("cancelLogin").addEventListener("click", () => loginModal.classList.remove("active"));
-
+    
     document.getElementById("submitLogin").addEventListener("click", () => {
-      if (document.getElementById("authPass").value === "admin123") {
+      if (document.getElementById("adminPass").value === "admin123") {
         isAdmin = true;
-        sessionStorage.setItem('gov_admin_session', 'true');
+        sessionStorage.setItem('drive_hub_auth', 'true');
         loginModal.classList.remove("active");
-        document.getElementById("authPass").value = "";
-        renderTable();
+        document.getElementById("adminPass").value = "";
+        renderGrid();
       } else {
-        alert("Invalid administrative security passkey.");
+        alert("Incorrect secret passkey.");
       }
     });
 
-    // Add Document
-    addBtn.addEventListener("click", () => addModal.classList.add("active"));
-    document.getElementById("cancelAdd").addEventListener("click", () => addModal.classList.remove("active"));
+    // Upload Logic
+    addBtn.addEventListener("click", () => uploadModal.classList.add("active"));
+    document.getElementById("cancelUpload").addEventListener("click", () => uploadModal.classList.remove("active"));
 
-    document.getElementById("saveDocumentBtn").addEventListener("click", () => {
-      const code = document.getElementById("addCode").value.trim();
-      const title = document.getElementById("addTitle").value.trim();
-      const stream = document.getElementById("addStream").value;
-      const desc = document.getElementById("addDesc").value.trim();
-      const link = document.getElementById("addLink").value.trim();
+    document.getElementById("saveMaterial").addEventListener("click", () => {
+      const code = document.getElementById("matCode").value.trim();
+      const title = document.getElementById("matTitle").value.trim();
+      const stream = document.getElementById("matStream").value;
+      const desc = document.getElementById("matDesc").value.trim();
+      const link = document.getElementById("matLink").value.trim();
 
       if (!code || !title || !link) {
-        alert("All mandatory registration fields are required.");
+        alert("Please complete required fields.");
         return;
       }
 
-      items.unshift({
+      files.unshift({
         id: Date.now().toString(),
         code,
         title,
         stream,
-        description: desc || "Departmental courseware reference archive.",
+        description: desc || "Reference notes and study PDF.",
         link
       });
 
       saveState();
-      addModal.classList.remove("active");
-      document.getElementById("addCode").value = "";
-      document.getElementById("addTitle").value = "";
-      document.getElementById("addDesc").value = "";
-      document.getElementById("addLink").value = "";
-      renderTable();
+      uploadModal.classList.remove("active");
+      document.getElementById("matCode").value = "";
+      document.getElementById("matTitle").value = "";
+      document.getElementById("matDesc").value = "";
+      document.getElementById("matLink").value = "";
+      renderGrid();
     });
 
-    window.deleteDoc = function(id) {
-      if (confirm("Permanently de-index and archive this academic document?")) {
-        items = items.filter(x => x.id !== id);
+    window.deleteFile = function(id) {
+      if (confirm("Delete this file permanently?")) {
+        files = files.filter(x => x.id !== id);
         saveState();
-        renderTable();
+        renderGrid();
       }
     };
 
-    [dossierModal, loginModal, addModal].forEach(modal => {
-      modal.addEventListener("click", (e) => {
+    [viewerModal, loginModal, uploadModal].forEach(modal => {
+      modal.addEventListener("click", e => {
         if (e.target === modal) {
           modal.classList.remove("active");
-          if (modal === dossierModal) dossierIframe.src = "";
+          if (modal === viewerModal) viewerFrame.src = "";
         }
       });
     });
 
-    renderTable();
+    renderGrid();
   </script>
 </body>
 </html>
