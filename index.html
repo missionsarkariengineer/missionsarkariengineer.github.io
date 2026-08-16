@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DriveHub — Mechanical Engineering Vault</title>
+  <title>Mission Sarkari Engineer | Central Technical Repository</title>
 
-  <!-- Google Fonts & Icons -->
+  <!-- Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-main: #f8fafc;
-      --bg-surface: #ffffff;
-      --border-subtle: #e2e8f0;
-      --border-focus: #0f172a;
-      --text-dark: #0f172a;
-      --text-muted: #64748b;
-      --accent-blue: #2563eb;
-      --accent-blue-soft: #eff6ff;
-      --accent-red: #ef4444;
-      --accent-red-soft: #fef2f2;
-      --sidebar-width: 250px;
+      --gov-navy: #0a192f;
+      --gov-navy-dark: #060d19;
+      --gov-gold: #d4af37;
+      --gov-gold-light: #f3e5ab;
+      --gov-accent: #0284c7;
+      --gov-bg: #f8fafc;
+      --gov-surface: #ffffff;
+      --gov-border: #e2e8f0;
+      --gov-text: #0f172a;
+      --gov-text-muted: #64748b;
+      --danger: #ef4444;
     }
 
     * {
@@ -34,363 +34,444 @@
     }
 
     body {
-      background-color: var(--bg-main);
-      color: var(--text-dark);
+      background-color: var(--gov-bg);
+      color: var(--gov-text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Cloud Bar */
-    .top-bar {
-      height: 64px;
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border-subtle);
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* National Header Strip */
+    .top-strip {
+      height: 4px;
+      background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%, #138808 100%);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .meta-bar {
+      background: var(--gov-navy-dark);
+      color: #94a3b8;
+      font-size: 0.72rem;
+      padding: 6px 0;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
+    }
+
+    .meta-flex {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
+      align-items: center;
+    }
+
+    /* Official Main Header */
+    header {
+      background: var(--gov-surface);
+      border-bottom: 3px solid var(--gov-navy);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 90;
     }
 
-    .brand-group {
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .brand-block {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
       text-decoration: none;
-      color: var(--text-dark);
+      color: inherit;
     }
 
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      background: var(--text-dark);
-      border-radius: 10px;
+    .brand-emblem {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, var(--gov-navy), #1e293b);
+      border: 2px solid var(--gov-gold);
+      border-radius: 8px;
       display: grid;
       place-items: center;
-      color: #fff;
-      font-size: 1.1rem;
+      color: var(--gov-gold);
+      font-size: 1.4rem;
+      box-shadow: 0 4px 10px rgba(10, 25, 47, 0.2);
     }
 
-    .brand-name {
-      font-family: 'Space Grotesk', sans-serif;
+    .brand-titles h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--gov-navy);
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+    }
+
+    .brand-titles p {
+      font-size: 0.78rem;
       font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
+      color: var(--gov-gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 2px;
     }
 
-    .brand-tag {
-      font-size: 0.72rem;
-      background: var(--accent-blue-soft);
-      color: var(--accent-blue);
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-
-    /* Search Bar */
-    .search-wrapper {
-      flex: 1;
-      max-width: 580px;
-      margin: 0 30px;
-      position: relative;
-    }
-
-    .search-input {
-      width: 100%;
-      height: 42px;
-      padding: 0 16px 0 42px;
-      background: #f1f5f9;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      color: var(--text-dark);
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    .search-input:focus {
-      background: #fff;
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.06);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .top-actions {
+    .header-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .btn {
-      height: 38px;
-      padding: 0 14px;
-      border-radius: 8px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.15s;
+      gap: 6px;
       text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       border: 1px solid transparent;
     }
 
-    .btn-dark {
-      background: var(--text-dark);
-      color: #fff;
-    }
-
-    .btn-dark:hover {
-      background: #1e293b;
-    }
-
     .btn-outline {
-      background: transparent;
-      border-color: var(--border-subtle);
-      color: var(--text-dark);
+      background: #fff;
+      border-color: var(--gov-border);
+      color: var(--gov-navy);
     }
 
     .btn-outline:hover {
       background: #f1f5f9;
+      border-color: var(--gov-navy);
     }
 
-    /* Layout Workspace */
-    .app-workspace {
-      display: flex;
-      flex: 1;
-    }
-
-    /* Left Sidebar */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--bg-surface);
-      border-right: 1px solid var(--border-subtle);
-      padding: 20px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar { display: none; }
-    }
-
-    .sidebar-section-title {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-      padding: 8px 12px 6px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      transition: all 0.15s;
-    }
-
-    .nav-item:hover {
-      background: #f1f5f9;
-      color: var(--text-dark);
-    }
-
-    .nav-item.active {
-      background: var(--accent-blue-soft);
-      color: var(--accent-blue);
-    }
-
-    /* Main File Explorer View */
-    .file-manager {
-      flex: 1;
-      padding: 24px 32px;
-      overflow-y: auto;
-    }
-
-    .header-stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .stats-pill {
-      font-size: 0.78rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-muted);
-      background: #e2e8f0;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-    }
-
-    /* File Cards Grid */
-    .file-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .file-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .file-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-      border-color: #cbd5e1;
-    }
-
-    .file-preview-block {
-      height: 120px;
-      background: #f8fafc;
-      border: 1px dashed var(--border-subtle);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 14px;
-      color: var(--accent-red);
-    }
-
-    .file-preview-block i {
-      font-size: 2.2rem;
-    }
-
-    .file-code-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      background: #fff;
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-    }
-
-    .file-info h4 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 4px;
-      line-height: 1.35;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .file-info p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      height: 32px;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      margin-bottom: 14px;
-    }
-
-    .file-actions-strip {
-      display: flex;
-      gap: 6px;
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 12px;
-    }
-
-    .btn-file-open {
-      flex: 1;
-      height: 32px;
-      background: var(--accent-blue-soft);
-      color: var(--accent-blue);
-      border: none;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .btn-file-open:hover {
-      background: var(--accent-blue);
+    .btn-primary {
+      background: var(--gov-navy);
       color: #fff;
     }
 
-    .btn-file-ext {
-      width: 32px;
-      height: 32px;
-      background: transparent;
-      border: 1px solid var(--border-subtle);
+    .btn-primary:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    /* Breadcrumbs Bar */
+    .subnav {
+      background: var(--gov-navy);
+      color: #e2e8f0;
+      padding: 10px 0;
+      font-size: 0.82rem;
+      border-bottom: 2px solid var(--gov-gold);
+    }
+
+    .subnav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Main Area */
+    main {
+      flex: 1;
+      padding: 30px 0 60px;
+    }
+
+    /* Official Notice Bar */
+    .official-notice {
+      background: #ffffff;
+      border: 1px solid var(--gov-border);
+      border-left: 4px solid var(--gov-gold);
+      padding: 12px 18px;
+      font-size: 0.84rem;
+      margin-bottom: 24px;
       border-radius: 6px;
-      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .official-notice i {
+      color: var(--gov-gold);
+      font-size: 1.1rem;
+    }
+
+    /* Department Section Cards (Folder Hub) */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hub-card {
+      background: var(--gov-surface);
+      border: 1px solid var(--gov-border);
+      border-radius: 10px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hub-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--gov-border);
+      transition: background 0.25s;
+    }
+
+    .hub-card:hover, .hub-card.active {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(10, 25, 47, 0.06);
+      border-color: #cbd5e1;
+    }
+
+    .hub-card.active::before, .hub-card:hover::before {
+      background: var(--gov-navy);
+    }
+
+    .hub-card.active {
+      background: #f8fafc;
+      border-color: var(--gov-navy);
+    }
+
+    .hub-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hub-icon {
+      width: 42px;
+      height: 42px;
+      background: #f1f5f9;
+      border-radius: 8px;
       display: grid;
       place-items: center;
-      text-decoration: none;
-      font-size: 0.8rem;
+      color: var(--gov-navy);
+      font-size: 1.1rem;
+      transition: all 0.25s;
     }
 
-    .btn-file-ext:hover {
-      background: #f1f5f9;
-      color: var(--text-dark);
+    .hub-card.active .hub-icon {
+      background: var(--gov-navy);
+      color: var(--gov-gold);
     }
 
-    .btn-file-del {
-      width: 32px;
-      height: 32px;
-      background: var(--accent-red-soft);
-      border: 1px solid rgba(239, 68, 68, 0.2);
+    .hub-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gov-navy);
+    }
+
+    .hub-count {
+      font-size: 0.75rem;
+      color: var(--gov-text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+
+    /* Filter Deck */
+    .filter-panel {
+      background: var(--gov-surface);
+      border: 1px solid var(--gov-border);
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr auto;
+      gap: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    @media (max-width: 860px) {
+      .filter-panel { grid-template-columns: 1fr; }
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 14px 10px 40px;
+      border: 1px solid var(--gov-border);
       border-radius: 6px;
-      color: var(--accent-red);
+      font-size: 0.9rem;
+      outline: none;
+      background: #fafbfc;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gov-navy);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(10, 25, 47, 0.06);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gov-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .select-discipline {
+      padding: 10px 14px;
+      border: 1px solid var(--gov-border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      background: #fafbfc;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Institutional Dossier Ledger Table */
+    .table-container {
+      background: var(--gov-surface);
+      border: 1px solid var(--gov-border);
+      border-radius: 8px;
+      overflow-x: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: #f1f5f9;
+      border-bottom: 2px solid var(--gov-border);
+    }
+
+    th {
+      padding: 14px 18px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gov-navy);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--gov-border);
+      transition: background-color 0.15s ease;
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    td {
+      padding: 16px 18px;
+      vertical-align: middle;
+    }
+
+    .code-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gov-navy);
+      background: #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      display: inline-block;
+    }
+
+    .record-title {
+      font-weight: 700;
+      color: var(--gov-navy);
+      font-size: 0.98rem;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .record-desc {
+      font-size: 0.8rem;
+      color: var(--gov-text-muted);
+      line-height: 1.45;
+      max-width: 540px;
+    }
+
+    .stream-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #eef2f6;
+      color: #334155;
+      border: 1px solid #d0d7de;
+      text-transform: uppercase;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .btn-dossier {
+      background: var(--gov-navy);
+      color: #ffffff;
+      border: 1px solid var(--gov-navy);
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-dossier:hover {
+      background: #1e293b;
+      box-shadow: 0 2px 8px rgba(10, 25, 47, 0.2);
+    }
+
+    .btn-del {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 7px 10px;
+      font-size: 0.8rem;
+      border-radius: 4px;
       cursor: pointer;
       display: none;
-      place-items: center;
-      font-size: 0.8rem;
     }
 
-    .btn-file-del:hover {
-      background: var(--accent-red);
+    .btn-del:hover {
+      background: var(--danger);
       color: #fff;
     }
 
@@ -398,30 +479,32 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(6, 13, 25, 0.75);
       backdrop-filter: blur(4px);
       display: none;
-      place-items: center;
+      justify-content: center;
+      align-items: center;
       z-index: 1000;
       padding: 20px;
     }
 
     .modal-overlay.active {
-      display: grid;
+      display: flex;
     }
 
     .modal-card {
-      background: #fff;
-      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid var(--gov-border);
+      border-radius: 8px;
       width: 100%;
-      max-width: 460px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 480px;
+      padding: 26px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     }
 
-    .modal-card.viewer {
-      max-width: 1050px;
-      height: 90vh;
+    .modal-card.dossier-viewer {
+      max-width: 1120px;
+      height: 92vh;
       display: flex;
       flex-direction: column;
       padding: 0;
@@ -429,11 +512,52 @@
     }
 
     .modal-header {
+      background: var(--gov-navy);
+      color: #fff;
+      padding: 14px 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--gov-gold);
+    }
+
+    .dossier-content {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .dossier-meta-table {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px 18px;
+      background: #f8fafc;
+      border: 1px solid var(--gov-border);
+      padding: 18px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+    }
+
+    .meta-head {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--gov-text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      color: var(--gov-navy);
+    }
+
+    .dossier-frame-wrap {
+      border: 1px solid var(--gov-border);
+      height: 480px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #1e293b;
     }
 
     .form-group {
@@ -443,161 +567,315 @@
     .form-group label {
       display: block;
       font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-dark);
+      font-weight: 700;
+      color: var(--gov-navy);
       margin-bottom: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
     }
 
-    .form-control {
+    .form-group input, .form-group select {
       width: 100%;
       padding: 10px 12px;
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
+      border: 1px solid var(--gov-border);
+      border-radius: 6px;
       font-size: 0.88rem;
       outline: none;
     }
 
-    .form-control:focus {
-      border-color: var(--border-focus);
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--gov-navy);
+      box-shadow: 0 0 0 2px rgba(10, 25, 47, 0.08);
+    }
+
+    /* Footer & Visitor Counter */
+    footer {
+      background: var(--gov-navy-dark);
+      color: #94a3b8;
+      padding: 30px 0;
+      border-top: 3px solid var(--gov-gold);
+      font-size: 0.82rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .visitor-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .counter-digits {
+      color: var(--gov-gold);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Cloud Navigation -->
-  <nav class="top-bar">
-    <a href="#" class="brand-group">
-      <div class="brand-icon">
-        <i class="fa-solid fa-hard-drive"></i>
-      </div>
-      <span class="brand-name">DriveHub</span>
-      <span class="brand-tag">ME Cloud</span>
-    </a>
+  <!-- Top Flag Accent Strip -->
+  <div class="top-strip"></div>
 
-    <!-- Universal Search -->
-    <div class="search-wrapper">
-      <i class="fa-solid fa-magnifying-glass search-icon"></i>
-      <input type="text" id="searchInput" class="search-input" placeholder="Search files, subjects, notes..." />
+  <!-- Meta Header Bar -->
+  <div class="meta-bar">
+    <div class="container meta-flex">
+      <span>GOVERNMENT ENGINEERING REPOSITORY // DEDICATED TO ASPIRANTS</span>
+      <span>STATUS: ACTIVE ONLINE PORTAL</span>
     </div>
-
-    <!-- Actions -->
-    <div class="top-actions">
-      <button id="addBtn" class="btn btn-dark" style="display: none;">
-        <i class="fa-solid fa-cloud-arrow-up"></i> Upload File
-      </button>
-      <button id="authBtn" class="btn btn-outline">
-        <i class="fa-solid fa-key"></i> Passkey Login
-      </button>
-    </div>
-  </nav>
-
-  <!-- Workspace Shell -->
-  <div class="app-workspace">
-    
-    <!-- Sidebar Filters -->
-    <aside class="sidebar">
-      <span class="sidebar-section-title">Files & Categories</span>
-      <button class="nav-item active" data-stream="all">
-        <i class="fa-regular fa-folder-open"></i> All Files
-      </button>
-      <button class="nav-item" data-stream="Thermal">
-        <i class="fa-solid fa-fire"></i> Thermal & Fluids
-      </button>
-      <button class="nav-item" data-stream="Design">
-        <i class="fa-solid fa-compass-drafting"></i> Design & Mechanics
-      </button>
-      <button class="nav-item" data-stream="Manufacturing">
-        <i class="fa-solid fa-gears"></i> Production & Materials
-      </button>
-      <button class="nav-item" data-stream="Capsule">
-        <i class="fa-solid fa-box-archive"></i> Handbooks & PYQs
-      </button>
-    </aside>
-
-    <!-- File Explorer Grid View -->
-    <main class="file-manager">
-      <div class="header-stat-row">
-        <h2 id="viewCategoryTitle" class="section-title">All Files</h2>
-        <span id="fileCountBadge" class="stats-pill">13 Items</span>
-      </div>
-
-      <div id="fileGrid" class="file-grid"></div>
-    </main>
   </div>
 
-  <!-- Document Viewer Modal -->
-  <div id="viewerModal" class="modal-overlay">
-    <div class="modal-card viewer">
+  <!-- Main Institutional Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="brand-block">
+        <div class="brand-emblem">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <div class="brand-titles">
+          <h1>Mission Sarkari Engineer</h1>
+          <p>Apex Technical Knowledge & Examination Archive</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <button id="addDocBtn" class="btn btn-primary" style="display: none;">
+          <i class="fa-solid fa-plus"></i> Upload Document
+        </button>
+        <button id="adminAuthBtn" class="btn btn-outline">
+          <i class="fa-solid fa-lock"></i> Admin Login
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subbar / Status -->
+  <div class="subnav">
+    <div class="container subnav-inner">
+      <div><strong>Official Directory:</strong> Central Archive / Mechanical Engineering Modules</div>
+      <div id="statCount" style="font-family: 'JetBrains Mono', monospace;">INDEXED: 13 DOSSIERS</div>
+    </div>
+  </div>
+
+  <!-- Content Workspace -->
+  <main class="container">
+
+    <!-- Official Advisory Note -->
+    <div class="official-notice">
+      <i class="fa-solid fa-shield-halved"></i>
+      <div>
+        <strong>Curriculum Notice:</strong> Select a discipline hub or browse the indexed course directory below. To maintain dossier security and review scope before downloading, open the individual document file dossier.
+      </div>
+    </div>
+
+    <!-- Discipline Folder Hub (No direct raw file lists) -->
+    <div class="section-grid">
+      <div class="hub-card active" data-stream="all">
+        <div class="hub-content">
+          <div class="hub-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <div>
+            <div class="hub-name">Complete Repository</div>
+            <div class="hub-count">All Classifications</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-angle-right" style="color: var(--gov-text-muted);"></i>
+      </div>
+
+      <div class="hub-card" data-stream="Thermal">
+        <div class="hub-content">
+          <div class="hub-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+          <div>
+            <div class="hub-name">Thermal & Fluid Engg.</div>
+            <div class="hub-count">5 Core Handouts</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-angle-right" style="color: var(--gov-text-muted);"></i>
+      </div>
+
+      <div class="hub-card" data-stream="Design">
+        <div class="hub-content">
+          <div class="hub-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+          <div>
+            <div class="hub-name">Design & Applied Mechanics</div>
+            <div class="hub-count">4 Handbooks</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-angle-right" style="color: var(--gov-text-muted);"></i>
+      </div>
+
+      <div class="hub-card" data-stream="Manufacturing">
+        <div class="hub-content">
+          <div class="hub-icon"><i class="fa-solid fa-gears"></i></div>
+          <div>
+            <div class="hub-name">Production & Metallurgy</div>
+            <div class="hub-count">2 Modules</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-angle-right" style="color: var(--gov-text-muted);"></i>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="filter-panel">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search by Course Code, Nomenclature, or Topics (e.g. MCL-140, SOM, Thermodynamics)..." />
+      </div>
+
+      <select id="streamSelect" class="select-discipline">
+        <option value="all">All Academic Classifications</option>
+        <option value="Thermal">Thermal & Fluid Engineering</option>
+        <option value="Design">Applied Mechanics & Machine Design</option>
+        <option value="Manufacturing">Production & Materials Science</option>
+        <option value="Capsule">Competitive Exam Handbooks & PYQs</option>
+      </select>
+
+      <button id="resetFilterBtn" class="btn btn-outline">Reset Filter</button>
+    </div>
+
+    <!-- Official Registry Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 120px;">Course ID</th>
+            <th>Nomenclature & Syllabus Scope</th>
+            <th style="width: 180px;">Discipline</th>
+            <th style="width: 160px; text-align: right;">Institutional Action</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerTableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Dossier Viewer Modal (Official Detail Window) -->
+  <div id="dossierModal" class="modal-overlay">
+    <div class="modal-card dossier-viewer">
       <div class="modal-header">
-        <h4 id="viewerTitle" style="font-weight: 700; font-size: 0.95rem;">Document Viewer</h4>
-        <button id="closeViewer" style="background:transparent; border:none; font-size:1.2rem; cursor:pointer; color:var(--text-muted);">&times;</button>
+        <h4 id="dosModalHeaderTitle" style="font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em;">Document File Dossier</h4>
+        <button id="closeDossierBtn" style="background:transparent; border:none; color:#fff; font-size:1.4rem; cursor:pointer;">&times;</button>
       </div>
-      <iframe id="viewerFrame" style="flex:1; width:100%; border:none; background:#f8fafc;" src="" allow="autoplay"></iframe>
+      <div class="dossier-content">
+        <div class="dossier-meta-table">
+          <div class="meta-head">Course ID</div>
+          <div class="meta-value" id="dosCode">-</div>
+
+          <div class="meta-head">Curriculum</div>
+          <div class="meta-value" id="dosTitle">-</div>
+
+          <div class="meta-head">Discipline</div>
+          <div class="meta-value" id="dosStream">-</div>
+
+          <div class="meta-head">Scope Summary</div>
+          <div class="meta-value" id="dosDesc" style="font-weight: 400; color: var(--gov-text-muted);">-</div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--gov-navy); text-transform: uppercase; font-family: 'JetBrains Mono', monospace;">
+            <i class="fa-solid fa-file-pdf" style="color: var(--danger); margin-right: 6px;"></i> Official Document Reader
+          </span>
+          <a id="dosDirectLink" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Drive
+          </a>
+        </div>
+
+        <div class="dossier-frame-wrap">
+          <iframe id="dossierIframe" style="width: 100%; height: 100%; border: none;" src="" allow="autoplay"></iframe>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Passkey Auth Modal -->
+  <!-- Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
-      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Security Authentication</h3>
-      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 18px;">Enter secret passkey for file upload and delete permissions.</p>
+      <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--gov-navy); margin-bottom: 4px;">Faculty Authentication</h3>
+      <p style="font-size: 0.82rem; color: var(--gov-text-muted); margin-bottom: 18px;">Enter administrator security passkey to unlock document upload & write access.</p>
 
       <div class="form-group">
-        <label>Secret Passkey</label>
-        <input type="password" id="adminPass" class="form-control" placeholder="Default passkey: admin123" />
+        <label>Passkey</label>
+        <input type="password" id="authPass" placeholder="Enter administrative passkey..." />
       </div>
 
       <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
         <button id="cancelLogin" class="btn btn-outline">Cancel</button>
-        <button id="submitLogin" class="btn btn-dark">Unlock</button>
+        <button id="submitLogin" class="btn btn-primary">Authenticate</button>
       </div>
     </div>
   </div>
 
-  <!-- Upload File Modal -->
-  <div id="uploadModal" class="modal-overlay">
+  <!-- Upload Document Modal -->
+  <div id="addModal" class="modal-overlay">
     <div class="modal-card">
-      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">Upload File to Vault</h3>
-      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px;">Add a new PDF file or study material.</p>
+      <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--gov-navy); margin-bottom: 4px;">Index New Courseware</h3>
+      <p style="font-size: 0.82rem; color: var(--gov-text-muted); margin-bottom: 16px;">Register new academic dossiers into the repository.</p>
 
       <div class="form-group">
-        <label>File Code / Tag</label>
-        <input type="text" id="matCode" class="form-control" placeholder="e.g. ME-101" required />
+        <label>Course ID (e.g. MCL-140)</label>
+        <input type="text" id="addCode" placeholder="MCL-XXX" required />
       </div>
       <div class="form-group">
-        <label>File Title</label>
-        <input type="text" id="matTitle" class="form-control" placeholder="e.g. Thermodynamics Handout" required />
+        <label>Course Title</label>
+        <input type="text" id="addTitle" placeholder="Thermodynamics & Heat Engines" required />
       </div>
       <div class="form-group">
-        <label>Folder / Category</label>
-        <select id="matStream" class="form-control">
-          <option value="Thermal">Thermal & Fluids</option>
-          <option value="Design">Design & Mechanics</option>
-          <option value="Manufacturing">Production & Materials</option>
-          <option value="Capsule">Handbooks & PYQs</option>
+        <label>Discipline</label>
+        <select id="addStream">
+          <option value="Thermal">Thermal & Fluid Engineering</option>
+          <option value="Design">Applied Mechanics & Design</option>
+          <option value="Manufacturing">Production & Materials Science</option>
+          <option value="Capsule">Competitive Exam Handbooks & PYQs</option>
         </select>
       </div>
       <div class="form-group">
-        <label>Short Description</label>
-        <input type="text" id="matDesc" class="form-control" placeholder="Topics covered..." required />
+        <label>Syllabus & Scope Summary</label>
+        <input type="text" id="addDesc" placeholder="Key topics covered..." required />
       </div>
       <div class="form-group">
-        <label>Google Drive Shareable Link</label>
-        <input type="url" id="matLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
+        <label>Google Drive Share Link</label>
+        <input type="url" id="addLink" placeholder="https://drive.google.com/file/d/..." required />
       </div>
 
       <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px;">
-        <button id="cancelUpload" class="btn btn-outline">Cancel</button>
-        <button id="saveMaterial" class="btn btn-dark">Save to Drive</button>
+        <button id="cancelAdd" class="btn btn-outline">Cancel</button>
+        <button id="saveDocumentBtn" class="btn btn-primary">Save Dossier</button>
       </div>
     </div>
   </div>
 
+  <!-- Institutional Footer with Visitor Counter -->
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>Mission Sarkari Engineer</strong> &bull; Central Technical Knowledge & Examination Store<br />
+        Standardized Academic Curriculum, Reference Material & Competitive Examination Archives.
+      </div>
+      <div class="visitor-badge">
+        <i class="fa-solid fa-users-viewfinder" style="color: var(--gov-gold);"></i>
+        <span>TOTAL PORTAL VISITS:</span>
+        <span id="visitCountDisplay" class="counter-digits">000000</span>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const INITIAL_FILES = [
+    const INITIAL_CATALOG = [
       {
         id: "1",
-        code: "CAPSULE-01",
+        code: "MCL-CAP01",
         title: "Mechanical Theory Revision Capsule",
         stream: "Capsule",
         description: "Official comprehensive quick revision handbook containing condensed theory, state diagrams, and formula derivation tables.",
@@ -605,15 +883,15 @@
       },
       {
         id: "2",
-        code: "PYQ-02",
-        title: "Competitive Exam Solved PYQs",
+        code: "MCL-PYQ02",
+        title: "Mechanical AE/JE & SSC JE Solved Question Bank",
         stream: "Capsule",
         description: "Exhaustive previous year solved question repository categorized chapter-wise with detailed analytical solutions.",
         link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ"
       },
       {
         id: "3",
-        code: "ME-TH-140",
+        code: "MCL-140",
         title: "Thermodynamics & Heat Engines",
         stream: "Thermal",
         description: "Macroscopic vs microscopic continuum analysis, Zeroth, First and Second laws of thermodynamics, ideal gas equations, and pure substance phase diagrams.",
@@ -621,15 +899,15 @@
       },
       {
         id: "4",
-        code: "ME-FM-141",
-        title: "Fluid Mechanics & Turbo-Machinery",
+        code: "MCL-141",
+        title: "Fluid Mechanics & Hydraulic Machinery",
         stream: "Thermal",
         description: "Hydrostatics, continuity formulation, Bernoulli's momentum equations, boundary layer mechanics, and operational principles of turbines and pumps.",
         link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI"
       },
       {
         id: "5",
-        code: "ME-PP-242",
+        code: "MCL-242",
         title: "Power Plant Engineering",
         stream: "Thermal",
         description: "Modern thermal cycles, Rankine regeneration and reheat analysis, boiler mountings and accessories, nozzle gas dynamics, and steam turbine design.",
@@ -637,7 +915,7 @@
       },
       {
         id: "6",
-        code: "ME-ICE-341",
+        code: "MCL-341",
         title: "Internal Combustion (IC) Engines",
         stream: "Thermal",
         description: "Analysis of Otto, Diesel, and Dual cycles, actual valve timing mechanisms, volumetric efficiency, detonation dynamics, and emissions standards.",
@@ -645,31 +923,31 @@
       },
       {
         id: "7",
-        code: "ME-RAC-343",
-        title: "Refrigeration & Air Conditioning",
+        code: "MCL-343",
+        title: "Refrigeration & Air Conditioning (RAC)",
         stream: "Thermal",
         description: "Reversed Carnot cycle, Bell-Coleman air refrigeration, single/multi-stage vapour compression cycles (VCR), COP metrics, and psychrometric chart analysis.",
         link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr"
       },
       {
         id: "8",
-        code: "ME-SOM-111",
-        title: "Strength of Materials (SOM)",
+        code: "MCL-111",
+        title: "Strength of Materials (Solid Mechanics)",
         stream: "Design",
         description: "Stress-strain tensors, isotropic/orthotropic elastic constants (E, G, K, μ), axial elongation equations, Shear Force & Bending Moment diagrams, and thermal stresses.",
         link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN"
       },
       {
         id: "9",
-        code: "ME-TOM-211",
-        title: "Theory of Machines (TOM)",
+        code: "MCL-211",
+        title: "Theory of Machines (Kinematics & Dynamics)",
         stream: "Design",
         description: "Kinematic pair classifications, inversion geometry, velocity & acceleration analysis of mechanisms, gear tooth profiles, dynamic balancing, and governors.",
         link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf"
       },
       {
         id: "10",
-        code: "ME-EM-112",
+        code: "MCL-112",
         title: "Engineering Mechanics",
         stream: "Design",
         description: "Rigid body equilibrium, concurrent & non-concurrent coplanar force systems, Lami’s theorem, centroid & moment of inertia, and Newton's laws of dynamics.",
@@ -677,23 +955,23 @@
       },
       {
         id: "11",
-        code: "ME-MD-212",
-        title: "Machine Design",
+        code: "MCL-212",
+        title: "Design of Machine Elements",
         stream: "Design",
         description: "Static & variable stress analysis, S-N endurance limit, Soderberg and Goodman criteria, welded/riveted joint configurations, and power transmission shafting.",
         link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw"
       },
       {
         id: "12",
-        code: "ME-PE-131",
-        title: "Production Engineering & Machining",
+        code: "MCL-131",
+        title: "Manufacturing & Production Engineering",
         stream: "Manufacturing",
         description: "Orthogonal & oblique cutting mechanics, Merchant circle formulation, single-point tool signatures, gating system calculations in casting, and welding metallurgy.",
         link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz"
       },
       {
         id: "13",
-        code: "ME-MS-132",
+        code: "MCL-132",
         title: "Materials Science & Metallurgy",
         stream: "Manufacturing",
         description: "Crystal lattice structures (BCC, FCC, HCP), Iron-Iron Carbide (Fe-C) equilibrium phase diagrams, TTT transformation curves, mechanical property testing, and heat treatment.",
@@ -701,12 +979,13 @@
       }
     ];
 
-    let files = JSON.parse(localStorage.getItem('drive_hub_files')) || INITIAL_FILES;
-    let isAdmin = sessionStorage.getItem('drive_hub_auth') === 'true';
+    // State & Persistent Storage
+    let items = JSON.parse(localStorage.getItem('mse_academic_dossiers')) || INITIAL_CATALOG;
+    let isAdmin = sessionStorage.getItem('mse_admin_auth') === 'true';
     let currentStream = 'all';
 
     function saveState() {
-      localStorage.setItem('drive_hub_files', JSON.stringify(files));
+      localStorage.setItem('mse_academic_dossiers', JSON.stringify(items));
     }
 
     function formatDrivePreview(url) {
@@ -714,181 +993,215 @@
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    const grid = document.getElementById("fileGrid");
-    const searchInput = document.getElementById("searchInput");
-    const navItems = document.querySelectorAll(".nav-item");
-    const fileCountBadge = document.getElementById("fileCountBadge");
-    const viewCategoryTitle = document.getElementById("viewCategoryTitle");
-    const authBtn = document.getElementById("authBtn");
-    const addBtn = document.getElementById("addBtn");
+    // Visitor Counter Logic
+    function handleVisitCounter() {
+      let visits = parseInt(localStorage.getItem('mse_visit_counter') || '14820', 10);
+      visits += 1;
+      localStorage.setItem('mse_visit_counter', visits.toString());
+      document.getElementById('visitCountDisplay').textContent = visits.toString().padStart(6, '0');
+    }
 
-    const viewerModal = document.getElementById("viewerModal");
-    const viewerFrame = document.getElementById("viewerFrame");
-    const viewerTitle = document.getElementById("viewerTitle");
-    const closeViewer = document.getElementById("closeViewer");
+    // DOM References
+    const tableBody = document.getElementById("ledgerTableBody");
+    const searchInput = document.getElementById("searchInput");
+    const streamSelect = document.getElementById("streamSelect");
+    const hubCards = document.querySelectorAll(".hub-card");
+    const statCount = document.getElementById("statCount");
+    const resetFilterBtn = document.getElementById("resetFilterBtn");
+
+    const authBtn = document.getElementById("adminAuthBtn");
+    const addBtn = document.getElementById("addDocBtn");
+
+    const dossierModal = document.getElementById("dossierModal");
+    const dosModalHeaderTitle = document.getElementById("dosModalHeaderTitle");
+    const dosCode = document.getElementById("dosCode");
+    const dosTitle = document.getElementById("dosTitle");
+    const dosStream = document.getElementById("dosStream");
+    const dosDesc = document.getElementById("dosDesc");
+    const dosDirectLink = document.getElementById("dosDirectLink");
+    const dossierIframe = document.getElementById("dossierIframe");
+    const closeDossierBtn = document.getElementById("closeDossierBtn");
 
     const loginModal = document.getElementById("loginModal");
-    const uploadModal = document.getElementById("uploadModal");
+    const addModal = document.getElementById("addModal");
 
-    function renderGrid() {
+    function renderTable() {
       authBtn.innerHTML = isAdmin 
-        ? '<i class="fa-solid fa-arrow-right-from-bracket"></i> Lock'
-        : '<i class="fa-solid fa-key"></i> Passkey Login';
+        ? '<i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out' 
+        : '<i class="fa-solid fa-lock"></i> Admin Login';
       
       addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
 
       const term = searchInput.value.toLowerCase().trim();
-      grid.innerHTML = "";
+      tableBody.innerHTML = "";
 
-      const filtered = files.filter(f => {
-        const matchesTerm = f.title.toLowerCase().includes(term) ||
-                            f.code.toLowerCase().includes(term) ||
-                            f.description.toLowerCase().includes(term);
+      const filtered = items.filter(item => {
+        const matchesTerm = item.title.toLowerCase().includes(term) ||
+                            item.code.toLowerCase().includes(term) ||
+                            item.description.toLowerCase().includes(term);
 
-        const matchesStream = currentStream === 'all' || f.stream === currentStream;
+        const matchesStream = currentStream === 'all' || item.stream === currentStream;
         return matchesTerm && matchesStream;
       });
 
-      fileCountBadge.textContent = `${filtered.length} Items`;
+      statCount.textContent = `INDEXED: ${filtered.length} DOSSIERS`;
 
       if (filtered.length === 0) {
-        grid.innerHTML = `
-          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
-            <i class="fa-solid fa-cloud" style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4;"></i>
-            <p>No files found matching your search.</p>
-          </div>
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" style="text-align: center; padding: 40px; color: var(--gov-text-muted); font-family: 'JetBrains Mono', monospace;">
+              NO OFFICIAL DOSSIERS LOCATED IN DIRECTORY SEARCH
+            </td>
+          </tr>
         `;
         return;
       }
 
       filtered.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "file-card";
-        card.innerHTML = `
-          <div>
-            <div class="file-preview-block">
-              <i class="fa-solid fa-file-pdf"></i>
-              <span class="file-code-tag">${item.code}</span>
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><span class="code-chip">${item.code}</span></td>
+          <td>
+            <span class="record-title">${item.title}</span>
+            <div class="record-desc">${item.description}</div>
+          </td>
+          <td><span class="stream-badge">${item.stream}</span></td>
+          <td>
+            <div class="action-group">
+              <button class="btn-dossier" onclick="openDossier('${item.id}')">
+                <i class="fa-solid fa-folder-open"></i> Open Dossier
+              </button>
+              ${isAdmin ? `<button class="btn-del" style="display:inline-block;" onclick="deleteDoc('${item.id}')" title="De-index Document"><i class="fa-solid fa-trash"></i></button>` : ''}
             </div>
-            <div class="file-info">
-              <h4 title="${item.title}">${item.title}</h4>
-              <p>${item.description}</p>
-            </div>
-          </div>
-          <div class="file-actions-strip">
-            <button class="btn-file-open" onclick="openFile('${item.title}', '${item.link}')">
-              <i class="fa-solid fa-eye"></i> View
-            </button>
-            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-file-ext" title="Open Source Drive">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-            ${isAdmin ? `<button class="btn-file-del" style="display:grid;" onclick="deleteFile('${item.id}')" title="Delete File"><i class="fa-solid fa-trash"></i></button>` : ''}
-          </div>
+          </td>
         `;
-        grid.appendChild(card);
+        tableBody.appendChild(row);
       });
     }
 
-    searchInput.addEventListener("input", renderGrid);
+    function syncFilters(stream) {
+      currentStream = stream;
+      streamSelect.value = stream;
+      hubCards.forEach(card => {
+        card.classList.toggle('active', card.getAttribute('data-stream') === stream);
+      });
+      renderTable();
+    }
 
-    navItems.forEach(item => {
-      item.addEventListener("click", () => {
-        navItems.forEach(n => n.classList.remove("active"));
-        item.classList.add("active");
-        currentStream = item.getAttribute("data-stream");
-        viewCategoryTitle.textContent = item.innerText.trim();
-        renderGrid();
+    searchInput.addEventListener("input", renderTable);
+    streamSelect.addEventListener("change", e => syncFilters(e.target.value));
+
+    hubCards.forEach(card => {
+      card.addEventListener("click", () => {
+        syncFilters(card.getAttribute("data-stream"));
       });
     });
 
-    window.openFile = function(title, link) {
-      viewerTitle.textContent = title;
-      viewerFrame.src = formatDrivePreview(link);
-      viewerModal.classList.add("active");
-    };
-
-    closeViewer.addEventListener("click", () => {
-      viewerModal.classList.remove("active");
-      viewerFrame.src = "";
+    resetFilterBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      syncFilters('all');
     });
 
-    // Passkey Login Logic
+    // Dossier Modal System
+    window.openDossier = function(id) {
+      const item = items.find(x => x.id === id);
+      if (!item) return;
+
+      dosModalHeaderTitle.textContent = `${item.title} — Official Dossier`;
+      dosCode.textContent = item.code;
+      dosTitle.textContent = item.title;
+      dosStream.textContent = item.stream;
+      dosDesc.textContent = item.description;
+      dosDirectLink.href = item.link;
+      dossierIframe.src = formatDrivePreview(item.link);
+
+      dossierModal.classList.add("active");
+    };
+
+    closeDossierBtn.addEventListener("click", () => {
+      dossierModal.classList.remove("active");
+      dossierIframe.src = "";
+    });
+
+    // Admin Passkey Authentication: Shiv@1212
     authBtn.addEventListener("click", () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('drive_hub_auth');
-        renderGrid();
+        sessionStorage.removeItem('mse_admin_auth');
+        renderTable();
       } else {
         loginModal.classList.add("active");
       }
     });
 
     document.getElementById("cancelLogin").addEventListener("click", () => loginModal.classList.remove("active"));
-    
+
     document.getElementById("submitLogin").addEventListener("click", () => {
-      if (document.getElementById("adminPass").value === "admin123") {
+      if (document.getElementById("authPass").value === "Shiv@1212") {
         isAdmin = true;
-        sessionStorage.setItem('drive_hub_auth', 'true');
+        sessionStorage.setItem('mse_admin_auth', 'true');
         loginModal.classList.remove("active");
-        document.getElementById("adminPass").value = "";
-        renderGrid();
+        document.getElementById("authPass").value = "";
+        renderTable();
       } else {
-        alert("Incorrect secret passkey.");
+        alert("Authentication failed: Incorrect administrative passkey.");
       }
     });
 
-    // Upload Logic
-    addBtn.addEventListener("click", () => uploadModal.classList.add("active"));
-    document.getElementById("cancelUpload").addEventListener("click", () => uploadModal.classList.remove("active"));
+    // Upload New Courseware Dossier
+    addBtn.addEventListener("click", () => addModal.classList.add("active"));
+    document.getElementById("cancelAdd").addEventListener("click", () => addModal.classList.remove("active"));
 
-    document.getElementById("saveMaterial").addEventListener("click", () => {
-      const code = document.getElementById("matCode").value.trim();
-      const title = document.getElementById("matTitle").value.trim();
-      const stream = document.getElementById("matStream").value;
-      const desc = document.getElementById("matDesc").value.trim();
-      const link = document.getElementById("matLink").value.trim();
+    document.getElementById("saveDocumentBtn").addEventListener("click", () => {
+      const code = document.getElementById("addCode").value.trim();
+      const title = document.getElementById("addTitle").value.trim();
+      const stream = document.getElementById("addStream").value;
+      const desc = document.getElementById("addDesc").value.trim();
+      const link = document.getElementById("addLink").value.trim();
 
       if (!code || !title || !link) {
-        alert("Please complete required fields.");
+        alert("All mandatory registration fields are required.");
         return;
       }
 
-      files.unshift({
+      items.unshift({
         id: Date.now().toString(),
         code,
         title,
         stream,
-        description: desc || "Reference notes and study PDF.",
+        description: desc || "Official mechanical engineering departmental repository.",
         link
       });
 
       saveState();
-      uploadModal.classList.remove("active");
-      document.getElementById("matCode").value = "";
-      document.getElementById("matTitle").value = "";
-      document.getElementById("matDesc").value = "";
-      document.getElementById("matLink").value = "";
-      renderGrid();
+      addModal.classList.remove("active");
+      document.getElementById("addCode").value = "";
+      document.getElementById("addTitle").value = "";
+      document.getElementById("addDesc").value = "";
+      document.getElementById("addLink").value = "";
+      renderTable();
     });
 
-    window.deleteFile = function(id) {
-      if (confirm("Delete this file permanently?")) {
-        files = files.filter(x => x.id !== id);
+    window.deleteDoc = function(id) {
+      if (confirm("Permanently archive and delete this academic dossier?")) {
+        items = items.filter(x => x.id !== id);
         saveState();
-        renderGrid();
+        renderTable();
       }
     };
 
-    [viewerModal, loginModal, uploadModal].forEach(modal => {
+    [dossierModal, loginModal, addModal].forEach(modal => {
       modal.addEventListener("click", e => {
         if (e.target === modal) {
           modal.classList.remove("active");
-          if (modal === viewerModal) viewerFrame.src = "";
+          if (modal === dossierModal) dossierIframe.src = "";
         }
       });
     });
 
-    renderGrid();
+    // Initialization
+    handleVisitCounter();
+    renderTable();
   </script>
 </body>
 </html>
