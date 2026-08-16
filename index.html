@@ -40,7 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. SINGLE INTEGRATED HEADER */
+    /* 1. TOP BROAD HEADER */
     .top-broad-header {
       background: var(--header-bg);
       padding: 14px 28px;
@@ -141,7 +141,7 @@
       border-radius: 8px;
       padding: 24px;
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .search-box {
@@ -203,14 +203,13 @@
       border-color: var(--header-bg);
     }
 
-    /* 3. CONTINUOUS TRAIN SLIDER / MARQUEE */
+    /* 3. CONTINUOUS PHOTO SLIDER (MARQUEE) */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
       position: relative;
-      border-radius: 10px;
-      padding: 10px 0;
-      background: transparent;
+      border-radius: 12px;
+      padding: 6px 0;
       margin-top: 10px;
     }
 
@@ -219,7 +218,7 @@
       content: "";
       position: absolute;
       top: 0;
-      width: 60px;
+      width: 70px;
       height: 100%;
       z-index: 2;
       pointer-events: none;
@@ -237,9 +236,9 @@
 
     .train-track {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       width: max-content;
-      animation: trainSlide 24s linear infinite;
+      animation: trainSlide 28s linear infinite;
     }
 
     .train-track:hover {
@@ -251,53 +250,52 @@
       100% { transform: translateX(-50%); }
     }
 
-    .train-card {
-      width: 220px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+    .train-card-photo {
+      width: 240px;
+      height: 150px;
       border-radius: 10px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border);
       flex-shrink: 0;
-      transition: all 0.2s ease;
       cursor: default;
     }
 
-    .train-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
-      border-color: #cbd5e1;
+    .train-card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
     }
 
-    .train-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      background: #eff6ff;
-      color: var(--accent);
+    .train-card-photo:hover img {
+      transform: scale(1.06);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11, 19, 43, 0.88) 0%, rgba(11, 19, 43, 0.2) 60%, transparent 100%);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      flex-shrink: 0;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px 14px;
+      color: #FFFFFF;
     }
 
-    .train-info h4 {
+    .photo-overlay h4 {
       font-size: 0.88rem;
       font-weight: 700;
-      color: var(--text);
+      color: #FFFFFF;
       margin-bottom: 2px;
     }
 
-    .train-info p {
+    .photo-overlay p {
       font-size: 0.72rem;
-      color: var(--text-muted);
+      color: #38BDF8;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
     }
 
     /* DATA TABLE */
@@ -639,7 +637,7 @@
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
-      <!-- Actions Right -->
+      <!-- Actions Right (Only Admin Login) -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
           <i class="fa-solid fa-plus"></i> Upload Document
@@ -651,7 +649,7 @@
     </div>
   </div>
 
-  <!-- 2. MAIN CENTER WORKSPACE -->
+  <!-- 2. MAIN WORKSPACE -->
   <main>
     <div class="filter-wrapper">
       <div class="search-box">
@@ -667,47 +665,78 @@
       </div>
     </div>
 
-    <!-- Continuous Train Slider (Visible in Default State) -->
+    <!-- Infinite Photo Train Slider (Visible in Normal State) -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <!-- Set 1 -->
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-gears"></i></div>
-          <div class="train-info"><h4>Mechanics & TOM</h4><p>Kinematics & Dyn.</p></div>
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Robotics & Automation" />
+          <div class="photo-overlay">
+            <h4>Automation & CAD</h4>
+            <p>Production Line</p>
+          </div>
         </div>
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-fire-burner"></i></div>
-          <div class="train-info"><h4>Thermal & Heat</h4><p>Power Plants & IC</p></div>
+
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80" alt="Precision Machining" />
+          <div class="photo-overlay">
+            <h4>Precision Lathe</h4>
+            <p>Manufacturing</p>
+          </div>
         </div>
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-industry"></i></div>
-          <div class="train-info"><h4>Manufacturing</h4><p>Machining & Casting</p></div>
+
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Thermal Turbines" />
+          <div class="photo-overlay">
+            <h4>Thermal Turbines</h4>
+            <p>Power Plants</p>
+          </div>
         </div>
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-water"></i></div>
-          <div class="train-info"><h4>Fluid Power</h4><p>Hydraulics & Turbines</p></div>
+
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80" alt="Hydraulics & Fluid Mechanics" />
+          <div class="photo-overlay">
+            <h4>Hydraulic Flow</h4>
+            <p>Fluid Machinery</p>
+          </div>
         </div>
+
         <!-- Set 2 (Seamless Loop Clone) -->
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-gears"></i></div>
-          <div class="train-info"><h4>Mechanics & TOM</h4><p>Kinematics & Dyn.</p></div>
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Robotics & Automation" />
+          <div class="photo-overlay">
+            <h4>Automation & CAD</h4>
+            <p>Production Line</p>
+          </div>
         </div>
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-fire-burner"></i></div>
-          <div class="train-info"><h4>Thermal & Heat</h4><p>Power Plants & IC</p></div>
+
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80" alt="Precision Machining" />
+          <div class="photo-overlay">
+            <h4>Precision Lathe</h4>
+            <p>Manufacturing</p>
+          </div>
         </div>
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-industry"></i></div>
-          <div class="train-info"><h4>Manufacturing</h4><p>Machining & Casting</p></div>
+
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Thermal Turbines" />
+          <div class="photo-overlay">
+            <h4>Thermal Turbines</h4>
+            <p>Power Plants</p>
+          </div>
         </div>
-        <div class="train-card">
-          <div class="train-icon"><i class="fa-solid fa-water"></i></div>
-          <div class="train-info"><h4>Fluid Power</h4><p>Hydraulics & Turbines</p></div>
+
+        <div class="train-card-photo">
+          <img src="https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80" alt="Hydraulics & Fluid Mechanics" />
+          <div class="photo-overlay">
+            <h4>Hydraulic Flow</h4>
+            <p>Fluid Machinery</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- On-Demand Table -->
+    <!-- On-Demand Table (Opens on Search/Filter) -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="resultsTitle">Filtered Documents</span>
@@ -729,7 +758,7 @@
     </div>
   </main>
 
-  <!-- 3. BOTTOM FOOTER -->
+  <!-- 3. FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -741,7 +770,7 @@
     </div>
   </footer>
 
-  <!-- Viewer Modal -->
+  <!-- In-Portal Reader Modal -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="modal-header">
@@ -823,12 +852,12 @@
       { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
     ];
 
-    let docs = JSON.parse(localStorage.getItem('mse_final_portal_docs')) || INITIAL_DOCS;
-    let isAdmin = sessionStorage.getItem('mse_final_portal_auth') === 'true';
+    let docs = JSON.parse(localStorage.getItem('mse_ultra_portal_docs')) || INITIAL_DOCS;
+    let isAdmin = sessionStorage.getItem('mse_ultra_portal_auth') === 'true';
     let activeStream = null;
 
     function saveState() {
-      localStorage.setItem('mse_final_portal_docs', JSON.stringify(docs));
+      localStorage.setItem('mse_ultra_portal_docs', JSON.stringify(docs));
     }
 
     function formatDrivePreview(url) {
@@ -843,12 +872,12 @@
         if (response.ok) {
           const data = await response.json();
           display.textContent = data.count.toString().padStart(6, '0');
-          localStorage.setItem('mse_final_portal_count', data.count.toString());
+          localStorage.setItem('mse_ultra_portal_count', data.count.toString());
           return;
         }
       } catch (e) {}
-      let current = parseInt(localStorage.getItem('mse_final_portal_count') || '1240', 10) + 1;
-      localStorage.setItem('mse_final_portal_count', current.toString());
+      let current = parseInt(localStorage.getItem('mse_ultra_portal_count') || '1240', 10) + 1;
+      localStorage.setItem('mse_ultra_portal_count', current.toString());
       display.textContent = current.toString().padStart(6, '0');
     }
 
@@ -970,11 +999,11 @@
       viewerFrame.src = "";
     });
 
-    // Passkey Login: Shiv@1212
+    // Passkey: Shiv@1212
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('mse_final_portal_auth');
+        sessionStorage.removeItem('mse_ultra_portal_auth');
         renderView();
       } else {
         loginModal.classList.add('active');
@@ -986,7 +1015,7 @@
     document.getElementById('submitLogin').addEventListener('click', () => {
       if (document.getElementById('authPass').value === "Shiv@1212") {
         isAdmin = true;
-        sessionStorage.setItem('mse_final_portal_auth', 'true');
+        sessionStorage.setItem('mse_ultra_portal_auth', 'true');
         loginModal.classList.remove('active');
         document.getElementById('authPass').value = "";
         renderView();
