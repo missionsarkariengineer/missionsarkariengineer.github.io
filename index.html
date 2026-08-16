@@ -40,7 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* 1. TOP BROAD HEADER */
+    /* 1. TOP HEADER */
     .top-broad-header {
       background: var(--header-bg);
       padding: 14px 28px;
@@ -203,7 +203,7 @@
       border-color: var(--header-bg);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER (SSC JE THEME) */
+    /* 3. CONTINUOUS PHOTO SLIDER */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
@@ -238,7 +238,7 @@
       display: flex;
       gap: 16px;
       width: max-content;
-      animation: trainSlide 28s linear infinite;
+      animation: trainSlide 24s linear infinite;
     }
 
     .train-track:hover {
@@ -251,8 +251,8 @@
     }
 
     .train-card-photo {
-      width: 240px;
-      height: 150px;
+      width: 280px;
+      height: 160px;
       border-radius: 10px;
       position: relative;
       overflow: hidden;
@@ -285,14 +285,14 @@
     }
 
     .photo-overlay h4 {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: #FFFFFF;
       margin-bottom: 2px;
     }
 
     .photo-overlay p {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: #38BDF8;
       font-family: 'JetBrains Mono', monospace;
       font-weight: 600;
@@ -607,7 +607,7 @@
 </head>
 <body>
 
-  <!-- 1. TOP BROAD HEADER -->
+  <!-- 1. TOP HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
@@ -637,7 +637,7 @@
         <h1>Mission Sarkari Engineer</h1>
       </div>
 
-      <!-- Actions Right (Only Admin Login) -->
+      <!-- Actions Right -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
           <i class="fa-solid fa-plus"></i> Upload Document
@@ -665,88 +665,56 @@
       </div>
     </div>
 
-    <!-- Infinite Photo Train Slider (SSC JE & Govt Engineering Focus) -->
+    <!-- 3 SSC JE Departments Slider (Order: 1. MES -> 2. CPWD -> 3. CWC) -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
-        <!-- Set 1 (5 Dedicated SSC JE Cards) -->
+        <!-- Set 1 -->
         <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=600&q=80" alt="CPWD Project Site" />
+          <img src="mes.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
-            <h4>CPWD Works</h4>
-            <p>Infra Projects</p>
+            <h4>1. MES</h4>
+            <p>Military Engineering Services</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=600&q=80" alt="CWC Dam & Hydraulics" />
+          <img src="cpwd.jpg" alt="National CPWD Academy" />
           <div class="photo-overlay">
-            <h4>CWC Hydraulics</h4>
-            <p>Fluid Machinery</p>
+            <h4>2. CPWD</h4>
+            <p>Central Public Works Dept.</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" alt="SSC JE PYQ Practice" />
+          <img src="cwc.jpg" alt="Central Water Commission" />
           <div class="photo-overlay">
-            <h4>SSC JE PYQs</h4>
-            <p>Solved Papers</p>
+            <h4>3. CWC</h4>
+            <p>Central Water Commission</p>
+          </div>
+        </div>
+
+        <!-- Set 2 (Seamless Infinite Loop Clone) -->
+        <div class="train-card-photo">
+          <img src="mes.jpg" alt="Military Engineering Services" />
+          <div class="photo-overlay">
+            <h4>1. MES</h4>
+            <p>Military Engineering Services</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="MES & Defense Production" />
+          <img src="cpwd.jpg" alt="National CPWD Academy" />
           <div class="photo-overlay">
-            <h4>MES & Military</h4>
-            <p>Engineering Cadre</p>
+            <h4>2. CPWD</h4>
+            <p>Central Public Works Dept.</p>
           </div>
         </div>
 
         <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80" alt="Blueprint Design SOM" />
+          <img src="cwc.jpg" alt="Central Water Commission" />
           <div class="photo-overlay">
-            <h4>Design & SOM</h4>
-            <p>Stress Calculations</p>
-          </div>
-        </div>
-
-        <!-- Set 2 (Seamless Infinite Loop) -->
-        <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=600&q=80" alt="CPWD Project Site" />
-          <div class="photo-overlay">
-            <h4>CPWD Works</h4>
-            <p>Infra Projects</p>
-          </div>
-        </div>
-
-        <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6b?auto=format&fit=crop&w=600&q=80" alt="CWC Dam & Hydraulics" />
-          <div class="photo-overlay">
-            <h4>CWC Hydraulics</h4>
-            <p>Fluid Machinery</p>
-          </div>
-        </div>
-
-        <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80" alt="SSC JE PYQ Practice" />
-          <div class="photo-overlay">
-            <h4>SSC JE PYQs</h4>
-            <p>Solved Papers</p>
-          </div>
-        </div>
-
-        <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="MES & Defense Production" />
-          <div class="photo-overlay">
-            <h4>MES & Military</h4>
-            <p>Engineering Cadre</p>
-          </div>
-        </div>
-
-        <div class="train-card-photo">
-          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80" alt="Blueprint Design SOM" />
-          <div class="photo-overlay">
-            <h4>Design & SOM</h4>
-            <p>Stress Calculations</p>
+            <h4>3. CWC</h4>
+            <p>Central Water Commission</p>
           </div>
         </div>
       </div>
@@ -786,7 +754,7 @@
     </div>
   </footer>
 
-  <!-- Viewer Modal -->
+  <!-- Reader Modal -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="modal-header">
@@ -868,12 +836,12 @@
       { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
     ];
 
-    let docs = JSON.parse(localStorage.getItem('mse_sscje_portal_docs')) || INITIAL_DOCS;
-    let isAdmin = sessionStorage.getItem('mse_sscje_portal_auth') === 'true';
+    let docs = JSON.parse(localStorage.getItem('mse_sscje_final_docs')) || INITIAL_DOCS;
+    let isAdmin = sessionStorage.getItem('mse_sscje_final_auth') === 'true';
     let activeStream = null;
 
     function saveState() {
-      localStorage.setItem('mse_sscje_portal_docs', JSON.stringify(docs));
+      localStorage.setItem('mse_sscje_final_docs', JSON.stringify(docs));
     }
 
     function formatDrivePreview(url) {
@@ -888,12 +856,12 @@
         if (response.ok) {
           const data = await response.json();
           display.textContent = data.count.toString().padStart(6, '0');
-          localStorage.setItem('mse_sscje_portal_count', data.count.toString());
+          localStorage.setItem('mse_sscje_final_count', data.count.toString());
           return;
         }
       } catch (e) {}
-      let current = parseInt(localStorage.getItem('mse_sscje_portal_count') || '1240', 10) + 1;
-      localStorage.setItem('mse_sscje_portal_count', current.toString());
+      let current = parseInt(localStorage.getItem('mse_sscje_final_count') || '1240', 10) + 1;
+      localStorage.setItem('mse_sscje_final_count', current.toString());
       display.textContent = current.toString().padStart(6, '0');
     }
 
@@ -1019,7 +987,7 @@
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
-        sessionStorage.removeItem('mse_sscje_portal_auth');
+        sessionStorage.removeItem('mse_sscje_final_auth');
         renderView();
       } else {
         loginModal.classList.add('active');
@@ -1031,7 +999,7 @@
     document.getElementById('submitLogin').addEventListener('click', () => {
       if (document.getElementById('authPass').value === "Shiv@1212") {
         isAdmin = true;
-        sessionStorage.setItem('mse_sscje_portal_auth', 'true');
+        sessionStorage.setItem('mse_sscje_final_auth', 'true');
         loginModal.classList.remove('active');
         document.getElementById('authPass').value = "";
         renderView();
