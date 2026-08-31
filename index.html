@@ -2,28 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Force exact desktop viewport on mobile devices -->
-  <meta name="viewport" content="width=1024" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Mission Sarkari Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --header-gradient: linear-gradient(135deg, #091124 0%, #0F1C3F 50%, #0B132B 100%);
-      --accent: #2563EB;
-      --accent-hover: #1D4ED8;
-      --accent-light: #EFF6FF;
-      --bg: #F1F5F9;
+      --header-bg: radial-gradient(circle at 50% 0%, #172554 0%, #0B1120 75%, #030712 100%);
+      --accent: #3B82F6;
+      --accent-hover: #2563EB;
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      --bg: #F8FAFC;
       --surface: #FFFFFF;
-      --border: #CBD5E1;
+      --border: #E2E8F0;
+      --border-subtle: rgba(226, 232, 240, 0.8);
       --text: #0F172A;
       --text-muted: #64748B;
       --danger: #EF4444;
-      --card-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --card-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 10px -2px rgba(15, 23, 42, 0.02);
+      --card-hover: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
     }
 
     * {
@@ -35,21 +37,34 @@
 
     body {
       background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.04) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.04) 0px, transparent 50%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
-      min-width: 1000px; /* Fixed desktop base */
+      overflow-x: hidden;
     }
 
-    /* 1. TOP BROAD HEADER */
+    /* 1. LUXURY AESTHETIC TOP HEADER */
     .top-broad-header {
-      background: var(--header-gradient);
-      padding: 22px 36px;
-      border-bottom: 3.5px solid var(--accent);
-      box-shadow: 0 10px 30px rgba(9, 17, 36, 0.35);
-      width: 100%;
+      background: var(--header-bg);
+      padding: 24px 36px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .top-broad-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #3B82F6 20%, #60A5FA 50%, #3B82F6 80%, transparent);
     }
 
     .header-inner {
@@ -68,24 +83,30 @@
     }
 
     .portal-logo-img {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
       background: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0, 0, 0, 0.35);
+      transition: transform 0.3s ease;
       flex-shrink: 0;
     }
 
+    .brand-container:hover .portal-logo-img {
+      transform: rotate(15deg) scale(1.05);
+    }
+
     .top-broad-header h1 {
-      font-size: 1.85rem;
+      font-size: 1.75rem;
       font-weight: 800;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
-      color: #FFFFFF;
+      background: linear-gradient(135deg, #FFFFFF 40%, #93C5FD 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       white-space: nowrap;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .header-actions {
@@ -97,66 +118,75 @@
     }
 
     .btn-header-admin {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 8px;
+      padding: 9px 18px;
+      border-radius: 10px;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(255, 255, 255, 0.08);
-      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #E2E8F0;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(6px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(10px);
       white-space: nowrap;
     }
 
     .btn-header-admin:hover {
-      background: #FFFFFF;
-      color: #0F172A;
-      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
     }
 
     .btn-header-upload {
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 10px;
       cursor: pointer;
-      border: 1px solid var(--accent);
-      background: var(--accent);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
       color: #FFFFFF;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
       white-space: nowrap;
     }
 
     .btn-header-upload:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+      transform: translateY(-1px);
     }
 
-    /* 2. MAIN WORKSPACE & PROMINENT SEARCH */
+    /* 2. MAIN WORKSPACE */
     main {
       flex: 1;
       max-width: 1000px;
       margin: 0 auto;
       padding: 36px 20px 60px;
-      width: 1000px;
+      width: 100%;
     }
 
     .filter-wrapper {
-      background: var(--surface);
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      padding: 24px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 26px;
       box-shadow: var(--card-shadow);
-      margin-bottom: 26px;
+      margin-bottom: 28px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .filter-wrapper:focus-within {
+      box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.08);
+      border-color: #BFDBFE;
     }
 
     .search-box {
@@ -166,82 +196,83 @@
 
     .search-box input {
       width: 100%;
-      padding: 16px 20px 16px 52px;
-      border: 2px solid #2563EB;
-      border-radius: 10px;
-      font-size: 0.96rem;
+      padding: 16px 22px 16px 54px;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 12px;
+      font-size: 0.95rem;
       font-weight: 500;
       outline: none;
       background: #FFFFFF;
       color: #0F172A;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
-      transition: all 0.2s ease;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s ease;
     }
 
     .search-box input::placeholder {
-      color: #64748B;
-      font-weight: 500;
+      color: #94A3B8;
+      font-weight: 400;
     }
 
     .search-box input:focus {
-      border-color: #1D4ED8;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(59, 130, 246, 0.08);
     }
 
     .search-box i {
       position: absolute;
-      left: 18px;
+      left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      color: #2563EB;
+      color: #3B82F6;
       font-size: 1.15rem;
     }
 
     .filter-buttons {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 10px;
     }
 
     .btn-filter {
       padding: 10px 18px;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      border-radius: 8px;
-      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
       background: #FFFFFF;
-      color: #334155;
+      color: #475569;
       cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     }
 
     .btn-filter:hover {
-      border-color: #2563EB;
+      border-color: #93C5FD;
       color: #2563EB;
-      background: #EFF6FF;
+      background: #F0F7FF;
+      transform: translateY(-1px);
     }
 
     .btn-filter.active {
       background: #0F172A;
       color: #FFFFFF;
       border-color: #0F172A;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER */
+    /* 3. CONTINUOUS PHOTO SLIDER (Aesthetic Cards) */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
       position: relative;
-      border-radius: 14px;
-      padding: 8px 0;
-      margin-top: 6px;
+      border-radius: 18px;
+      padding: 10px 0;
+      margin-top: 8px;
     }
 
     .train-track {
       display: flex;
-      gap: 18px;
+      gap: 20px;
       width: max-content;
       animation: trainSlide 28s linear infinite;
     }
@@ -256,59 +287,71 @@
     }
 
     .train-card-photo {
-      width: 285px;
-      height: 170px;
-      border-radius: 12px;
+      width: 290px;
+      height: 175px;
+      border-radius: 16px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 22px -4px rgba(15, 23, 42, 0.14);
-      border: 1.5px solid #E2E8F0;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.8);
       flex-shrink: 0;
       cursor: default;
       background: #E2E8F0;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .train-card-photo:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--card-hover);
     }
 
     .train-card-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform 0.6s ease;
     }
 
     .train-card-photo:hover img {
-      transform: scale(1.06);
+      transform: scale(1.08);
     }
 
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(9, 17, 36, 0.94) 0%, rgba(9, 17, 36, 0.35) 55%, transparent 100%);
+      background: linear-gradient(to top, rgba(3, 7, 18, 0.92) 0%, rgba(3, 7, 18, 0.3) 60%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 14px 16px;
+      padding: 16px 18px;
       color: #FFFFFF;
     }
 
     .photo-overlay p {
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       color: #F8FAFC;
       font-weight: 700;
       letter-spacing: 0.02em;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     /* DATA TABLE */
     .results-area {
       display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .results-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
-      font-size: 0.88rem;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-muted);
     }
@@ -319,21 +362,25 @@
       color: var(--accent);
       cursor: pointer;
       font-weight: 700;
-      font-size: 0.84rem;
-      transition: color 0.15s ease;
+      font-size: 0.86rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .btn-clear:hover {
       color: var(--accent-hover);
-      text-decoration: underline;
+      transform: translateX(-2px);
     }
 
     .table-card {
       background: var(--surface);
-      border: 1px solid #E2E8F0;
-      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
       overflow-x: auto;
       box-shadow: var(--card-shadow);
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
@@ -341,20 +388,21 @@
       border-collapse: collapse;
       text-align: left;
       font-size: 0.92rem;
+      min-width: 540px;
     }
 
     thead {
       background: #F8FAFC;
-      border-bottom: 1.5px solid #E2E8F0;
+      border-bottom: 1.5px solid var(--border);
     }
 
     th {
-      padding: 14px 20px;
-      font-size: 0.76rem;
+      padding: 15px 22px;
+      font-size: 0.78rem;
       font-weight: 700;
       color: #475569;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
     tbody tr {
@@ -371,7 +419,7 @@
     }
 
     td {
-      padding: 16px 20px;
+      padding: 16px 22px;
       vertical-align: middle;
     }
 
@@ -382,13 +430,13 @@
 
     .stream-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      padding: 4px 9px;
-      border-radius: 6px;
-      background: #EEF2F6;
+      padding: 5px 11px;
+      border-radius: 8px;
+      background: #F1F5F9;
       color: #334155;
-      border: 1px solid #CBD5E1;
+      border: 1px solid #E2E8F0;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -400,11 +448,11 @@
     }
 
     .btn-action {
-      padding: 7px 14px;
+      padding: 8px 15px;
       font-size: 0.8rem;
       font-weight: 600;
-      border-radius: 6px;
-      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
       background: #FFFFFF;
       color: #334155;
       cursor: pointer;
@@ -414,13 +462,15 @@
       text-decoration: none;
       transition: all 0.2s ease;
       white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
 
     .btn-action:hover {
       background: #0F172A;
       color: #FFFFFF;
       border-color: #0F172A;
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
     }
 
     .btn-del {
@@ -438,11 +488,11 @@
 
     /* 4. FOOTER */
     footer {
-      background: var(--header-gradient);
+      background: var(--header-bg);
       color: #94A3B8;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 18px 36px;
-      font-size: 0.82rem;
+      padding: 20px 36px;
+      font-size: 0.84rem;
       width: 100%;
     }
 
@@ -452,39 +502,39 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .visitor-box {
       font-family: 'JetBrains Mono', monospace;
       color: #CBD5E1;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .visitor-count {
-      color: #38BDF8;
+      color: #60A5FA;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
 
-    /* 5. MODAL SYSTEM */
+    /* 5. AESTHETIC E-BOOK MODAL SYSTEM */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(9, 17, 36, 0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 16px;
+      padding: 20px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.3s ease;
     }
 
     .modal-overlay.active {
@@ -494,55 +544,122 @@
 
     .modal-card {
       background: #FFFFFF;
-      border-radius: 16px;
+      border-radius: 20px;
       width: 100%;
-      max-width: 400px;
-      padding: 30px 24px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
-      transform: scale(0.92) translateY(10px);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 420px;
+      padding: 32px 28px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
+      transform: scale(0.94) translateY(12px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .modal-overlay.active .modal-card {
       transform: scale(1) translateY(0);
     }
 
+    /* Luxury Dark Book Reader Frame */
     .modal-card.viewer {
-      max-width: 1050px;
-      height: 90vh;
+      max-width: 1150px;
+      width: 95%;
+      height: 92vh;
       display: flex;
       flex-direction: column;
       padding: 0;
       overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #0B1120;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
     }
 
-    .modal-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid #E2E8F0;
+    .modal-header.book-bar {
+      padding: 14px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #0B1120;
+      color: #FFFFFF;
+    }
+
+    .book-title-tag {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       font-size: 0.95rem;
       font-weight: 700;
-      background: #F8FAFC;
+      color: #F8FAFC;
+    }
+
+    .book-title-tag i {
+      color: #60A5FA;
+      font-size: 1.1rem;
+    }
+
+    .book-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-book-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-book-action:hover {
+      background: #FFFFFF;
+      color: #0F172A;
+      transform: translateY(-1px);
+    }
+
+    .btn-book-close {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #FCA5A5;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-book-close:hover {
+      background: #EF4444;
+      color: #FFFFFF;
+      transform: scale(1.05);
     }
 
     .modal-icon-badge {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       background: #EFF6FF;
       color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       margin-bottom: 18px;
       border: 1px solid #DBEAFE;
     }
 
     .modal-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: #0F172A;
       margin-bottom: 6px;
@@ -555,10 +672,10 @@
 
     .form-control {
       width: 100%;
-      padding: 12px 14px;
+      padding: 13px 16px;
       border: 1.5px solid #CBD5E1;
-      border-radius: 8px;
-      font-size: 0.92rem;
+      border-radius: 10px;
+      font-size: 0.94rem;
       outline: none;
       background: #F8FAFC;
       color: #0F172A;
@@ -568,26 +685,26 @@
     .form-control:focus {
       border-color: var(--accent);
       background: #FFFFFF;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
     .modal-actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       justify-content: flex-end;
-      margin-top: 24px;
+      margin-top: 26px;
     }
 
     .btn-modal-cancel {
-      padding: 10px 18px;
-      font-size: 0.85rem;
+      padding: 11px 20px;
+      font-size: 0.86rem;
       font-weight: 600;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid #CBD5E1;
       background: #FFFFFF;
       color: #475569;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .btn-modal-cancel:hover {
@@ -596,21 +713,105 @@
     }
 
     .btn-modal-submit {
-      padding: 10px 22px;
-      font-size: 0.85rem;
+      padding: 11px 24px;
+      font-size: 0.86rem;
       font-weight: 700;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       background: #0F172A;
       color: #FFFFFF;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
-      transition: all 0.15s ease;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+      transition: all 0.2s ease;
     }
 
     .btn-modal-submit:hover {
       background: #1E293B;
       transform: translateY(-1px);
+    }
+
+    /* 6. RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .top-broad-header {
+        padding: 18px 20px;
+      }
+
+      .header-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .brand-container {
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .portal-logo-img {
+        width: 42px;
+        height: 42px;
+      }
+
+      .top-broad-header h1 {
+        font-size: 1.35rem;
+        letter-spacing: 0.02em;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+
+      main {
+        padding: 22px 14px 44px;
+      }
+
+      .filter-wrapper {
+        padding: 18px;
+        border-radius: 14px;
+      }
+
+      .search-box input {
+        padding: 13px 16px 13px 46px;
+        font-size: 0.9rem;
+      }
+
+      .filter-buttons {
+        gap: 8px;
+      }
+
+      .btn-filter {
+        flex: 1 1 calc(50% - 8px);
+        text-align: center;
+        padding: 10px 8px;
+        font-size: 0.78rem;
+      }
+
+      .train-card-photo {
+        width: 235px;
+        height: 145px;
+      }
+
+      .photo-overlay p {
+        font-size: 0.78rem;
+      }
+
+      footer {
+        padding: 18px 20px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .modal-card.viewer {
+        width: 100%;
+        height: 96vh;
+        border-radius: 12px;
+      }
     }
   </style>
 </head>
@@ -630,7 +831,7 @@
       <!-- Actions Right -->
       <div class="header-actions">
         <button id="addBtn" class="btn-header-upload" style="display: none;">
-          <i class="fa-solid fa-plus"></i> Upload
+          <i class="fa-solid fa-plus"></i> Upload Document
         </button>
         <button id="authBtn" class="btn-header-admin">
           <i class="fa-solid fa-lock"></i> Admin Login
@@ -680,7 +881,7 @@
           </div>
         </div>
 
-        <!-- Set 2 (Seamless Infinite Loop Clone) -->
+        <!-- Set 2 (Seamless Loop Clone) -->
         <div class="train-card-photo">
           <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
           <div class="photo-overlay">
@@ -704,11 +905,11 @@
       </div>
     </div>
 
-    <!-- On-Demand Table (Opens on Search/Filter) -->
+    <!-- On-Demand Filtered Documents Table -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="resultsTitle">Filtered Documents</span>
-        <button id="clearFilterBtn" class="btn-clear">Close Table &times;</button>
+        <button id="clearFilterBtn" class="btn-clear"><i class="fa-solid fa-arrow-left"></i> Back to Showcase</button>
       </div>
 
       <div class="table-card">
@@ -738,32 +939,41 @@
     </div>
   </footer>
 
-  <!-- Reader Modal -->
+  <!-- 4. AESTHETIC E-BOOK / DOCUMENT READER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
-      <div class="modal-header">
-        <span id="viewerTitle">Document</span>
-        <button id="closeViewer" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">&times;</button>
+      <div class="modal-header book-bar">
+        <div class="book-title-tag">
+          <i class="fa-solid fa-book-open"></i>
+          <span id="viewerTitle">Document Reader</span>
+        </div>
+        <div class="book-actions">
+          <a id="externalDriveBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-book-action" title="Open Full Screen">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Full Screen
+          </a>
+          <button id="closeViewer" class="btn-book-close" title="Close Reader">&times;</button>
+        </div>
       </div>
-      <iframe id="viewerFrame" style="flex:1; width:100%; border:none; background:#F8FAFC;" src="" allow="autoplay"></iframe>
+      <iframe id="viewerFrame" style="flex:1; width:100%; border:none; background:#0F172A;" src="" allow="autoplay"></iframe>
     </div>
   </div>
 
-  <!-- Minimal Admin Login Modal -->
+  <!-- Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge">
         <i class="fa-solid fa-lock"></i>
       </div>
-      <h3 class="modal-title">Enter your passkey</h3>
+      <h3 class="modal-title">Admin Access</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Enter your passkey to manage documents.</p>
 
-      <div class="form-group" style="margin-top: 18px; margin-bottom: 20px;">
+      <div class="form-group">
         <input type="password" id="authPass" class="form-control" placeholder="••••••••••••" autofocus />
       </div>
 
       <div class="modal-actions">
         <button id="cancelLogin" class="btn-modal-cancel">Cancel</button>
-        <button id="submitLogin" class="btn-modal-submit">Unlock</button>
+        <button id="submitLogin" class="btn-modal-submit">Unlock Portal</button>
       </div>
     </div>
   </div>
@@ -775,10 +985,11 @@
         <i class="fa-solid fa-file-circle-plus"></i>
       </div>
       <h3 class="modal-title">Upload Document</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Add a new study module or question bank.</p>
 
-      <div class="form-group" style="margin-top: 14px;">
+      <div class="form-group">
         <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Stream</label>
-        <select id="docFolder" class="form-control">
+        <select id="docFolder" class="form-control" style="margin-top: 6px;">
           <option value="Thermal & Fluids">Thermal & Fluids</option>
           <option value="Design & Mechanics">Design & Mechanics</option>
           <option value="Production & Materials">Production & Materials</option>
@@ -788,17 +999,17 @@
 
       <div class="form-group">
         <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Title</label>
-        <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" required />
+        <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" style="margin-top: 6px;" required />
       </div>
 
       <div class="form-group">
         <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Google Drive Share Link</label>
-        <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." required />
+        <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." style="margin-top: 6px;" required />
       </div>
 
       <div class="modal-actions">
         <button id="cancelUpload" class="btn-modal-cancel">Cancel</button>
-        <button id="saveDoc" class="btn-modal-submit">Save Entry</button>
+        <button id="saveDoc" class="btn-modal-submit">Save Document</button>
       </div>
     </div>
   </div>
@@ -863,6 +1074,7 @@
     const viewerModal = document.getElementById('viewerModal');
     const viewerFrame = document.getElementById('viewerFrame');
     const viewerTitle = document.getElementById('viewerTitle');
+    const externalDriveBtn = document.getElementById('externalDriveBtn');
     const closeViewer = document.getElementById('closeViewer');
 
     const loginModal = document.getElementById('loginModal');
@@ -890,7 +1102,7 @@
         if (filtered.length === 0) {
           tableBody.innerHTML = `
             <tr>
-              <td colspan="3" style="text-align: center; padding: 28px; color: var(--text-muted);">
+              <td colspan="3" style="text-align: center; padding: 32px; color: var(--text-muted);">
                 No matching subjects found.
               </td>
             </tr>
@@ -907,9 +1119,9 @@
               <td>
                 <div class="action-group">
                   <button class="btn-action" onclick="openDoc('${doc.title}', '${doc.link}')">
-                    <i class="fa-solid fa-eye"></i> Read
+                    <i class="fa-solid fa-book-open"></i> Read
                   </button>
-                  <a href="${doc.link}" target="_blank" rel="noopener noreferrer" class="btn-action" title="Open Drive">
+                  <a href="${doc.link}" target="_blank" rel="noopener noreferrer" class="btn-action" title="Open Drive Link">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </a>
                   ${isAdmin ? `<button class="btn-action btn-del" style="display:inline-flex;" onclick="deleteDoc('${doc.id}')"><i class="fa-solid fa-trash"></i></button>` : ''}
@@ -959,6 +1171,7 @@
     window.openDoc = function(title, link) {
       viewerTitle.textContent = title;
       viewerFrame.src = formatDrivePreview(link);
+      externalDriveBtn.href = link;
       viewerModal.classList.add('active');
     };
 
@@ -1041,3 +1254,4 @@
   </script>
 </body>
 </html>
+
