@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -164,6 +164,58 @@
       transform: translateY(-1px);
     }
 
+    /* 1.1 SLIDING TICKER / MARQUEE BAR */
+    .quote-ticker-bar {
+      background: #060B18;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .ticker-track {
+      display: inline-flex;
+      gap: 50px;
+      animation: tickerSlide 26s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    .ticker-item {
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: #E2E8F0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ticker-item strong {
+      color: #38BDF8;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .ticker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3B82F6;
+      box-shadow: 0 0 8px #3B82F6;
+      display: inline-block;
+    }
+
+    @keyframes tickerSlide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     /* 2. MAIN WORKSPACE */
     main {
       flex: 1;
@@ -260,7 +312,7 @@
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER (Aesthetic Cards) */
+    /* 3. CONTINUOUS PHOTO SLIDER */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
@@ -557,7 +609,6 @@
       transform: scale(1) translateY(0);
     }
 
-    /* Luxury Dark Book Reader Frame */
     .modal-card.viewer {
       max-width: 1150px;
       width: 95%;
@@ -763,6 +814,14 @@
         justify-content: center;
       }
 
+      .quote-ticker-bar {
+        padding: 6px 0;
+      }
+
+      .ticker-item {
+        font-size: 0.76rem;
+      }
+
       main {
         padding: 22px 14px 44px;
       }
@@ -836,6 +895,32 @@
         <button id="authBtn" class="btn-header-admin">
           <i class="fa-solid fa-lock"></i> Admin Login
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1.1 MOTIVATIONAL SLIDING TICKER LINE -->
+  <div class="quote-ticker-bar">
+    <div class="ticker-track">
+      <!-- Item 1 -->
+      <div class="ticker-item">
+        <span class="ticker-dot"></span>
+        <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
+      </div>
+      <!-- Item 2 (Clone for infinite seamless marquee loop) -->
+      <div class="ticker-item">
+        <span class="ticker-dot"></span>
+        <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
+      </div>
+      <!-- Item 3 -->
+      <div class="ticker-item">
+        <span class="ticker-dot"></span>
+        <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
+      </div>
+      <!-- Item 4 -->
+      <div class="ticker-item">
+        <span class="ticker-dot"></span>
+        <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
       </div>
     </div>
   </div>
@@ -1254,4 +1339,3 @@
   </script>
 </body>
 </html>
-
