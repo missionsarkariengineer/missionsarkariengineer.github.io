@@ -60,7 +60,7 @@
     /* 1. TOP HEADER */
     .top-broad-header {
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 55%, var(--brand-navy-800) 100%);
-      padding: 16px 32px;
+      padding: 16px 36px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 12px 28px -8px rgba(6, 11, 20, 0.45);
       position: relative;
@@ -77,7 +77,8 @@
     }
 
     .header-inner {
-      max-width: 1400px;
+      width: 96vw;
+      max-width: 1600px;
       margin: 0 auto;
       display: flex;
       justify-content: center;
@@ -91,8 +92,8 @@
     }
 
     .portal-logo-img {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
@@ -107,7 +108,7 @@
     }
 
     .top-broad-header h1 {
-      font-size: 1.55rem;
+      font-size: 1.6rem;
       font-weight: 800;
       letter-spacing: 0.03em;
       text-transform: uppercase;
@@ -125,16 +126,17 @@
     }
 
     .welcome-bar-inner {
-      max-width: 1100px;
+      width: 96vw;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 16px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
     }
 
     .welcome-text {
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 700;
       letter-spacing: 0.03em;
       color: var(--accent-cyan);
@@ -158,27 +160,14 @@
       50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
     }
 
-    /* 2. DYNAMIC WORKSPACE */
+    /* 2. FULL-SCREEN DYNAMIC CANVAS */
     main {
       flex: 1;
-      width: 100%;
+      width: 96vw;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 28px 20px 46px;
+      padding: 26px 12px 42px;
       transition: all 0.25s ease;
-    }
-
-    main.home-view {
-      max-width: 1050px;
-    }
-
-    main.focus-view {
-      max-width: 96vw;
-      padding-top: 20px;
-    }
-
-    main.reader-view {
-      max-width: 98vw;
-      padding: 14px 10px 24px;
     }
 
     /* HOME SEARCH & FILTERS */
@@ -186,9 +175,10 @@
       background: var(--surface-white);
       border: 1px solid var(--border-light);
       border-radius: 20px;
-      padding: 24px;
+      padding: 24px 28px;
       box-shadow: var(--shadow-card);
       margin-bottom: 24px;
+      width: 100%;
     }
 
     .search-box {
@@ -198,10 +188,10 @@
 
     .search-box input {
       width: 100%;
-      padding: 15px 22px 15px 54px;
+      padding: 16px 24px 16px 56px;
       border: 1.5px solid var(--border-medium);
       border-radius: 12px;
-      font-size: 0.94rem;
+      font-size: 0.96rem;
       font-weight: 500;
       outline: none;
       background: #FFFFFF;
@@ -221,7 +211,7 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--primary-blue);
-      font-size: 1.15rem;
+      font-size: 1.18rem;
     }
 
     .filter-buttons {
@@ -231,8 +221,8 @@
     }
 
     .btn-filter {
-      padding: 11px 20px;
-      font-size: 0.88rem;
+      padding: 12px 24px;
+      font-size: 0.9rem;
       font-weight: 600;
       border-radius: 10px;
       border: 1px solid var(--border-light);
@@ -283,8 +273,8 @@
     }
 
     .train-card-photo {
-      width: 300px;
-      height: 180px;
+      width: 320px;
+      height: 190px;
       border-radius: 16px;
       position: relative;
       overflow: hidden;
@@ -315,18 +305,18 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 16px 18px;
+      padding: 16px 20px;
       color: #FFFFFF;
     }
 
     .photo-overlay p {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       color: #F8FAFC;
       font-weight: 700;
       letter-spacing: 0.02em;
     }
 
-    /* 4. FULL-SCREEN FLOWCHART SYSTEM */
+    /* 4. FULL-WIDTH FLOWCHART SYSTEM */
     .results-area {
       display: none;
       width: 100%;
@@ -342,8 +332,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 22px;
-      padding: 0 8px;
+      margin-bottom: 20px;
+      padding: 0 4px;
     }
 
     .btn-nav-action {
@@ -353,7 +343,7 @@
       cursor: pointer;
       font-weight: 700;
       font-size: 0.88rem;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 10px;
       transition: all 0.2s ease;
       display: inline-flex;
@@ -373,22 +363,22 @@
       background: #FFFFFF;
       border: 1px solid var(--border-light);
       border-radius: 24px;
-      padding: 50px 32px 64px;
+      padding: 48px 32px 64px;
       box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
       width: 100%;
-      min-height: 70vh;
+      min-height: 72vh;
     }
 
     .tree-root-head {
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
       color: #FFFFFF;
-      padding: 14px 42px;
+      padding: 14px 44px;
       border-radius: 12px;
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       font-weight: 800;
       letter-spacing: 0.02em;
       border: 1.5px solid var(--primary-blue);
@@ -406,13 +396,14 @@
 
     .tree-stem-start {
       width: 2.5px;
-      height: 42px;
+      height: 40px;
       background: var(--border-dark);
     }
 
+    /* Proportional Flow Spine for Laptop Display */
     .flow-tree-spine {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1100px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -452,7 +443,7 @@
 
     .flow-branch-side.left {
       justify-content: flex-end;
-      padding-right: 50px;
+      padding-right: 48px;
     }
 
     .flow-branch-side.left.has-card::after {
@@ -460,7 +451,7 @@
       position: absolute;
       right: 0;
       top: 50%;
-      width: 50px;
+      width: 48px;
       height: 2px;
       background: var(--border-dark);
       transform: translateY(-50%);
@@ -468,7 +459,7 @@
 
     .flow-branch-side.right {
       justify-content: flex-start;
-      padding-left: 50px;
+      padding-left: 48px;
     }
 
     .flow-branch-side.right.has-card::after {
@@ -476,7 +467,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      width: 50px;
+      width: 48px;
       height: 2px;
       background: var(--border-dark);
       transform: translateY(-50%);
@@ -486,8 +477,8 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       background: #FFFFFF;
       border: 3px solid var(--primary-blue);
@@ -496,18 +487,19 @@
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
     }
 
+    /* Enterprise Subject Cards */
     .flow-item-card {
       background: #FFFFFF;
       border: 1.5px solid var(--border-light);
       border-radius: 14px;
-      padding: 16px 24px;
+      padding: 16px 22px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 16px;
       box-shadow: var(--shadow-ambient);
       transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      width: 400px;
+      width: 380px;
       max-width: 100%;
       box-sizing: border-box;
     }
@@ -519,13 +511,13 @@
     }
 
     .flow-item-icon {
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       flex-shrink: 0;
       transition: transform 0.2s ease;
     }
@@ -535,7 +527,7 @@
     }
 
     .flow-item-title {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 700;
       color: #1E293B;
       line-height: 1.4;
@@ -547,7 +539,7 @@
       color: var(--primary-blue);
     }
 
-    /* 5. SAME-PAGE DOCUMENT READER SECTION (NO EMAIL / NO SIGN-IN) */
+    /* 5. SAME-PAGE DOCUMENT VIEWER WITH ZOOM CONTROLS */
     .reader-stage-section {
       display: none;
       width: 100%;
@@ -562,8 +554,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       box-shadow: var(--shadow-ambient);
+      flex-wrap: wrap;
     }
 
     .reader-doc-heading {
@@ -578,19 +571,77 @@
       white-space: nowrap;
     }
 
-    .reader-frame-container {
+    .zoom-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #F1F5F9;
+      padding: 4px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-zoom {
+      background: #FFFFFF;
+      border: 1px solid var(--border-medium);
+      color: var(--text-main);
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-zoom:hover {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+    }
+
+    .zoom-display-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      min-width: 50px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .btn-zoom-reset {
+      background: transparent;
+      border: none;
+      color: var(--primary-blue);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 6px;
+    }
+
+    .reader-frame-viewport {
       width: 100%;
       height: 84vh;
       background: #0B132B;
       border: 1px solid var(--border-light);
       border-top: none;
       border-radius: 0 0 16px 16px;
-      overflow: hidden;
+      overflow: auto;
       box-shadow: var(--shadow-card);
       position: relative;
     }
 
-    .reader-frame-container iframe {
+    .zoomable-frame-wrap {
+      width: 100%;
+      height: 100%;
+      transform-origin: top center;
+      transition: transform 0.15s ease-out;
+    }
+
+    .zoomable-frame-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -637,7 +688,8 @@
     }
 
     .footer-inner {
-      max-width: 1050px;
+      width: 96vw;
+      max-width: 1600px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -662,8 +714,8 @@
 
     /* RESPONSIVE MOBILE ADJUSTMENTS */
     @media (max-width: 820px) {
-      main.focus-view, main.home-view, main.reader-view {
-        max-width: 100%;
+      main {
+        width: 100%;
         padding: 18px 12px 30px;
       }
 
@@ -765,7 +817,7 @@
       }
 
       .reader-toolbar {
-        padding: 12px 16px;
+        padding: 12px 14px;
         flex-direction: column;
         align-items: flex-start;
       }
@@ -775,7 +827,12 @@
         width: 100%;
       }
 
-      .reader-frame-container {
+      .zoom-toolbar {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .reader-frame-viewport {
         height: 78vh;
       }
 
@@ -815,7 +872,7 @@
   </div>
 
   <!-- 2. MAIN WORKSPACE -->
-  <main id="mainWorkspace" class="home-view">
+  <main id="mainWorkspace">
     
     <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
     <div id="homeFilterSection" class="filter-wrapper">
@@ -862,7 +919,7 @@
       </div>
     </div>
 
-    <!-- LEVEL 2: PURE FOCUS FLOWCHART VIEW -->
+    <!-- LEVEL 2: PURE FOCUS FULL-WIDTH FLOWCHART -->
     <div id="resultsArea" class="results-area">
       <div class="results-top-nav">
         <button id="clearFilterBtn" class="btn-nav-action">
@@ -883,20 +940,31 @@
       </div>
     </div>
 
-    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER (NO EMAIL REQUIRED) -->
+    <!-- LEVEL 3: SAME-PAGE READER (NO SIGN-IN & WITH ZOOM CONTROLS) -->
     <div id="readerStage" class="reader-stage-section">
       <div class="reader-toolbar">
         <button id="backToFlowBtn" class="btn-nav-action">
           <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
         </button>
+        
         <div class="reader-doc-heading">
           <i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i>
           <span id="readerDocTitle">Document Viewer</span>
         </div>
+
+        <!-- Zoom Controls -->
+        <div class="zoom-toolbar">
+          <button id="zoomOutBtn" class="btn-zoom" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+          <span id="zoomLevelText" class="zoom-display-val">100%</span>
+          <button id="zoomInBtn" class="btn-zoom" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+          <button id="zoomResetBtn" class="btn-zoom-reset">Reset</button>
+        </div>
       </div>
 
-      <div class="reader-frame-container">
-        <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
+      <div class="reader-frame-viewport">
+        <div id="zoomableWrapper" class="zoomable-frame-wrap">
+          <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
+        </div>
       </div>
     </div>
 
@@ -945,6 +1013,7 @@
     }
 
     let activeStream = null;
+    let currentZoom = 1.0;
 
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
@@ -989,7 +1058,6 @@
       return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
     }
 
-    /* Embedded preview mode (No email / No login prompted) */
     function formatDrivePreview(url) {
       if (!url) return "";
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -1005,7 +1073,6 @@
       if (display) display.textContent = storedCount.toString().padStart(6, '0');
     }
 
-    const mainWorkspace = document.getElementById('mainWorkspace');
     const homeFilterSection = document.getElementById('homeFilterSection');
     const welcomeStrip = document.getElementById('welcomeStrip');
     const searchInput = document.getElementById('searchInput');
@@ -1025,17 +1092,50 @@
     const readerDocIframe = document.getElementById('readerDocIframe');
     const backToFlowBtn = document.getElementById('backToFlowBtn');
 
+    const zoomableWrapper = document.getElementById('zoomableWrapper');
+    const zoomLevelText = document.getElementById('zoomLevelText');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+    const zoomResetBtn = document.getElementById('zoomResetBtn');
+
+    function applyZoom() {
+      zoomableWrapper.style.transform = `scale(${currentZoom})`;
+      zoomLevelText.textContent = `${Math.round(currentZoom * 100)}%`;
+      if (currentZoom > 1.0) {
+        zoomableWrapper.style.width = `${100 / currentZoom}%`;
+        zoomableWrapper.style.height = `${100 / currentZoom}%`;
+      } else {
+        zoomableWrapper.style.width = '100%';
+        zoomableWrapper.style.height = '100%';
+      }
+    }
+
+    zoomInBtn.addEventListener('click', () => {
+      if (currentZoom < 2.0) {
+        currentZoom += 0.15;
+        applyZoom();
+      }
+    });
+
+    zoomOutBtn.addEventListener('click', () => {
+      if (currentZoom > 0.7) {
+        currentZoom -= 0.15;
+        applyZoom();
+      }
+    });
+
+    zoomResetBtn.addEventListener('click', () => {
+      currentZoom = 1.0;
+      applyZoom();
+    });
+
     function renderView() {
       const query = (searchInput?.value || '').toLowerCase().trim();
 
-      // Ensure reader stage is reset when browsing
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
 
       if (query !== '' || activeStream !== null) {
-        // FOCUS FLOWCHART VIEW
-        mainWorkspace.className = 'focus-view';
-
         homeFilterSection.style.display = 'none';
         welcomeStrip.style.display = 'none';
         trainSlider.style.display = 'none';
@@ -1103,9 +1203,6 @@
         });
         if (flowTreeSpine) flowTreeSpine.innerHTML = html;
       } else {
-        // STANDARD HOME SCREEN VIEW
-        mainWorkspace.className = 'home-view';
-
         homeFilterSection.style.display = 'block';
         welcomeStrip.style.display = 'block';
         trainSlider.style.display = 'block';
@@ -1116,28 +1213,26 @@
       }
     }
 
-    /* SAME PAGE IN-APP DOCUMENT OPENER (NO EMAIL / NO SIGN-IN) */
+    /* SAME PAGE READER WITH RESETTABLE ZOOM */
     window.openDocOnSamePage = function(title, link) {
       resultsArea.style.display = 'none';
-      mainWorkspace.className = 'reader-view';
 
       readerDocTitle.textContent = title;
       readerDocIframe.src = formatDrivePreview(link);
+      currentZoom = 1.0;
+      applyZoom();
+      
       readerStage.style.display = 'block';
-
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    /* BACK FROM DOCUMENT TO FLOWCHART */
     backToFlowBtn.addEventListener('click', () => {
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
       resultsArea.style.display = 'block';
-      mainWorkspace.className = 'focus-view';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    /* BACK FROM FLOWCHART TO HOME */
     clearFilterBtn.addEventListener('click', () => {
       activeStream = null;
       if (searchInput) searchInput.value = '';
