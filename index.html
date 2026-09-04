@@ -163,7 +163,7 @@
       transform: translateY(-1px);
     }
 
-    /* 1.1 LEFT-ALIGNED WELCOME BAR */
+    /* LEFT-ALIGNED WELCOME STRIP */
     .welcome-bar {
       background: #060B18;
       border-bottom: 1px solid rgba(59, 130, 246, 0.2);
@@ -358,14 +358,14 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. CLEAN CLICKABLE SUBJECT LIST */
+    /* 4. INTERACTIVE MIND MAP / FLOWCHART SYSTEM */
     .results-area {
       display: none;
-      animation: fadeIn 0.3s ease;
+      animation: fadeIn 0.35s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -373,7 +373,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-muted);
@@ -397,104 +397,175 @@
       transform: translateX(-2px);
     }
 
-    .subject-list-card {
-      background: var(--surface);
+    /* Mind Map Board */
+    .mindmap-board {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      overflow: hidden;
+      border-radius: 24px;
+      padding: 36px 24px 44px;
       box-shadow: var(--card-shadow);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
     }
 
-    .subject-item-row {
+    /* Grid paper dots background inside mindmap */
+    .mindmap-board::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+    }
+
+    /* Central Root Node */
+    .mindmap-root-node {
+      background: linear-gradient(135deg, #0F172A, #1E293B);
+      color: #FFFFFF;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2;
+      border: 2px solid rgba(59, 130, 246, 0.5);
+    }
+
+    .mindmap-root-node i {
+      color: #38BDF8;
+      font-size: 1.15rem;
+    }
+
+    /* Connecting stem */
+    .mindmap-stem {
+      width: 2.5px;
+      height: 36px;
+      background: linear-gradient(to bottom, #3B82F6, #93C5FD);
+      z-index: 1;
+    }
+
+    /* Child Node Tree Container */
+    .mindmap-nodes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      width: 100%;
+      max-width: 920px;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Interactive Leaf Node Card */
+    .mindmap-node-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 16px 18px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 24px;
-      border-bottom: 1px solid #F1F5F9;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      gap: 12px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
     }
 
-    .subject-item-row:last-child {
-      border-bottom: none;
+    .mindmap-node-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      border-color: #3B82F6;
+      box-shadow: 0 12px 30px -4px rgba(59, 130, 246, 0.2);
+      background: #FFFFFF;
     }
 
-    .subject-item-row:hover {
-      background: #F8FAFC;
-      padding-left: 28px;
-    }
-
-    .subject-main {
+    .node-content-wrap {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       flex: 1;
     }
 
-    .subject-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+    .node-icon-bubble {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       background: #EFF6FF;
       color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.05rem;
       flex-shrink: 0;
-      transition: transform 0.2s ease;
+      transition: all 0.25s ease;
+      border: 1px solid #DBEAFE;
     }
 
-    .subject-item-row:hover .subject-icon {
-      transform: scale(1.1);
-      background: var(--accent);
+    .mindmap-node-card:hover .node-icon-bubble {
+      background: #2563EB;
       color: #FFFFFF;
+      transform: rotate(6deg);
     }
 
-    .subject-name {
-      font-weight: 600;
-      color: var(--text);
-      font-size: 0.95rem;
-      letter-spacing: 0.01em;
+    .node-subject-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.35;
+      transition: color 0.2s ease;
     }
 
-    .subject-item-row:hover .subject-name {
-      color: var(--accent);
+    .mindmap-node-card:hover .node-subject-name {
+      color: #2563EB;
     }
 
-    .subject-row-right {
+    .node-action-side {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
 
-    .arrow-indicator {
-      color: #94A3B8;
-      font-size: 0.85rem;
-      transition: transform 0.2s ease, color 0.2s ease;
+    .node-arrow-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      transition: all 0.25s ease;
     }
 
-    .subject-item-row:hover .arrow-indicator {
-      transform: translateX(4px);
-      color: var(--accent);
+    .mindmap-node-card:hover .node-arrow-badge {
+      background: #3B82F6;
+      color: #FFFFFF;
+      transform: translateX(3px);
     }
 
-    .btn-row-del {
+    .btn-node-del {
       background: #FEF2F2;
       border: 1px solid #FEE2E2;
       color: var(--danger);
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 8px;
       cursor: pointer;
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: all 0.2s ease;
     }
 
-    .btn-row-del:hover {
+    .btn-node-del:hover {
       background: var(--danger);
       color: #FFFFFF;
     }
@@ -561,7 +632,7 @@
       letter-spacing: 0.06em;
     }
 
-    /* 7. MODERN E-BOOK READER MODAL (HIGH AESTHETIC) */
+    /* 7. MODERN E-BOOK READER MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -598,7 +669,6 @@
       transform: scale(1) translateY(0);
     }
 
-    /* Aesthetic Book Frame */
     .modal-card.viewer {
       max-width: 1200px;
       width: 98%;
@@ -613,7 +683,6 @@
       box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85);
     }
 
-    /* Top E-Reader Bar */
     .reader-top-bar {
       padding: 14px 24px;
       background: #0E1526;
@@ -701,7 +770,6 @@
       transform: scale(1.05);
     }
 
-    /* Book Page Canvas Body */
     .reader-canvas-body {
       flex: 1;
       background: #172136;
@@ -731,7 +799,7 @@
       background: #FFFFFF;
     }
 
-    /* Admin Modal */
+    /* Admin Login / Upload Modal */
     .modal-icon-badge {
       width: 52px;
       height: 52px;
@@ -864,12 +932,17 @@
         font-size: 0.78rem;
       }
 
-      .subject-item-row {
-        padding: 14px 16px;
+      .mindmap-board {
+        padding: 26px 14px 32px;
       }
 
-      .subject-name {
-        font-size: 0.88rem;
+      .mindmap-root-node {
+        font-size: 0.92rem;
+        padding: 10px 20px;
+      }
+
+      .mindmap-nodes-container {
+        grid-template-columns: 1fr;
       }
 
       .modal-card.viewer {
@@ -972,17 +1045,29 @@
       </div>
     </div>
 
-    <!-- On-Demand Direct Subject List -->
+    <!-- 4. ON-DEMAND MIND MAP & FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
-        <span id="resultsTitle">Select Subject</span>
+        <span id="resultsTitle">Interactive Roadmap</span>
         <button id="clearFilterBtn" class="btn-clear"><i class="fa-solid fa-arrow-left"></i> Back to Showcase</button>
       </div>
 
-      <div id="subjectListCard" class="subject-list-card"></div>
+      <div class="mindmap-board">
+        <!-- Central Stream Node -->
+        <div id="mindmapRoot" class="mindmap-root-node">
+          <i class="fa-solid fa-sitemap"></i>
+          <span id="mindmapRootTitle">Thermal & Fluids</span>
+        </div>
+
+        <!-- Connecting Flow Stem -->
+        <div class="mindmap-stem"></div>
+
+        <!-- Mind Map Subject Nodes Grid -->
+        <div id="mindmapNodesContainer" class="mindmap-nodes-container"></div>
+      </div>
     </div>
 
-    <!-- 4. MOTIVATIONAL QUOTE AT BOTTOM -->
+    <!-- 5. MOTIVATIONAL QUOTE AT BOTTOM -->
     <div class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
@@ -990,7 +1075,7 @@
     </div>
   </main>
 
-  <!-- 5. FOOTER -->
+  <!-- 6. FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -1002,10 +1087,9 @@
     </div>
   </footer>
 
-  <!-- 6. HIGH-AESTHETIC DIGITAL BOOK / DOCUMENT READER MODAL -->
+  <!-- 7. DIGITAL BOOK / DOCUMENT READER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
-      <!-- Reading Toolbar -->
       <div class="reader-top-bar">
         <div class="reader-info">
           <span class="reader-pill"><i class="fa-solid fa-book-open"></i> E-Reader</span>
@@ -1019,7 +1103,6 @@
         </div>
       </div>
 
-      <!-- Natural Reading Canvas Viewport -->
       <div class="reader-canvas-body">
         <div class="book-page-wrap">
           <iframe id="viewerFrame" src="" allow="autoplay"></iframe>
@@ -1103,13 +1186,11 @@
       localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
     }
 
-    /* Convert standard drive links to embedded preview */
     function formatDrivePreview(url) {
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    /* Permanent Non-Reset Visitor Counter */
     async function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       const STORAGE_KEY = 'mse_permanent_visit_count_v2';
@@ -1133,13 +1214,15 @@
       display.textContent = storedCount.toString().padStart(6, '0');
     }
 
-    const subjectListCard = document.getElementById('subjectListCard');
     const searchInput = document.getElementById('searchInput');
     const resultsArea = document.getElementById('resultsArea');
     const trainSlider = document.getElementById('trainSlider');
     const resultsTitle = document.getElementById('resultsTitle');
     const clearFilterBtn = document.getElementById('clearFilterBtn');
     const filterButtons = document.querySelectorAll('.btn-filter');
+
+    const mindmapRootTitle = document.getElementById('mindmapRootTitle');
+    const mindmapNodesContainer = document.getElementById('mindmapNodesContainer');
 
     const authBtn = document.getElementById('authBtn');
     const addBtn = document.getElementById('addBtn');
@@ -1166,16 +1249,18 @@
         let filtered = docs;
         if (activeStream) {
           filtered = filtered.filter(d => d.stream === activeStream);
-          resultsTitle.textContent = `${activeStream} (${filtered.length} Subjects)`;
+          mindmapRootTitle.textContent = activeStream;
+          resultsTitle.textContent = `${activeStream} — Mind Map Roadmap (${filtered.length} Subjects)`;
         } else if (query) {
           filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
-          resultsTitle.textContent = `Subjects matching "${query}" (${filtered.length})`;
+          mindmapRootTitle.textContent = `Search: "${query}"`;
+          resultsTitle.textContent = `Search Roadmap (${filtered.length} Results)`;
         }
 
         if (filtered.length === 0) {
-          subjectListCard.innerHTML = `
-            <div style="text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 0.95rem;">
-              No matching subjects found.
+          mindmapNodesContainer.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 26px; color: var(--text-muted); font-size: 0.95rem;">
+              No matching subjects found in this branch.
             </div>
           `;
           return;
@@ -1184,21 +1269,23 @@
         let html = '';
         filtered.forEach(doc => {
           html += `
-            <div class="subject-item-row" onclick="openDoc('${doc.title}', '${doc.link}')">
-              <div class="subject-main">
-                <div class="subject-icon">
+            <div class="mindmap-node-card" onclick="openDoc('${doc.title}', '${doc.link}')">
+              <div class="node-content-wrap">
+                <div class="node-icon-bubble">
                   <i class="fa-solid fa-book-bookmark"></i>
                 </div>
-                <span class="subject-name">${doc.title}</span>
+                <span class="node-subject-name">${doc.title}</span>
               </div>
-              <div class="subject-row-right">
-                ${isAdmin ? `<button class="btn-row-del" style="display:inline-flex;" onclick="deleteDoc(event, '${doc.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>` : ''}
-                <i class="fa-solid fa-chevron-right arrow-indicator"></i>
+              <div class="node-action-side">
+                ${isAdmin ? `<button class="btn-node-del" style="display:inline-flex;" onclick="deleteDoc(event, '${doc.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>` : ''}
+                <div class="node-arrow-badge">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </div>
               </div>
             </div>
           `;
         });
-        subjectListCard.innerHTML = html;
+        mindmapNodesContainer.innerHTML = html;
       } else {
         resultsArea.style.display = 'none';
         trainSlider.style.display = 'block';
