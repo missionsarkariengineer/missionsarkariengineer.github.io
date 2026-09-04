@@ -692,6 +692,104 @@
       letter-spacing: 0.06em;
     }
 
+    /* ADMIN MODAL OVERLAY */
+    .admin-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 11, 20, 0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .admin-modal-box {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 0.25s ease;
+    }
+
+    .admin-modal-box h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--brand-navy-950);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-form-group {
+      margin-bottom: 16px;
+    }
+
+    .admin-form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-form-group input, .admin-form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-medium);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+      background: #F8FAFC;
+      color: var(--text-main);
+    }
+
+    .admin-form-group input:focus, .admin-form-group select:focus {
+      border-color: var(--primary-blue);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    .admin-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-admin-cancel {
+      background: #F1F5F9;
+      border: 1px solid var(--border-medium);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+
+    .btn-admin-save {
+      background: var(--primary-blue);
+      border: none;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+    }
+
+    .btn-admin-save:hover {
+      background: var(--primary-blue-hover);
+    }
+
     /* RESPONSIVE MOBILE ADJUSTMENTS */
     @media (max-width: 820px) {
       main.focus-view, main.home-view, main.reader-view {
@@ -722,8 +820,8 @@
       }
 
       .admin-upload-btn {
-        padding: 4px 8px;
-        font-size: 0.7rem;
+        padding: 4px 10px;
+        font-size: 0.72rem;
       }
 
       .filter-wrapper {
@@ -882,15 +980,15 @@
     </div>
   </div>
 
-  <!-- 1.1 WELCOME STRIP WITH ADMIN UPLOAD TRIGGER -->
+  <!-- 1.1 WELCOME STRIP WITH ADMIN MAN ICON -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
         <span class="welcome-dot"></span>
         <span>Welcome to Mission Sarkari Engineer</span>
       </div>
-      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="alert('Admin Panel: Yahan aap future mein upload feature integrate kar sakte hain!'); return false;">
-        <i class="fa-solid fa-cloud-arrow-up"></i> Admin Panel
+      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="handleAdminLogin(); return false;" title="Admin Upload Panel">
+        <i class="fa-solid fa-user-gear"></i> Admin
       </a>
     </div>
   </div>
@@ -1001,6 +1099,36 @@
     </div>
   </footer>
 
+  <!-- ADMIN UPLOAD MODAL -->
+  <div id="adminModal" class="admin-modal-overlay">
+    <div class="admin-modal-box">
+      <h3><i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary-blue);"></i> Add New Subject Document</h3>
+      <form id="adminUploadForm" onsubmit="saveNewDocument(event)">
+        <div class="admin-form-group">
+          <label>Subject / Document Title</label>
+          <input type="text" id="newDocTitle" placeholder="e.g. Advanced Fluid Mechanics" required />
+        </div>
+        <div class="admin-form-group">
+          <label>Select Stream</label>
+          <select id="newDocStream" required>
+            <option value="Thermal & Fluids">Thermal & Fluids</option>
+            <option value="Design & Mechanics">Design & Mechanics</option>
+            <option value="Production & Materials">Production & Materials</option>
+            <option value="Revision & PYQs">Revision & PYQs</option>
+          </select>
+        </div>
+        <div class="admin-form-group">
+          <label>Google Drive Share Link</label>
+          <input type="text" id="newDocLink" placeholder="https://drive.google.com/file/d/..." required />
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="btn-admin-cancel" onclick="closeAdminModal()">Cancel</button>
+          <button type="submit" class="btn-admin-save">Upload Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     // Firebase Configuration keys
     const firebaseConfig = {
@@ -1060,6 +1188,45 @@
     }
 
     let activeStream = null;
+
+    // Admin Login Logic
+    function handleAdminLogin() {
+      const pwd = prompt("Enter Admin Password");
+      if (pwd === null) return;
+      if (pwd === "admin123" || pwd === "admin") {
+        document.getElementById('adminModal').style.display = 'flex';
+      } else {
+        alert("Incorrect Password!");
+      }
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').style.display = 'none';
+      document.getElementById('adminUploadForm').reset();
+    }
+
+    function saveNewDocument(e) {
+      e.preventDefault();
+      const title = document.getElementById('newDocTitle').value.trim();
+      const stream = document.getElementById('newDocStream').value;
+      const link = document.getElementById('newDocLink').value.trim();
+
+      if (!title || !link) return;
+
+      const newDoc = {
+        id: Date.now().toString(),
+        stream: stream,
+        title: title,
+        link: link
+      };
+
+      docs.unshift(newDoc);
+      localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
+
+      closeAdminModal();
+      alert("New document added successfully!");
+      renderView();
+    }
 
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
