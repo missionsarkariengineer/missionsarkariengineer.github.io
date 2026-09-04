@@ -963,7 +963,7 @@
     firebase.initializeApp(firebaseConfig);
     const dbRef = firebase.database().ref('portal_visits');
 
-    // Realtime Global Cloud Counter Logic (Har visit/refresh par count badhega)
+    // Realtime Global Cloud Counter Logic
     function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       
@@ -1053,7 +1053,7 @@
       if (!url) return "";
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       if (match && match[1]) {
-        return `https://drive.google.com/file/d/${match[1]}/view?usp=sharing`;
+        return `https://drive.google.com/file/d/${match[1]}/preview`;
       }
       return url;
     }
