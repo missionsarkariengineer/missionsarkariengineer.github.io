@@ -124,17 +124,18 @@
 
     /* WELCOME STRIP */
     .welcome-bar {
-      background: var(--brand-navy-950);
-      border-bottom: 1px solid rgba(37, 99, 235, 0.18);
-      padding: 9px 0;
+      background: linear-gradient(90deg, var(--brand-navy-950) 0%, #0F172A 50%, var(--brand-navy-950) 100%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+      padding: 10px 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .welcome-bar-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
     }
 
@@ -156,6 +157,29 @@
       background: var(--accent-cyan);
       box-shadow: 0 0 10px var(--accent-cyan);
       display: inline-block;
+    }
+
+    .admin-upload-btn {
+      background: rgba(37, 99, 235, 0.2);
+      color: #BAE6FD;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .admin-upload-btn:hover {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+      transform: translateY(-1px);
     }
 
     @keyframes slowBlink {
@@ -688,6 +712,20 @@
         font-size: 1.2rem;
       }
 
+      .welcome-bar-inner {
+        padding: 0 14px;
+        gap: 8px;
+      }
+
+      .welcome-text {
+        font-size: 0.76rem;
+      }
+
+      .admin-upload-btn {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+      }
+
       .filter-wrapper {
         padding: 16px 14px;
         border-radius: 16px;
@@ -793,7 +831,6 @@
         font-size: 0.9rem;
       }
 
-      /* Mobile Quote Fixes */
       .bottom-quote-section {
         padding: 14px 14px;
         gap: 8px;
@@ -845,13 +882,16 @@
     </div>
   </div>
 
-  <!-- 1.1 WELCOME STRIP -->
+  <!-- 1.1 WELCOME STRIP WITH ADMIN UPLOAD TRIGGER -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
         <span class="welcome-dot"></span>
         <span>Welcome to Mission Sarkari Engineer</span>
       </div>
+      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="alert('Admin Panel: Yahan aap future mein upload feature integrate kar sakte hain!'); return false;">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Admin Panel
+      </a>
     </div>
   </div>
 
