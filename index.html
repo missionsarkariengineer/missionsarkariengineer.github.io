@@ -11,20 +11,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    /* MASTER COLOR GRADING SYSTEM */
     :root {
-      --header-bg: radial-gradient(circle at 50% 0%, #172554 0%, #0B1120 75%, #030712 100%);
-      --accent: #2563EB;
-      --accent-hover: #1D4ED8;
-      --bg: #F8FAFC;
+      --header-bg: linear-gradient(145deg, #070D18 0%, #0D1627 50%, #0A1120 100%);
+      --accent-core: #2563EB;
+      --accent-vibrant: #3B82F6;
+      --accent-glow: #38BDF8;
+      --bg-base: #F8FAFD;
       --surface: #FFFFFF;
-      --border: #E2E8F0;
-      --border-subtle: rgba(226, 232, 240, 0.9);
-      --text: #0F172A;
+      --border-subtle: #E2E8F0;
+      --border-focus: #93C5FD;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
       --text-muted: #64748B;
       --danger: #EF4444;
-      --glass-bg: rgba(255, 255, 255, 0.85);
-      --card-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 10px -2px rgba(15, 23, 42, 0.02);
-      --card-hover: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
+      --glass-panel: rgba(255, 255, 255, 0.9);
+      --card-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
+      --card-hover-shadow: 0 16px 36px -6px rgba(37, 99, 235, 0.16);
     }
 
     * {
@@ -35,11 +38,11 @@
     }
 
     body {
-      background-color: var(--bg);
+      background-color: var(--bg-base);
       background-image: 
-        radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.04) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.04) 0px, transparent 50%);
-      color: var(--text);
+        radial-gradient(at 15% 15%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+        radial-gradient(at 85% 85%, rgba(14, 165, 233, 0.04) 0px, transparent 50%);
+      color: var(--text-primary);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -50,9 +53,9 @@
     /* 1. TOP HEADER */
     .top-broad-header {
       background: var(--header-bg);
-      padding: 24px 36px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.4);
+      padding: 22px 36px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.45);
       position: relative;
     }
 
@@ -63,7 +66,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #3B82F6 20%, #60A5FA 50%, #3B82F6 80%, transparent);
+      background: linear-gradient(90deg, transparent, #2563EB 20%, #38BDF8 50%, #2563EB 80%, transparent);
     }
 
     .header-inner {
@@ -102,7 +105,7 @@
       font-weight: 800;
       letter-spacing: 0.03em;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #FFFFFF 40%, #93C5FD 100%);
+      background: linear-gradient(135deg, #FFFFFF 40%, #BAE6FD 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       white-space: nowrap;
@@ -123,8 +126,8 @@
       border-radius: 10px;
       cursor: pointer;
       border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.05);
-      color: #E2E8F0;
+      background: rgba(255, 255, 255, 0.06);
+      color: #F1F5F9;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -134,9 +137,9 @@
     }
 
     .btn-header-admin:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.16);
       color: #FFFFFF;
-      border-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.35);
       transform: translateY(-1px);
     }
 
@@ -146,7 +149,7 @@
       padding: 9px 18px;
       border-radius: 10px;
       cursor: pointer;
-      border: 1px solid rgba(96, 165, 250, 0.4);
+      border: 1px solid rgba(147, 197, 253, 0.4);
       background: linear-gradient(135deg, #2563EB, #1D4ED8);
       color: #FFFFFF;
       display: inline-flex;
@@ -165,8 +168,8 @@
 
     /* LEFT-ALIGNED WELCOME STRIP */
     .welcome-bar {
-      background: #060B18;
-      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+      background: #050B14;
+      border-bottom: 1px solid rgba(37, 99, 235, 0.2);
       padding: 10px 0;
     }
 
@@ -183,7 +186,7 @@
       font-size: 0.86rem;
       font-weight: 700;
       letter-spacing: 0.04em;
-      color: #38BDF8;
+      color: var(--accent-glow);
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -194,8 +197,8 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #38BDF8;
-      box-shadow: 0 0 10px #38BDF8;
+      background: var(--accent-glow);
+      box-shadow: 0 0 10px var(--accent-glow);
       display: inline-block;
     }
 
@@ -214,8 +217,8 @@
     }
 
     .filter-wrapper {
-      background: var(--glass-bg);
-      backdrop-filter: blur(12px);
+      background: var(--glass-panel);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       padding: 26px;
@@ -237,14 +240,14 @@
       font-weight: 500;
       outline: none;
       background: #FFFFFF;
-      color: #0F172A;
+      color: var(--text-primary);
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
       transition: all 0.25s ease;
     }
 
     .search-box input:focus {
-      border-color: #3B82F6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+      border-color: var(--accent-vibrant);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
     }
 
     .search-box i {
@@ -252,7 +255,7 @@
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      color: #3B82F6;
+      color: var(--accent-vibrant);
       font-size: 1.15rem;
     }
 
@@ -269,15 +272,15 @@
       border-radius: 10px;
       border: 1px solid #E2E8F0;
       background: #FFFFFF;
-      color: #475569;
+      color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .btn-filter:hover {
-      border-color: #93C5FD;
-      color: #2563EB;
-      background: #F0F7FF;
+      border-color: var(--border-focus);
+      color: var(--accent-core);
+      background: #EFF6FF;
       transform: translateY(-1px);
     }
 
@@ -288,7 +291,7 @@
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER */
+    /* 3. SHOWCASE SLIDER */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
@@ -330,7 +333,7 @@
 
     .train-card-photo:hover {
       transform: translateY(-4px);
-      box-shadow: var(--card-hover);
+      box-shadow: var(--card-hover-shadow);
     }
 
     .train-card-photo img {
@@ -343,7 +346,7 @@
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(3, 7, 18, 0.92) 0%, rgba(3, 7, 18, 0.3) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(7, 13, 24, 0.95) 0%, rgba(7, 13, 24, 0.3) 60%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -358,7 +361,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. PRECISE TREE FLOWCHART (CLEAN LINES) */
+    /* 4. BALANCED FLOWCHART SYSTEM */
     .results-area {
       display: none;
       animation: fadeIn 0.35s ease;
@@ -380,14 +383,14 @@
     .results-header-title {
       font-size: 1.1rem;
       font-weight: 800;
-      color: var(--text);
+      color: var(--text-primary);
       letter-spacing: -0.01em;
     }
 
     .btn-clear {
       background: none;
       border: none;
-      color: var(--accent);
+      color: var(--accent-core);
       cursor: pointer;
       font-weight: 700;
       font-size: 0.86rem;
@@ -404,7 +407,7 @@
 
     .tree-flow-canvas {
       background: #FFFFFF;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       border-radius: 24px;
       padding: 40px 20px 48px;
       box-shadow: var(--card-shadow);
@@ -415,14 +418,14 @@
     }
 
     .tree-root-head {
-      background: #0F172A;
+      background: linear-gradient(135deg, #0F172A, #1E293B);
       color: #FFFFFF;
       padding: 13px 32px;
       border-radius: 12px;
       font-size: 0.98rem;
       font-weight: 800;
       letter-spacing: 0.02em;
-      border: 1.5px solid #3B82F6;
+      border: 1.5px solid var(--accent-vibrant);
       box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.3);
       display: inline-flex;
       align-items: center;
@@ -431,7 +434,7 @@
     }
 
     .tree-root-head i {
-      color: #38BDF8;
+      color: var(--accent-glow);
     }
 
     .tree-stem-start {
@@ -440,7 +443,6 @@
       background: #94A3B8;
     }
 
-    /* Spine with Clean Single Branch Links */
     .flow-tree-spine {
       width: 100%;
       max-width: 800px;
@@ -449,7 +451,6 @@
       position: relative;
     }
 
-    /* Central vertical trunk */
     .flow-tree-spine::before {
       content: '';
       position: absolute;
@@ -481,7 +482,6 @@
       position: relative;
     }
 
-    /* Left Side: Line ends directly at the central node */
     .flow-branch-side.left {
       justify-content: flex-end;
       padding-right: 32px;
@@ -498,7 +498,6 @@
       transform: translateY(-50%);
     }
 
-    /* Right Side: Line starts directly from the central node */
     .flow-branch-side.right {
       justify-content: flex-start;
       padding-left: 32px;
@@ -515,7 +514,6 @@
       transform: translateY(-50%);
     }
 
-    /* Central Node Dot */
     .flow-center-node {
       position: absolute;
       left: 50%;
@@ -524,12 +522,11 @@
       height: 11px;
       border-radius: 50%;
       background: #FFFFFF;
-      border: 2.5px solid #2563EB;
+      border: 2.5px solid var(--accent-core);
       transform: translate(-50%, -50%);
       z-index: 3;
     }
 
-    /* Symmetrical Subject Card Box */
     .flow-item-card {
       background: #FFFFFF;
       border: 1.5px solid #E2E8F0;
@@ -541,14 +538,14 @@
       gap: 12px;
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
       transition: all 0.22s ease;
-      width: 310px; /* Precise fixed balanced size */
+      width: 310px;
       box-sizing: border-box;
     }
 
     .flow-item-card:hover {
       transform: translateY(-2px);
-      border-color: #3B82F6;
-      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+      border-color: var(--accent-vibrant);
+      box-shadow: var(--card-hover-shadow);
     }
 
     .flow-item-icon {
@@ -577,7 +574,7 @@
     }
 
     .flow-item-card:hover .flow-item-title {
-      color: #2563EB;
+      color: var(--accent-core);
     }
 
     .btn-node-del {
@@ -605,7 +602,7 @@
       margin-top: 40px;
       padding: 16px 20px;
       background: #FFFFFF;
-      border: 1px solid #E2E8F0;
+      border: 1px solid var(--border-subtle);
       border-radius: 14px;
       text-align: center;
       box-shadow: 0 4px 15px -3px rgba(15, 23, 42, 0.04);
@@ -616,13 +613,13 @@
     }
 
     .bottom-quote-section i {
-      color: #3B82F6;
+      color: var(--accent-vibrant);
       font-size: 0.9rem;
     }
 
     .bottom-quote-section p {
       font-size: 0.85rem;
-      color: #475569;
+      color: var(--text-secondary);
       font-weight: 600;
       letter-spacing: 0.01em;
     }
@@ -657,7 +654,7 @@
     }
 
     .visitor-count {
-      color: #60A5FA;
+      color: var(--accent-glow);
       font-weight: 700;
       letter-spacing: 0.06em;
     }
@@ -666,7 +663,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(11, 17, 32, 0.92);
+      background: rgba(7, 13, 24, 0.94);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       display: flex;
@@ -709,13 +706,13 @@
       overflow: hidden;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: #131B2E;
+      background: #0E1626;
       box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85);
     }
 
     .reader-top-bar {
       padding: 14px 22px;
-      background: #0E1526;
+      background: #09101D;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
@@ -799,7 +796,7 @@
 
     .reader-canvas-body {
       flex: 1;
-      background: #172136;
+      background: #121B2D;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -830,7 +827,7 @@
       height: 50px;
       border-radius: 12px;
       background: #EFF6FF;
-      color: var(--accent);
+      color: var(--accent-core);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -863,7 +860,7 @@
     }
 
     .form-control:focus {
-      border-color: var(--accent);
+      border-color: var(--accent-vibrant);
       background: #FFFFFF;
       box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
@@ -882,7 +879,7 @@
       border-radius: 8px;
       border: 1px solid #CBD5E1;
       background: #FFFFFF;
-      color: #475569;
+      color: var(--text-secondary);
       cursor: pointer;
     }
 
@@ -944,7 +941,6 @@
         font-size: 0.78rem;
       }
 
-      /* Mobile tree adjusts cleanly */
       .tree-flow-canvas {
         padding: 24px 12px 32px;
       }
@@ -1047,7 +1043,7 @@
       </div>
     </div>
 
-    <!-- 3 SSC JE Departments Slider -->
+    <!-- 3 SHOWCASE SLIDER -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -1077,7 +1073,7 @@
       </div>
     </div>
 
-    <!-- 4. CLEAN ORGANIC TREE FLOWCHART VIEW -->
+    <!-- 4. BALANCED TREE FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="cleanStreamTitle" class="results-header-title">Stream</span>
@@ -1085,7 +1081,6 @@
       </div>
 
       <div class="tree-flow-canvas">
-        <!-- Root Head Badge -->
         <div class="tree-root-head">
           <i class="fa-solid fa-diagram-project"></i>
           <span id="flowRootText">Stream</span>
@@ -1093,7 +1088,6 @@
 
         <div class="tree-stem-start"></div>
 
-        <!-- Alternating Branch Tree Spine -->
         <div id="flowTreeSpine" class="flow-tree-spine"></div>
       </div>
     </div>
@@ -1225,48 +1219,48 @@
       } catch(e) {}
     }
 
-    /* Custom Domain Specific Icons */
+    /* Professional Harmonized Color Graded Badges */
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
       if (t.includes('thermo') || t.includes('heat')) {
-        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#EA580C', border: '#FFEDD5' };
+        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#EA580C', border: '#FED7AA' };
       }
       if (t.includes('fluid') || t.includes('hydraulic')) {
-        return { icon: 'fa-water', bg: '#F0FDF4', color: '#16A34A', border: '#DCFCE7' };
+        return { icon: 'fa-water', bg: '#F0FDFA', color: '#0D9488', border: '#CCFBF1' };
       }
       if (t.includes('power plant')) {
-        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#CA8A04', border: '#FEF9C3' };
+        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#CA8A04', border: '#FEF08A' };
       }
       if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) {
-        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#9333EA', border: '#F3E8FF' };
+        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#9333EA', border: '#E9D5FF' };
       }
       if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) {
-        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0284C7', border: '#E0F2FE' };
+        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0284C7', border: '#BAE6FD' };
       }
       if (t.includes('strength of material') || t.includes('som')) {
-        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#E11D48', border: '#FFE4E6' };
+        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#E11D48', border: '#FECDD3' };
       }
       if (t.includes('theory of machine') || t.includes('tom')) {
-        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0891B2', border: '#CFFAFE' };
+        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0891B2', border: '#A5F3FC' };
       }
       if (t.includes('mechanics')) {
-        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#7C3AED', border: '#EDE9FE' };
+        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#7C3AED', border: '#DDD6FE' };
       }
       if (t.includes('design')) {
-        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#E2E8F0' };
+        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#CBD5E1' };
       }
       if (t.includes('production') || t.includes('machining')) {
-        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#D97706', border: '#FEF3C7' };
+        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#D97706', border: '#FDE68A' };
       }
       if (t.includes('material') || t.includes('metallurgy')) {
-        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4F46E5', border: '#E0E7FF' };
+        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4F46E5', border: '#C7D2FE' };
       }
       if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) {
-        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
+        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FACC15' };
       }
 
-      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#2563EB', border: '#DBEAFE' };
+      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#2563EB', border: '#BFDBFE' };
     }
 
     function formatDrivePreview(url) {
