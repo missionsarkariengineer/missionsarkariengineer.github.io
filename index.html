@@ -358,7 +358,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. BALANCED TREE FLOWCHART */
+    /* 4. PRECISE TREE FLOWCHART (CLEAN LINES) */
     .results-area {
       display: none;
       animation: fadeIn 0.35s ease;
@@ -402,7 +402,6 @@
       transform: translateX(-2px);
     }
 
-    /* Tree Flow Canvas */
     .tree-flow-canvas {
       background: #FFFFFF;
       border: 1px solid var(--border);
@@ -436,28 +435,28 @@
     }
 
     .tree-stem-start {
-      width: 2.5px;
+      width: 2px;
       height: 32px;
       background: #94A3B8;
     }
 
-    /* Alternating Branches Tree Spine */
+    /* Spine with Clean Single Branch Links */
     .flow-tree-spine {
       width: 100%;
-      max-width: 820px;
+      max-width: 800px;
       display: flex;
       flex-direction: column;
       position: relative;
     }
 
-    /* Central vertical line through all branches */
+    /* Central vertical trunk */
     .flow-tree-spine::before {
       content: '';
       position: absolute;
       top: 0;
-      bottom: 28px;
+      bottom: 24px;
       left: 50%;
-      width: 2.5px;
+      width: 2px;
       background: #CBD5E1;
       transform: translateX(-50%);
       z-index: 1;
@@ -467,7 +466,7 @@
       display: flex;
       width: 100%;
       position: relative;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
       z-index: 2;
     }
 
@@ -482,55 +481,55 @@
       position: relative;
     }
 
+    /* Left Side: Line ends directly at the central node */
     .flow-branch-side.left {
       justify-content: flex-end;
       padding-right: 32px;
     }
 
-    .flow-branch-side.right {
-      justify-content: flex-start;
-      padding-left: 32px;
-    }
-
-    /* Branch Connector Lines */
-    .flow-branch-side.left::after {
+    .flow-branch-side.left.has-card::after {
       content: '';
       position: absolute;
       right: 0;
       top: 50%;
       width: 32px;
-      height: 2.5px;
+      height: 2px;
       background: #94A3B8;
       transform: translateY(-50%);
     }
 
-    .flow-branch-side.right::after {
+    /* Right Side: Line starts directly from the central node */
+    .flow-branch-side.right {
+      justify-content: flex-start;
+      padding-left: 32px;
+    }
+
+    .flow-branch-side.right.has-card::after {
       content: '';
       position: absolute;
       left: 0;
       top: 50%;
       width: 32px;
-      height: 2.5px;
+      height: 2px;
       background: #94A3B8;
       transform: translateY(-50%);
     }
 
-    /* Central Dot Node */
+    /* Central Node Dot */
     .flow-center-node {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 12px;
-      height: 12px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background: #FFFFFF;
       border: 2.5px solid #2563EB;
       transform: translate(-50%, -50%);
       z-index: 3;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
     }
 
-    /* Flow Card Component */
+    /* Symmetrical Subject Card Box */
     .flow-item-card {
       background: #FFFFFF;
       border: 1.5px solid #E2E8F0;
@@ -542,8 +541,8 @@
       gap: 12px;
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
       transition: all 0.22s ease;
-      width: 100%;
-      max-width: 340px;
+      width: 310px; /* Precise fixed balanced size */
+      box-sizing: border-box;
     }
 
     .flow-item-card:hover {
@@ -569,7 +568,7 @@
     }
 
     .flow-item-title {
-      font-size: 0.91rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: #1E293B;
       line-height: 1.35;
@@ -945,13 +944,13 @@
         font-size: 0.78rem;
       }
 
-      /* Mobile tree adjusts to single-side flow */
+      /* Mobile tree adjusts cleanly */
       .tree-flow-canvas {
         padding: 24px 12px 32px;
       }
 
       .flow-tree-spine::before {
-        left: 20px;
+        left: 18px;
       }
 
       .flow-branch-row {
@@ -961,21 +960,22 @@
 
       .flow-branch-side {
         width: 100%;
-        padding: 0 0 0 38px !important;
+        padding: 0 0 0 34px !important;
         justify-content: flex-start !important;
       }
 
-      .flow-branch-side::after {
-        left: 20px !important;
+      .flow-branch-side.has-card::after {
+        left: 18px !important;
         right: auto !important;
-        width: 18px !important;
+        width: 16px !important;
       }
 
       .flow-center-node {
-        left: 20px;
+        left: 18px;
       }
 
       .flow-item-card {
+        width: 100%;
         max-width: 100%;
       }
 
@@ -1000,6 +1000,7 @@
 </head>
 <body>
 
+  <!-- 1. TOP HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
@@ -1020,6 +1021,7 @@
     </div>
   </div>
 
+  <!-- 1.1 LEFT-ALIGNED WELCOME STRIP -->
   <div class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
@@ -1029,6 +1031,7 @@
     </div>
   </div>
 
+  <!-- 2. MAIN WORKSPACE -->
   <main>
     <div class="filter-wrapper">
       <div class="search-box">
@@ -1044,6 +1047,7 @@
       </div>
     </div>
 
+    <!-- 3 SSC JE Departments Slider -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -1073,6 +1077,7 @@
       </div>
     </div>
 
+    <!-- 4. CLEAN ORGANIC TREE FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="cleanStreamTitle" class="results-header-title">Stream</span>
@@ -1080,6 +1085,7 @@
       </div>
 
       <div class="tree-flow-canvas">
+        <!-- Root Head Badge -->
         <div class="tree-root-head">
           <i class="fa-solid fa-diagram-project"></i>
           <span id="flowRootText">Stream</span>
@@ -1087,10 +1093,12 @@
 
         <div class="tree-stem-start"></div>
 
+        <!-- Alternating Branch Tree Spine -->
         <div id="flowTreeSpine" class="flow-tree-spine"></div>
       </div>
     </div>
 
+    <!-- 5. MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
@@ -1098,6 +1106,7 @@
     </div>
   </main>
 
+  <!-- 6. FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -1109,6 +1118,7 @@
     </div>
   </footer>
 
+  <!-- 7. DIGITAL BOOK / DOCUMENT READER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="reader-top-bar">
@@ -1132,6 +1142,7 @@
     </div>
   </div>
 
+  <!-- Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge"><i class="fa-solid fa-lock"></i></div>
@@ -1147,6 +1158,7 @@
     </div>
   </div>
 
+  <!-- Add Subject Modal -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge"><i class="fa-solid fa-folder-plus"></i></div>
@@ -1213,6 +1225,7 @@
       } catch(e) {}
     }
 
+    /* Custom Domain Specific Icons */
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
@@ -1336,7 +1349,8 @@
             <div class="flow-branch-row">
               <div class="flow-center-node"></div>
               
-              <div class="flow-branch-side left">
+              <!-- Left Side -->
+              <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
                     <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
@@ -1348,7 +1362,8 @@
                 ` : ''}
               </div>
 
-              <div class="flow-branch-side right">
+              <!-- Right Side -->
+              <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
                     <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
