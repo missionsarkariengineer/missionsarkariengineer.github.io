@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
@@ -206,13 +205,12 @@
       box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
     }
 
-    .search-box i {
+    .search-icon-symbol {
       position: absolute;
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--primary-blue);
-      font-size: 1.18rem;
+      font-size: 1.15rem;
     }
 
     .filter-buttons {
@@ -391,11 +389,6 @@
       z-index: 3;
     }
 
-    .tree-root-head i {
-      color: var(--accent-cyan);
-      font-size: 1.15rem;
-    }
-
     .tree-stem-start {
       width: 2.5px;
       height: 40px;
@@ -517,9 +510,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       background: var(--primary-light);
-      color: var(--primary-blue);
       border: 1px solid #DBEAFE;
       flex-shrink: 0;
       transition: transform 0.2s ease;
@@ -607,11 +599,6 @@
       justify-content: center;
       gap: 10px;
       width: 100%;
-    }
-
-    .bottom-quote-section i {
-      color: var(--primary-blue);
-      font-size: 0.9rem;
     }
 
     .bottom-quote-section p {
@@ -807,7 +794,7 @@
     <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
     <div id="homeFilterSection" class="filter-wrapper">
       <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass search-icon-symbol"></i>
+        <span class="search-icon-symbol">🔍</span>
         <input type="text" id="searchInput" placeholder="Search subject (e.g. SOM, Thermodynamics, Production, Fluid Mechanics)..." />
       </div>
 
@@ -853,14 +840,14 @@
     <div id="resultsArea" class="results-area">
       <div class="results-top-nav">
         <button id="clearFilterBtn" class="btn-nav-action">
-          <i class="fa-solid fa-arrow-left"></i> Back to Home
+          ← Back to Home
         </button>
         <span id="cleanStreamTitle" style="font-size: 1.05rem; font-weight: 700; color: var(--text-muted);">Roadmap</span>
       </div>
 
       <div class="tree-flow-canvas">
         <div class="tree-root-head">
-          <i class="fa-solid fa-diagram-project"></i>
+          <span>🗺️</span>
           <span id="flowRootText">Stream</span>
         </div>
 
@@ -874,11 +861,11 @@
     <div id="readerStage" class="reader-stage-section">
       <div class="reader-toolbar">
         <button id="backToFlowBtn" class="btn-nav-action">
-          <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
+          ← Back to Roadmap
         </button>
         
         <div class="reader-doc-heading">
-          <i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i>
+          <span>📖</span>
           <span id="readerDocTitle">Document Viewer</span>
         </div>
       </div>
@@ -890,9 +877,8 @@
 
     <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
-      <i class="fa-solid fa-quote-left"></i>
+      <span>💬</span>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
-      <i class="fa-solid fa-quote-right"></i>
     </div>
   </main>
 
@@ -900,7 +886,7 @@
   <footer id="portalFooter">
     <div class="footer-inner">
       <div class="visitor-box">
-        <i class="fa-solid fa-users"></i>
+        <span>👥</span>
         <span>PORTAL VISITS:</span>
         <span id="visitorCountDisplay" class="visitor-count">001250</span>
       </div>
@@ -937,20 +923,20 @@
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
-      if (t.includes('thermo') || t.includes('heat')) return 'fa-fire-flame-curved';
-      if (t.includes('fluid') || t.includes('hydraulic')) return 'fa-water';
-      if (t.includes('power plant')) return 'fa-industry';
-      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) return 'fa-gear';
-      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) return 'fa-snowflake';
-      if (t.includes('strength of material') || t.includes('som')) return 'fa-dumbbell';
-      if (t.includes('theory of machine') || t.includes('tom')) return 'fa-gears';
-      if (t.includes('mechanics')) return 'fa-compass-drafting';
-      if (t.includes('design')) return 'fa-pen-ruler';
-      if (t.includes('production') || t.includes('machining')) return 'fa-hammer';
-      if (t.includes('material') || t.includes('metallurgy')) return 'fa-atom';
-      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) return 'fa-bolt-lightning';
+      if (t.includes('thermo') || t.includes('heat')) return '🔥';
+      if (t.includes('fluid') || t.includes('hydraulic')) return '💧';
+      if (t.includes('power plant')) return '⚡';
+      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) return '⚙️';
+      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) return '❄️';
+      if (t.includes('strength of material') || t.includes('som')) return '🦾';
+      if (t.includes('theory of machine') || t.includes('tom')) return '🛠️';
+      if (t.includes('mechanics')) return '📐';
+      if (t.includes('design')) return '✏️';
+      if (t.includes('production') || t.includes('machining')) return '🔨';
+      if (t.includes('material') || t.includes('metallurgy')) return '⚛️';
+      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) return '📚';
 
-      return 'fa-microchip';
+      return '📖';
     }
 
     function formatDrivePreview(url) {
@@ -1026,7 +1012,7 @@
 
         let html = '';
         filtered.forEach((doc, idx) => {
-          const iconClass = getSubjectVisual(doc.title);
+          const emojiIcon = getSubjectVisual(doc.title);
           const isLeft = idx % 2 === 0;
 
           html += `
@@ -1037,9 +1023,7 @@
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon">
-                      <i class="fa-solid ${iconClass}"></i>
-                    </div>
+                    <div class="flow-item-icon">${emojiIcon}</div>
                     <span class="flow-item-title">${doc.title}</span>
                   </div>
                 ` : ''}
@@ -1049,9 +1033,7 @@
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon">
-                      <i class="fa-solid ${iconClass}"></i>
-                    </div>
+                    <div class="flow-item-icon">${emojiIcon}</div>
                     <span class="flow-item-title">${doc.title}</span>
                   </div>
                 ` : ''}
