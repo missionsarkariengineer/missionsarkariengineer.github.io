@@ -163,25 +163,31 @@
       transform: translateY(-1px);
     }
 
-    /* STATIC WELCOME BAR WITH SLOW BLINK */
+    /* 1.1 LEFT-ALIGNED WELCOME BAR */
     .welcome-bar {
       background: #060B18;
       border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-      padding: 10px 16px;
+      padding: 10px 0;
+    }
+
+    .welcome-bar-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
     }
 
     .welcome-text {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       color: #38BDF8;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      animation: slowBlink 3.8s ease-in-out infinite;
+      animation: slowBlink 4s ease-in-out infinite;
     }
 
     .welcome-dot {
@@ -195,7 +201,7 @@
 
     @keyframes slowBlink {
       0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6)); }
-      50% { opacity: 0.25; filter: drop-shadow(0 0 0px transparent); }
+      50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
     }
 
     /* 2. MAIN WORKSPACE */
@@ -493,7 +499,7 @@
       color: #FFFFFF;
     }
 
-    /* BOTTOM MOTIVATIONAL QUOTE CARD */
+    /* 5. BOTTOM MOTIVATIONAL QUOTE */
     .bottom-quote-section {
       margin-top: 40px;
       padding: 16px 20px;
@@ -520,7 +526,7 @@
       letter-spacing: 0.01em;
     }
 
-    /* 5. FOOTER */
+    /* 6. FOOTER */
     footer {
       background: var(--header-bg);
       color: #94A3B8;
@@ -555,18 +561,18 @@
       letter-spacing: 0.06em;
     }
 
-    /* 6. DOCUMENT VIEWER MODAL */
+    /* 7. MODERN E-BOOK READER MODAL (HIGH AESTHETIC) */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(3, 7, 18, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(11, 17, 32, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 1000;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -592,53 +598,70 @@
       transform: scale(1) translateY(0);
     }
 
+    /* Aesthetic Book Frame */
     .modal-card.viewer {
-      max-width: 1150px;
-      width: 96%;
+      max-width: 1200px;
+      width: 98%;
       height: 94vh;
       display: flex;
       flex-direction: column;
       padding: 0;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: #0B1120;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #131B2E;
+      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85);
     }
 
-    .modal-header.book-bar {
-      padding: 14px 22px;
+    /* Top E-Reader Bar */
+    .reader-top-bar {
+      padding: 14px 24px;
+      background: #0E1526;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #0B1120;
       color: #FFFFFF;
     }
 
-    .book-title-tag {
+    .reader-info {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 0.95rem;
+    }
+
+    .reader-pill {
+      font-size: 0.72rem;
       font-weight: 700;
-      color: #F8FAFC;
-    }
-
-    .book-title-tag i {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.18);
       color: #60A5FA;
-      font-size: 1.1rem;
-    }
-
-    .book-actions {
+      border: 1px solid rgba(59, 130, 246, 0.3);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
 
-    .btn-book-action {
-      background: rgba(255, 255, 255, 0.08);
+    .reader-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      letter-spacing: 0.01em;
+    }
+
+    .reader-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-reader-action {
+      background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #FFFFFF;
+      color: #E2E8F0;
       padding: 7px 14px;
       font-size: 0.8rem;
       font-weight: 600;
@@ -651,12 +674,13 @@
       transition: all 0.2s ease;
     }
 
-    .btn-book-action:hover {
+    .btn-reader-action:hover {
       background: #FFFFFF;
       color: #0F172A;
+      transform: translateY(-1px);
     }
 
-    .btn-book-close {
+    .btn-reader-close {
       background: rgba(239, 68, 68, 0.15);
       border: 1px solid rgba(239, 68, 68, 0.3);
       color: #FCA5A5;
@@ -666,16 +690,48 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .btn-book-close:hover {
+    .btn-reader-close:hover {
       background: #EF4444;
       color: #FFFFFF;
+      transform: scale(1.05);
     }
 
+    /* Book Page Canvas Body */
+    .reader-canvas-body {
+      flex: 1;
+      background: #172136;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 14px 18px;
+      position: relative;
+    }
+
+    .book-page-wrap {
+      width: 100%;
+      height: 100%;
+      max-width: 980px;
+      background: #FFFFFF;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book-page-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #FFFFFF;
+    }
+
+    /* Admin Modal */
     .modal-icon-badge {
       width: 52px;
       height: 52px;
@@ -818,8 +874,19 @@
 
       .modal-card.viewer {
         width: 100%;
-        height: 96vh;
-        border-radius: 12px;
+        height: 98vh;
+        border-radius: 14px;
+      }
+
+      .reader-canvas-body {
+        padding: 6px;
+      }
+
+      .reader-title {
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   </style>
@@ -849,11 +916,13 @@
     </div>
   </div>
 
-  <!-- STATIC WELCOME STRIP WITH SLOW BLINK -->
+  <!-- 1.1 LEFT-ALIGNED WELCOME STRIP -->
   <div class="welcome-bar">
-    <div class="welcome-text">
-      <span class="welcome-dot"></span>
-      <span>Welcome to Mission Sarkari Engineer</span>
+    <div class="welcome-bar-inner">
+      <div class="welcome-text">
+        <span class="welcome-dot"></span>
+        <span>Welcome to Mission Sarkari Engineer</span>
+      </div>
     </div>
   </div>
 
@@ -913,7 +982,7 @@
       <div id="subjectListCard" class="subject-list-card"></div>
     </div>
 
-    <!-- MOTIVATIONAL QUOTE AT THE BOTTOM -->
+    <!-- 4. MOTIVATIONAL QUOTE AT BOTTOM -->
     <div class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
@@ -921,7 +990,7 @@
     </div>
   </main>
 
-  <!-- 3. FOOTER -->
+  <!-- 5. FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -933,22 +1002,29 @@
     </div>
   </footer>
 
-  <!-- 4. DIRECT EMBEDDED DOCUMENT VIEWER MODAL -->
+  <!-- 6. HIGH-AESTHETIC DIGITAL BOOK / DOCUMENT READER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
-      <div class="modal-header book-bar">
-        <div class="book-title-tag">
-          <i class="fa-solid fa-file-lines"></i>
-          <span id="viewerTitle">Document View</span>
+      <!-- Reading Toolbar -->
+      <div class="reader-top-bar">
+        <div class="reader-info">
+          <span class="reader-pill"><i class="fa-solid fa-book-open"></i> E-Reader</span>
+          <span id="viewerTitle" class="reader-title">Subject Notes</span>
         </div>
-        <div class="book-actions">
-          <a id="externalDriveBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-book-action" title="Open Full Window">
+        <div class="reader-actions">
+          <a id="externalDriveBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-reader-action" title="Open Full Window">
             <i class="fa-solid fa-expand"></i> Full Screen
           </a>
-          <button id="closeViewer" class="btn-book-close" title="Close Document">&times;</button>
+          <button id="closeViewer" class="btn-reader-close" title="Close Reader">&times;</button>
         </div>
       </div>
-      <iframe id="viewerFrame" style="flex:1; width:100%; border:none; background:#0F172A;" src="" allow="autoplay"></iframe>
+
+      <!-- Natural Reading Canvas Viewport -->
+      <div class="reader-canvas-body">
+        <div class="book-page-wrap">
+          <iframe id="viewerFrame" src="" allow="autoplay"></iframe>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -968,7 +1044,7 @@
     </div>
   </div>
 
-  <!-- Add Subject / Upload Modal -->
+  <!-- Add Subject Modal -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge"><i class="fa-solid fa-folder-plus"></i></div>
@@ -986,12 +1062,12 @@
       </div>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Name / Document Title</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Name</label>
         <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" style="margin-top: 6px;" required />
       </div>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Document Link (Drive Share Link)</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Document Link (Google Drive)</label>
         <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." style="margin-top: 6px;" required />
       </div>
 
@@ -1027,13 +1103,13 @@
       localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
     }
 
-    /* Convert standard drive links to direct embedded clean doc preview */
+    /* Convert standard drive links to embedded preview */
     function formatDrivePreview(url) {
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    /* Stable Visitor Counter Logic - Never Resets Backward */
+    /* Permanent Non-Reset Visitor Counter */
     async function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       const STORAGE_KEY = 'mse_permanent_visit_count_v2';
@@ -1044,16 +1120,13 @@
         if (response.ok) {
           const data = await response.json();
           if (data && typeof data.count === 'number') {
-            // Keep the maximum value so it never falls backward
             const finalVal = Math.max(data.count, storedCount + 1);
             localStorage.setItem(STORAGE_KEY, finalVal.toString());
             display.textContent = finalVal.toString().padStart(6, '0');
             return;
           }
         }
-      } catch (e) {
-        // Fallback gracefully without breaking
-      }
+      } catch (e) {}
 
       storedCount += 1;
       localStorage.setItem(STORAGE_KEY, storedCount.toString());
@@ -1163,7 +1236,7 @@
       renderView();
     });
 
-    /* Direct embedded document open */
+    /* Open Aesthetic E-Reader Book View */
     window.openDoc = function(title, link) {
       viewerTitle.textContent = title;
       viewerFrame.src = formatDrivePreview(link);
@@ -1176,7 +1249,7 @@
       viewerFrame.src = "";
     });
 
-    // Passkey authentication: Shiv@1212
+    // Passkey: Shiv@1212
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
@@ -1201,7 +1274,6 @@
       }
     });
 
-    /* Open Add Subject Modal */
     addBtn.addEventListener('click', () => {
       if (activeStream) {
         document.getElementById('docFolder').value = activeStream;
@@ -1211,7 +1283,6 @@
 
     document.getElementById('cancelUpload').addEventListener('click', () => addModal.classList.remove('active'));
 
-    /* Save New Subject */
     document.getElementById('saveDoc').addEventListener('click', () => {
       const stream = document.getElementById('docFolder').value;
       const title = document.getElementById('docTitle').value.trim();
@@ -1230,7 +1301,6 @@
       renderView();
     });
 
-    /* Delete Subject */
     window.deleteDoc = function(event, id) {
       event.stopPropagation();
       if (confirm("Do you want to delete this subject?")) {
