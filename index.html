@@ -344,6 +344,8 @@
       align-items: center;
       margin-bottom: 22px;
       padding: 0 8px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .btn-nav-action {
@@ -547,7 +549,7 @@
       color: var(--primary-blue);
     }
 
-    /* 5. SAME-PAGE DOCUMENT READER SECTION (NO EMAIL / NO SIGN-IN) */
+    /* 5. SAME-PAGE DOCUMENT READER SECTION */
     .reader-stage-section {
       display: none;
       width: 100%;
@@ -704,6 +706,12 @@
       .train-card-photo {
         width: 230px;
         height: 145px;
+      }
+
+      .results-top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
       }
 
       .tree-flow-canvas {
@@ -883,7 +891,7 @@
       </div>
     </div>
 
-    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER (NO EMAIL REQUIRED) -->
+    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER -->
     <div id="readerStage" class="reader-stage-section">
       <div class="reader-toolbar">
         <button id="backToFlowBtn" class="btn-nav-action">
@@ -989,10 +997,9 @@
       return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
     }
 
-    /* Embedded preview mode (No email / No login prompted) */
     function formatDrivePreview(url) {
       if (!url) return "";
-      const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      const match = url.match(/id=([a-zA-Z0-9_-]+/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
@@ -1028,12 +1035,10 @@
     function renderView() {
       const query = (searchInput?.value || '').toLowerCase().trim();
 
-      // Ensure reader stage is reset when browsing
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
 
       if (query !== '' || activeStream !== null) {
-        // FOCUS FLOWCHART VIEW
         mainWorkspace.className = 'focus-view';
 
         homeFilterSection.style.display = 'none';
@@ -1103,7 +1108,6 @@
         });
         if (flowTreeSpine) flowTreeSpine.innerHTML = html;
       } else {
-        // STANDARD HOME SCREEN VIEW
         mainWorkspace.className = 'home-view';
 
         homeFilterSection.style.display = 'block';
@@ -1116,7 +1120,6 @@
       }
     }
 
-    /* SAME PAGE IN-APP DOCUMENT OPENER (NO EMAIL / NO SIGN-IN) */
     window.openDocOnSamePage = function(title, link) {
       resultsArea.style.display = 'none';
       mainWorkspace.className = 'reader-view';
@@ -1128,7 +1131,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    /* BACK FROM DOCUMENT TO FLOWCHART */
     backToFlowBtn.addEventListener('click', () => {
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
@@ -1137,7 +1139,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    /* BACK FROM FLOWCHART TO HOME */
     clearFilterBtn.addEventListener('click', () => {
       activeStream = null;
       if (searchInput) searchInput.value = '';
