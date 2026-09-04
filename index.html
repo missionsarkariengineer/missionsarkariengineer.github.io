@@ -1016,19 +1016,26 @@
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
+    // Resilient global counter with local storage failover
     async function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
+      let currentCount = 1250;
       try {
-        const response = await fetch('https://api.counterapi.dev/v1/mission-sarkari-engineer/visits/up');
-        const data = await response.json();
-        if (data && data.count) {
-          display.textContent = data.count.toString().padStart(6, '0');
+        const response = await fetch('https://api.counterapi.dev/v1/mission-sarkari-engineer/visits/up', { method: 'GET' });
+        if (response.ok) {
+          const data = await response.json();
+          if (data && typeof data.count === 'number') {
+            currentCount = data.count;
+          }
         }
-      } catch (e) {
-        const FALLBACK_KEY = 'mse_permanent_visit_count_v2';
-        let storedCount = parseInt(localStorage.getItem(FALLBACK_KEY) || '1250', 10) + 1;
-        localStorage.setItem(FALLBACK_KEY, storedCount.toString());
-        if (display) display.textContent = storedCount.toString().padStart(6, '0');
+      } catch (err) {
+        // Fallback to localStorage sync if network request blocked or fails
+        const FALLBACK_KEY = 'mse_permanent_visit_count_v3';
+        currentCount = parseInt(localStorage.getItem(FALLBACK_KEY) || '1250', 10) + 1;
+        localStorage.setItem(FALLBACK_KEY, currentCount.toString());
+      }
+      if (display) {
+        display.textContent = currentCount.toString().padStart(6, '0');
       }
     }
 
