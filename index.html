@@ -963,23 +963,21 @@
     firebase.initializeApp(firebaseConfig);
     const dbRef = firebase.database().ref('portal_visits');
 
-    // Realtime Global Cloud Counter Logic (Reset to 0)
+    // Realtime Global Cloud Counter Logic (Increments on every refresh/visit)
     function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       
-      dbRef.set(0).then(() => {
-        dbRef.transaction(currentVisits => {
-          return (currentVisits || 0) + 1;
-        }, (error, committed, snapshot) => {
-          if (!error && committed) {
-            const count = snapshot.val();
-            if (display) {
-              display.textContent = count.toString().padStart(6, '0');
-            }
-          } else {
-            if (display) display.textContent = "000001";
+      dbRef.transaction(currentVisits => {
+        return (currentVisits || 0) + 1;
+      }, (error, committed, snapshot) => {
+        if (!error && committed) {
+          const count = snapshot.val();
+          if (display) {
+            display.textContent = count.toString().padStart(6, '0');
           }
-        });
+        } else {
+          if (display) display.textContent = "000001";
+        }
       });
     }
 
