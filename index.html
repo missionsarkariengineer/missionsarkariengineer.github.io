@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mission Sarkari Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -158,7 +158,7 @@
       50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
     }
 
-    /* 2. FULL-SCREEN FLUID WORKSPACE */
+    /* 2. WORKSPACE */
     main {
       flex: 1;
       width: 100%;
@@ -513,6 +513,9 @@
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
+      background: var(--primary-light);
+      color: var(--primary-blue);
+      border: 1px solid #DBEAFE;
       flex-shrink: 0;
       transition: transform 0.2s ease;
     }
@@ -929,43 +932,43 @@
       const t = title.toLowerCase();
 
       if (t.includes('thermo') || t.includes('heat')) {
-        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
+        return 'fa-fire-flame-curved';
       }
       if (t.includes('fluid') || t.includes('hydraulic')) {
-        return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
+        return 'fa-water';
       }
       if (t.includes('power plant')) {
-        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#A16207', border: '#FEF08A' };
+        return 'fa-industry';
       }
       if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) {
-        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#7E22CE', border: '#F3E8FF' };
+        return 'fa-gear';
       }
       if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) {
-        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0369A1', border: '#E0F2FE' };
+        return 'fa-snowflake';
       }
       if (t.includes('strength of material') || t.includes('som')) {
-        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#BE123C', border: '#FFE4E6' };
+        return 'fa-dumbbell';
       }
       if (t.includes('theory of machine') || t.includes('tom')) {
-        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0E7490', border: '#CFFAFE' };
+        return 'fa-gears';
       }
       if (t.includes('mechanics')) {
-        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#6D28D9', border: '#EDE9FE' };
+        return 'fa-compass-drafting';
       }
       if (t.includes('design')) {
-        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#E2E8F0' };
+        return 'fa-pen-ruler';
       }
       if (t.includes('production') || t.includes('machining')) {
-        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#B45309', border: '#FEF3C7' };
+        return 'fa-hammer';
       }
       if (t.includes('material') || t.includes('metallurgy')) {
-        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4338CA', border: '#C7D2FE' };
+        return 'fa-atom';
       }
       if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) {
-        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
+        return 'fa-bolt-lightning';
       }
 
-      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
+      return 'fa-microchip';
     }
 
     function formatDrivePreview(url) {
@@ -1041,7 +1044,7 @@
 
         let html = '';
         filtered.forEach((doc, idx) => {
-          const visual = getSubjectVisual(doc.title);
+          const iconClass = getSubjectVisual(doc.title);
           const isLeft = idx % 2 === 0;
 
           html += `
@@ -1052,8 +1055,8 @@
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
-                      <i class="fa-solid ${visual.icon}"></i>
+                    <div class="flow-item-icon">
+                      <i class="fa-solid ${iconClass}"></i>
                     </div>
                     <span class="flow-item-title">${doc.title}</span>
                   </div>
@@ -1064,8 +1067,8 @@
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
-                      <i class="fa-solid ${visual.icon}"></i>
+                    <div class="flow-item-icon">
+                      <i class="fa-solid ${iconClass}"></i>
                     </div>
                     <span class="flow-item-title">${doc.title}</span>
                   </div>
