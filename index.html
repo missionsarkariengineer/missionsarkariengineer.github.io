@@ -1103,10 +1103,9 @@
   <!-- ADMIN LOGIN PASSWORD MODAL -->
   <div id="loginModal" class="admin-modal-overlay">
     <div class="admin-modal-box" style="max-width: 380px;">
-      <h3><i class="fa-solid fa-lock" style="color: var(--primary-blue);"></i> Admin Authentication</h3>
+      <h3><i class="fa-solid fa-lock" style="color: var(--primary-blue);"></i> Admin</h3>
       <form id="loginForm" onsubmit="verifyAdminPassword(event)">
-        <div class="admin-form-group">
-          <label>Enter Admin Password</label>
+        <div class="admin-form-group" style="margin-bottom: 0;">
           <input type="password" id="adminPasswordInput" placeholder="Enter password..." required autofocus />
         </div>
         <div class="admin-modal-actions">
@@ -1207,7 +1206,7 @@
 
     let activeStream = null;
 
-    // Custom Professional Login Modal Logic
+    // Custom Professional Login Modal Logic with updated password "Shiv@1212"
     function handleAdminLogin() {
       document.getElementById('loginModal').style.display = 'flex';
       document.getElementById('adminPasswordInput').value = '';
@@ -1221,7 +1220,7 @@
       e.preventDefault();
       const pwd = document.getElementById('adminPasswordInput').value;
       
-      if (pwd === "admin123" || pwd === "admin") {
+      if (pwd === "Shiv@1212") {
         closeLoginModal();
         document.getElementById('adminModal').style.display = 'flex';
       } else {
