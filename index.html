@@ -32,9 +32,9 @@
       --text-muted: #475569;
       --text-subtle: #64748B;
 
-      --shadow-ambient: 0 4px 18px -2px rgba(15, 23, 42, 0.05);
+      --shadow-ambient: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
       --shadow-card: 0 10px 30px -4px rgba(15, 23, 42, 0.06);
-      --shadow-card-hover: 0 16px 32px -4px rgba(37, 99, 235, 0.16);
+      --shadow-card-hover: 0 16px 36px -6px rgba(37, 99, 235, 0.16);
     }
 
     *, *:before, *:after {
@@ -61,7 +61,7 @@
     /* 1. TOP HEADER */
     .top-broad-header {
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 55%, var(--brand-navy-800) 100%);
-      padding: 16px 5%;
+      padding: 18px 36px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 12px 28px -8px rgba(6, 11, 20, 0.45);
       position: relative;
@@ -79,7 +79,8 @@
     }
 
     .header-inner {
-      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -122,12 +123,14 @@
     .welcome-bar {
       background: var(--brand-navy-950);
       border-bottom: 1px solid rgba(37, 99, 235, 0.18);
-      padding: 9px 5%;
+      padding: 10px 0;
       width: 100%;
     }
 
     .welcome-bar-inner {
-      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -158,11 +161,13 @@
       50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
     }
 
-    /* 2. WORKSPACE */
+    /* 2. OPTIMUM WORKSPACE */
     main {
       flex: 1;
       width: 100%;
-      padding: 28px 5% 48px;
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 30px 24px 50px;
       transition: all 0.25s ease;
     }
 
@@ -173,7 +178,7 @@
       border-radius: 20px;
       padding: 26px 32px;
       box-shadow: var(--shadow-card);
-      margin-bottom: 24px;
+      margin-bottom: 26px;
       width: 100%;
     }
 
@@ -312,7 +317,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. FULL-WIDTH FLOWCHART SYSTEM */
+    /* 4. BALANCED FLOWCHART SYSTEM */
     .results-area {
       display: none;
       width: 100%;
@@ -328,7 +333,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       padding: 0 4px;
       width: 100%;
     }
@@ -360,7 +365,7 @@
       background: #FFFFFF;
       border: 1px solid var(--border-light);
       border-radius: 24px;
-      padding: 48px 32px 64px;
+      padding: 50px 32px 64px;
       box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
@@ -399,7 +404,7 @@
 
     .flow-tree-spine {
       width: 100%;
-      max-width: 1150px;
+      max-width: 1000px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -439,7 +444,7 @@
 
     .flow-branch-side.left {
       justify-content: flex-end;
-      padding-right: 50px;
+      padding-right: 48px;
     }
 
     .flow-branch-side.left.has-card::after {
@@ -447,7 +452,7 @@
       position: absolute;
       right: 0;
       top: 50%;
-      width: 50px;
+      width: 48px;
       height: 2px;
       background: var(--border-dark);
       transform: translateY(-50%);
@@ -455,7 +460,7 @@
 
     .flow-branch-side.right {
       justify-content: flex-start;
-      padding-left: 50px;
+      padding-left: 48px;
     }
 
     .flow-branch-side.right.has-card::after {
@@ -463,7 +468,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      width: 50px;
+      width: 48px;
       height: 2px;
       background: var(--border-dark);
       transform: translateY(-50%);
@@ -494,7 +499,7 @@
       gap: 16px;
       box-shadow: var(--shadow-ambient);
       transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      width: 390px;
+      width: 380px;
       max-width: 100%;
       box-sizing: border-box;
     }
@@ -512,7 +517,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       background: var(--primary-light);
       color: var(--primary-blue);
       border: 1px solid #DBEAFE;
@@ -621,14 +626,15 @@
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
       color: #94A3B8;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 20px 5%;
+      padding: 20px 36px;
       font-size: 0.84rem;
       width: 100%;
       margin-top: auto;
     }
 
     .footer-inner {
-      width: 100%;
+      max-width: 1260px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -775,7 +781,6 @@
 </head>
 <body>
 
-  <!-- 1. TOP HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div class="brand-container">
@@ -785,7 +790,6 @@
     </div>
   </div>
 
-  <!-- 1.1 WELCOME STRIP -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
@@ -795,10 +799,8 @@
     </div>
   </div>
 
-  <!-- 2. MAIN WORKSPACE -->
   <main id="mainWorkspace">
     
-    <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
     <div id="homeFilterSection" class="filter-wrapper">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -813,7 +815,6 @@
       </div>
     </div>
 
-    <!-- LEVEL 1: SHOWCASE SLIDER -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -843,7 +844,6 @@
       </div>
     </div>
 
-    <!-- LEVEL 2: FULL-WIDTH FLOWCHART -->
     <div id="resultsArea" class="results-area">
       <div class="results-top-nav">
         <button id="clearFilterBtn" class="btn-nav-action">
@@ -864,7 +864,6 @@
       </div>
     </div>
 
-    <!-- LEVEL 3: AUTO-FIT VIEWER -->
     <div id="readerStage" class="reader-stage-section">
       <div class="reader-toolbar">
         <button id="backToFlowBtn" class="btn-nav-action">
@@ -882,7 +881,6 @@
       </div>
     </div>
 
-    <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
@@ -890,7 +888,6 @@
     </div>
   </main>
 
-  <!-- FOOTER (HOME ONLY) -->
   <footer id="portalFooter">
     <div class="footer-inner">
       <div class="visitor-box">
@@ -931,42 +928,18 @@
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
-      if (t.includes('thermo') || t.includes('heat')) {
-        return 'fa-fire-flame-curved';
-      }
-      if (t.includes('fluid') || t.includes('hydraulic')) {
-        return 'fa-water';
-      }
-      if (t.includes('power plant')) {
-        return 'fa-industry';
-      }
-      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) {
-        return 'fa-gear';
-      }
-      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) {
-        return 'fa-snowflake';
-      }
-      if (t.includes('strength of material') || t.includes('som')) {
-        return 'fa-dumbbell';
-      }
-      if (t.includes('theory of machine') || t.includes('tom')) {
-        return 'fa-gears';
-      }
-      if (t.includes('mechanics')) {
-        return 'fa-compass-drafting';
-      }
-      if (t.includes('design')) {
-        return 'fa-pen-ruler';
-      }
-      if (t.includes('production') || t.includes('machining')) {
-        return 'fa-hammer';
-      }
-      if (t.includes('material') || t.includes('metallurgy')) {
-        return 'fa-atom';
-      }
-      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) {
-        return 'fa-bolt-lightning';
-      }
+      if (t.includes('thermo') || t.includes('heat')) return 'fa-fire-flame-curved';
+      if (t.includes('fluid') || t.includes('hydraulic')) return 'fa-water';
+      if (t.includes('power plant')) return 'fa-industry';
+      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) return 'fa-gear';
+      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) return 'fa-snowflake';
+      if (t.includes('strength of material') || t.includes('som')) return 'fa-dumbbell';
+      if (t.includes('theory of machine') || t.includes('tom')) return 'fa-gears';
+      if (t.includes('mechanics')) return 'fa-compass-drafting';
+      if (t.includes('design')) return 'fa-pen-ruler';
+      if (t.includes('production') || t.includes('machining')) return 'fa-hammer';
+      if (t.includes('material') || t.includes('metallurgy')) return 'fa-atom';
+      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) return 'fa-bolt-lightning';
 
       return 'fa-microchip';
     }
@@ -1051,7 +1024,6 @@
             <div class="flow-branch-row">
               <div class="flow-center-node"></div>
               
-              <!-- Left Side -->
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
@@ -1063,7 +1035,6 @@
                 ` : ''}
               </div>
 
-              <!-- Right Side -->
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
