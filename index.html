@@ -11,23 +11,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* MASTER COLOR GRADING SYSTEM */
+    /* ============================================================
+       EXECUTIVE COLOR SYSTEM & DESIGN TOKENS
+       ============================================================ */
     :root {
-      --header-bg: linear-gradient(145deg, #070D18 0%, #0D1627 50%, #0A1120 100%);
-      --accent-core: #2563EB;
-      --accent-vibrant: #3B82F6;
-      --accent-glow: #38BDF8;
-      --bg-base: #F8FAFD;
-      --surface: #FFFFFF;
-      --border-subtle: #E2E8F0;
-      --border-focus: #93C5FD;
-      --text-primary: #0F172A;
-      --text-secondary: #475569;
-      --text-muted: #64748B;
-      --danger: #EF4444;
-      --glass-panel: rgba(255, 255, 255, 0.9);
-      --card-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
-      --card-hover-shadow: 0 16px 36px -6px rgba(37, 99, 235, 0.16);
+      --brand-navy-950: #060B14;
+      --brand-navy-900: #0B132B;
+      --brand-navy-800: #1C2541;
+      --brand-navy-700: #2E3A59;
+
+      --primary-blue: #2563EB;
+      --primary-blue-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --accent-cyan: #38BDF8;
+
+      --bg-page: #F8FAFC;
+      --surface-white: #FFFFFF;
+      --surface-elevated: #FFFFFF;
+
+      --border-light: #E2E8F0;
+      --border-medium: #CBD5E1;
+      --border-active: #93C5FD;
+
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-subtle: #64748B;
+
+      --danger-base: #EF4444;
+      --danger-light: #FEF2F2;
+
+      --shadow-ambient: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 10px 28px -4px rgba(15, 23, 42, 0.06), 0 2px 8px -2px rgba(15, 23, 42, 0.04);
+      --shadow-card-hover: 0 18px 36px -6px rgba(37, 99, 235, 0.14), 0 4px 12px -2px rgba(37, 99, 235, 0.06);
     }
 
     * {
@@ -38,11 +53,11 @@
     }
 
     body {
-      background-color: var(--bg-base);
+      background-color: var(--bg-page);
       background-image: 
-        radial-gradient(at 15% 15%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
-        radial-gradient(at 85% 85%, rgba(14, 165, 233, 0.04) 0px, transparent 50%);
-      color: var(--text-primary);
+        radial-gradient(at 10% 10%, rgba(37, 99, 235, 0.04) 0px, transparent 45%),
+        radial-gradient(at 90% 90%, rgba(56, 189, 248, 0.04) 0px, transparent 45%);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -52,10 +67,10 @@
 
     /* 1. TOP HEADER */
     .top-broad-header {
-      background: var(--header-bg);
-      padding: 22px 36px;
+      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 55%, var(--brand-navy-800) 100%);
+      padding: 20px 36px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 14px 32px -8px rgba(6, 11, 20, 0.5);
       position: relative;
     }
 
@@ -66,7 +81,7 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent, #2563EB 20%, #38BDF8 50%, #2563EB 80%, transparent);
+      background: linear-gradient(90deg, transparent, var(--primary-blue) 25%, var(--accent-cyan) 50%, var(--primary-blue) 75%, transparent);
     }
 
     .header-inner {
@@ -91,17 +106,17 @@
       object-fit: cover;
       display: block;
       background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0, 0, 0, 0.35);
-      transition: transform 0.3s ease;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 8px 22px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
     }
 
     .brand-container:hover .portal-logo-img {
-      transform: rotate(15deg) scale(1.05);
+      transform: rotate(12deg) scale(1.05);
     }
 
     .top-broad-header h1 {
-      font-size: 1.75rem;
+      font-size: 1.7rem;
       font-weight: 800;
       letter-spacing: 0.03em;
       text-transform: uppercase;
@@ -125,21 +140,21 @@
       padding: 9px 18px;
       border-radius: 10px;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       background: rgba(255, 255, 255, 0.06);
-      color: #F1F5F9;
+      color: #F8FAFC;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.25s ease;
-      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
       white-space: nowrap;
     }
 
     .btn-header-admin:hover {
       background: rgba(255, 255, 255, 0.16);
       color: #FFFFFF;
-      border-color: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
     }
 
@@ -150,26 +165,26 @@
       border-radius: 10px;
       cursor: pointer;
       border: 1px solid rgba(147, 197, 253, 0.4);
-      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-hover));
       color: #FFFFFF;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
       white-space: nowrap;
     }
 
     .btn-header-upload:hover {
-      background: linear-gradient(135deg, #3B82F6, #2563EB);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+      background: linear-gradient(135deg, #3B82F6, var(--primary-blue));
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
       transform: translateY(-1px);
     }
 
-    /* LEFT-ALIGNED WELCOME STRIP */
+    /* LEFT-ALIGNED MOTIVATIONAL WELCOME STRIP */
     .welcome-bar {
-      background: #050B14;
-      border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+      background: var(--brand-navy-950);
+      border-bottom: 1px solid rgba(37, 99, 235, 0.18);
       padding: 10px 0;
     }
 
@@ -185,8 +200,8 @@
     .welcome-text {
       font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      color: var(--accent-glow);
+      letter-spacing: 0.03em;
+      color: var(--accent-cyan);
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -197,8 +212,8 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: var(--accent-glow);
-      box-shadow: 0 0 10px var(--accent-glow);
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
       display: inline-block;
     }
 
@@ -212,42 +227,41 @@
       flex: 1;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 36px 20px 40px;
+      padding: 34px 20px 40px;
       width: 100%;
     }
 
     .filter-wrapper {
-      background: var(--glass-panel);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border-subtle);
+      background: var(--surface-white);
+      border: 1px solid var(--border-light);
       border-radius: 20px;
-      padding: 26px;
-      box-shadow: var(--card-shadow);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
       margin-bottom: 28px;
     }
 
     .search-box {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .search-box input {
       width: 100%;
-      padding: 16px 22px 16px 54px;
-      border: 1.5px solid #CBD5E1;
+      padding: 15px 22px 15px 54px;
+      border: 1.5px solid var(--border-medium);
       border-radius: 12px;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 500;
       outline: none;
       background: #FFFFFF;
-      color: var(--text-primary);
+      color: var(--text-main);
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
 
     .search-box input:focus {
-      border-color: var(--accent-vibrant);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
     }
 
     .search-box i {
@@ -255,7 +269,7 @@
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--accent-vibrant);
+      color: var(--primary-blue);
       font-size: 1.15rem;
     }
 
@@ -270,25 +284,25 @@
       font-size: 0.85rem;
       font-weight: 600;
       border-radius: 10px;
-      border: 1px solid #E2E8F0;
+      border: 1px solid var(--border-light);
       background: #FFFFFF;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .btn-filter:hover {
-      border-color: var(--border-focus);
-      color: var(--accent-core);
-      background: #EFF6FF;
+      border-color: var(--border-active);
+      color: var(--primary-blue);
+      background: var(--primary-light);
       transform: translateY(-1px);
     }
 
     .btn-filter.active {
-      background: #0F172A;
+      background: var(--brand-navy-900);
       color: #FFFFFF;
-      border-color: #0F172A;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+      border-color: var(--brand-navy-900);
+      box-shadow: 0 4px 14px rgba(11, 19, 43, 0.25);
     }
 
     /* 3. SHOWCASE SLIDER */
@@ -298,7 +312,7 @@
       position: relative;
       border-radius: 18px;
       padding: 10px 0;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .train-track {
@@ -323,17 +337,17 @@
       border-radius: 16px;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--card-shadow);
-      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: var(--shadow-ambient);
+      border: 1px solid var(--border-light);
       flex-shrink: 0;
       cursor: default;
       background: #E2E8F0;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
     }
 
     .train-card-photo:hover {
       transform: translateY(-4px);
-      box-shadow: var(--card-hover-shadow);
+      box-shadow: var(--shadow-card-hover);
     }
 
     .train-card-photo img {
@@ -346,7 +360,7 @@
     .photo-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(7, 13, 24, 0.95) 0%, rgba(7, 13, 24, 0.3) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(6, 11, 20, 0.95) 0%, rgba(6, 11, 20, 0.35) 60%, transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -361,7 +375,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. BALANCED FLOWCHART SYSTEM */
+    /* 4. PROFESSIONAL BLUEPRINT FLOWCHART */
     .results-area {
       display: none;
       animation: fadeIn 0.35s ease;
@@ -383,14 +397,14 @@
     .results-header-title {
       font-size: 1.1rem;
       font-weight: 800;
-      color: var(--text-primary);
+      color: var(--text-main);
       letter-spacing: -0.01em;
     }
 
     .btn-clear {
       background: none;
       border: none;
-      color: var(--accent-core);
+      color: var(--primary-blue);
       cursor: pointer;
       font-weight: 700;
       font-size: 0.86rem;
@@ -401,16 +415,16 @@
     }
 
     .btn-clear:hover {
-      color: var(--accent-hover);
+      color: var(--primary-blue-hover);
       transform: translateX(-2px);
     }
 
     .tree-flow-canvas {
       background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-light);
       border-radius: 24px;
       padding: 40px 20px 48px;
-      box-shadow: var(--card-shadow);
+      box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -418,15 +432,15 @@
     }
 
     .tree-root-head {
-      background: linear-gradient(135deg, #0F172A, #1E293B);
+      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
       color: #FFFFFF;
-      padding: 13px 32px;
+      padding: 12px 30px;
       border-radius: 12px;
       font-size: 0.98rem;
       font-weight: 800;
       letter-spacing: 0.02em;
-      border: 1.5px solid var(--accent-vibrant);
-      box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.3);
+      border: 1.5px solid var(--primary-blue);
+      box-shadow: 0 10px 24px -4px rgba(11, 19, 43, 0.35);
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -434,13 +448,13 @@
     }
 
     .tree-root-head i {
-      color: var(--accent-glow);
+      color: var(--accent-cyan);
     }
 
     .tree-stem-start {
       width: 2px;
       height: 32px;
-      background: #94A3B8;
+      background: var(--border-medium);
     }
 
     .flow-tree-spine {
@@ -458,7 +472,7 @@
       bottom: 24px;
       left: 50%;
       width: 2px;
-      background: #CBD5E1;
+      background: var(--border-medium);
       transform: translateX(-50%);
       z-index: 1;
     }
@@ -494,7 +508,7 @@
       top: 50%;
       width: 32px;
       height: 2px;
-      background: #94A3B8;
+      background: var(--border-medium);
       transform: translateY(-50%);
     }
 
@@ -510,7 +524,7 @@
       top: 50%;
       width: 32px;
       height: 2px;
-      background: #94A3B8;
+      background: var(--border-medium);
       transform: translateY(-50%);
     }
 
@@ -522,30 +536,30 @@
       height: 11px;
       border-radius: 50%;
       background: #FFFFFF;
-      border: 2.5px solid var(--accent-core);
+      border: 2.5px solid var(--primary-blue);
       transform: translate(-50%, -50%);
       z-index: 3;
     }
 
     .flow-item-card {
       background: #FFFFFF;
-      border: 1.5px solid #E2E8F0;
+      border: 1.5px solid var(--border-light);
       border-radius: 14px;
       padding: 13px 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
-      transition: all 0.22s ease;
+      box-shadow: var(--shadow-ambient);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       width: 310px;
       box-sizing: border-box;
     }
 
     .flow-item-card:hover {
       transform: translateY(-2px);
-      border-color: var(--accent-vibrant);
-      box-shadow: var(--card-hover-shadow);
+      border-color: var(--primary-blue);
+      box-shadow: var(--shadow-card-hover);
     }
 
     .flow-item-icon {
@@ -574,13 +588,13 @@
     }
 
     .flow-item-card:hover .flow-item-title {
-      color: var(--accent-core);
+      color: var(--primary-blue);
     }
 
     .btn-node-del {
-      background: #FEF2F2;
-      border: 1px solid #FEE2E2;
-      color: var(--danger);
+      background: var(--danger-light);
+      border: 1px solid #FECACA;
+      color: var(--danger-base);
       width: 28px;
       height: 28px;
       border-radius: 6px;
@@ -593,7 +607,7 @@
     }
 
     .btn-node-del:hover {
-      background: var(--danger);
+      background: var(--danger-base);
       color: #FFFFFF;
     }
 
@@ -602,10 +616,10 @@
       margin-top: 40px;
       padding: 16px 20px;
       background: #FFFFFF;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-light);
       border-radius: 14px;
       text-align: center;
-      box-shadow: 0 4px 15px -3px rgba(15, 23, 42, 0.04);
+      box-shadow: var(--shadow-ambient);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -613,20 +627,20 @@
     }
 
     .bottom-quote-section i {
-      color: var(--accent-vibrant);
+      color: var(--primary-blue);
       font-size: 0.9rem;
     }
 
     .bottom-quote-section p {
       font-size: 0.85rem;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-weight: 600;
       letter-spacing: 0.01em;
     }
 
     /* 6. FOOTER */
     footer {
-      background: var(--header-bg);
+      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
       color: #94A3B8;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 20px 36px;
@@ -654,7 +668,7 @@
     }
 
     .visitor-count {
-      color: var(--accent-glow);
+      color: var(--accent-cyan);
       font-weight: 700;
       letter-spacing: 0.06em;
     }
@@ -663,7 +677,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(7, 13, 24, 0.94);
+      background: rgba(6, 11, 20, 0.94);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       display: flex;
@@ -706,13 +720,13 @@
       overflow: hidden;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: #0E1626;
+      background: var(--brand-navy-900);
       box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85);
     }
 
     .reader-top-bar {
       padding: 14px 22px;
-      background: #09101D;
+      background: var(--brand-navy-950);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       justify-content: space-between;
@@ -733,9 +747,9 @@
       letter-spacing: 0.08em;
       padding: 4px 10px;
       border-radius: 6px;
-      background: rgba(59, 130, 246, 0.18);
+      background: rgba(37, 99, 235, 0.18);
       color: #60A5FA;
-      border: 1px solid rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(37, 99, 235, 0.3);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -790,13 +804,13 @@
     }
 
     .btn-reader-close:hover {
-      background: #EF4444;
+      background: var(--danger-base);
       color: #FFFFFF;
     }
 
     .reader-canvas-body {
       flex: 1;
-      background: #121B2D;
+      background: #0E1626;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -821,13 +835,13 @@
       background: #FFFFFF;
     }
 
-    /* Admin / Upload Modal */
+    /* Admin / Upload Modal Form Styles */
     .modal-icon-badge {
       width: 50px;
       height: 50px;
       border-radius: 12px;
-      background: #EFF6FF;
-      color: var(--accent-core);
+      background: var(--primary-light);
+      color: var(--primary-blue);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -850,7 +864,7 @@
     .form-control {
       width: 100%;
       padding: 12px 14px;
-      border: 1.5px solid #CBD5E1;
+      border: 1.5px solid var(--border-medium);
       border-radius: 8px;
       font-size: 0.92rem;
       outline: none;
@@ -860,9 +874,9 @@
     }
 
     .form-control:focus {
-      border-color: var(--accent-vibrant);
+      border-color: var(--primary-blue);
       background: #FFFFFF;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
     }
 
     .modal-actions {
@@ -877,9 +891,9 @@
       font-size: 0.85rem;
       font-weight: 600;
       border-radius: 8px;
-      border: 1px solid #CBD5E1;
+      border: 1px solid var(--border-medium);
       background: #FFFFFF;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       cursor: pointer;
     }
 
@@ -889,10 +903,10 @@
       font-weight: 700;
       border-radius: 8px;
       border: none;
-      background: #0F172A;
+      background: var(--brand-navy-900);
       color: #FFFFFF;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 4px 12px rgba(11, 19, 43, 0.25);
     }
 
     @media (max-width: 768px) {
@@ -996,7 +1010,6 @@
 </head>
 <body>
 
-  <!-- 1. TOP HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div style="grid-column: 1;"></div>
@@ -1017,7 +1030,6 @@
     </div>
   </div>
 
-  <!-- 1.1 LEFT-ALIGNED WELCOME STRIP -->
   <div class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
@@ -1027,7 +1039,6 @@
     </div>
   </div>
 
-  <!-- 2. MAIN WORKSPACE -->
   <main>
     <div class="filter-wrapper">
       <div class="search-box">
@@ -1043,7 +1054,6 @@
       </div>
     </div>
 
-    <!-- 3 SHOWCASE SLIDER -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -1073,7 +1083,6 @@
       </div>
     </div>
 
-    <!-- 4. BALANCED TREE FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="cleanStreamTitle" class="results-header-title">Stream</span>
@@ -1092,7 +1101,6 @@
       </div>
     </div>
 
-    <!-- 5. MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
@@ -1100,7 +1108,6 @@
     </div>
   </main>
 
-  <!-- 6. FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="visitor-box">
@@ -1112,7 +1119,6 @@
     </div>
   </footer>
 
-  <!-- 7. DIGITAL BOOK / DOCUMENT READER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="reader-top-bar">
@@ -1136,12 +1142,11 @@
     </div>
   </div>
 
-  <!-- Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge"><i class="fa-solid fa-lock"></i></div>
       <h3 class="modal-title">Admin Access</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Enter passkey to add or remove subjects.</p>
+      <p style="font-size: 0.85rem; color: var(--text-subtle); margin-bottom: 18px;">Enter passkey to add or remove subjects.</p>
       <div class="form-group">
         <input type="password" id="authPass" class="form-control" placeholder="••••••••••••" autofocus />
       </div>
@@ -1152,15 +1157,14 @@
     </div>
   </div>
 
-  <!-- Add Subject Modal -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-icon-badge"><i class="fa-solid fa-folder-plus"></i></div>
       <h3 class="modal-title">Add New Subject</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Upload or link a subject directly to the portal.</p>
+      <p style="font-size: 0.85rem; color: var(--text-subtle); margin-bottom: 18px;">Upload or link a subject directly to the portal.</p>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Stream</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-subtle); text-transform:uppercase;">Stream</label>
         <select id="docFolder" class="form-control" style="margin-top: 6px;">
           <option value="Thermal & Fluids">Thermal & Fluids</option>
           <option value="Design & Mechanics">Design & Mechanics</option>
@@ -1170,12 +1174,12 @@
       </div>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Name</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-subtle); text-transform:uppercase;">Subject Name</label>
         <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" style="margin-top: 6px;" required />
       </div>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Document Link (Google Drive)</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-subtle); text-transform:uppercase;">Document Link (Google Drive)</label>
         <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." style="margin-top: 6px;" required />
       </div>
 
@@ -1219,48 +1223,48 @@
       } catch(e) {}
     }
 
-    /* Professional Harmonized Color Graded Badges */
+    /* Cohesive & Calibrated Visual Icons */
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
       if (t.includes('thermo') || t.includes('heat')) {
-        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#EA580C', border: '#FED7AA' };
+        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
       }
       if (t.includes('fluid') || t.includes('hydraulic')) {
-        return { icon: 'fa-water', bg: '#F0FDFA', color: '#0D9488', border: '#CCFBF1' };
+        return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
       }
       if (t.includes('power plant')) {
-        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#CA8A04', border: '#FEF08A' };
+        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#A16207', border: '#FEF08A' };
       }
       if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) {
-        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#9333EA', border: '#E9D5FF' };
+        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#7E22CE', border: '#F3E8FF' };
       }
       if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) {
-        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0284C7', border: '#BAE6FD' };
+        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0369A1', border: '#E0F2FE' };
       }
       if (t.includes('strength of material') || t.includes('som')) {
-        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#E11D48', border: '#FECDD3' };
+        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#BE123C', border: '#FFE4E6' };
       }
       if (t.includes('theory of machine') || t.includes('tom')) {
-        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0891B2', border: '#A5F3FC' };
+        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0E7490', border: '#CFFAFE' };
       }
       if (t.includes('mechanics')) {
-        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#7C3AED', border: '#DDD6FE' };
+        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#6D28D9', border: '#EDE9FE' };
       }
       if (t.includes('design')) {
-        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#CBD5E1' };
+        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#E2E8F0' };
       }
       if (t.includes('production') || t.includes('machining')) {
-        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#D97706', border: '#FDE68A' };
+        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#B45309', border: '#FEF3C7' };
       }
       if (t.includes('material') || t.includes('metallurgy')) {
-        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4F46E5', border: '#C7D2FE' };
+        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4338CA', border: '#E0E7FF' };
       }
       if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) {
-        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FACC15' };
+        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
       }
 
-      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#2563EB', border: '#BFDBFE' };
+      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
     }
 
     function formatDrivePreview(url) {
@@ -1326,7 +1330,7 @@
         if (filtered.length === 0) {
           if (flowTreeSpine) {
             flowTreeSpine.innerHTML = `
-              <div style="text-align: center; padding: 28px; color: var(--text-muted); font-size: 0.95rem;">
+              <div style="text-align: center; padding: 28px; color: var(--text-subtle); font-size: 0.95rem;">
                 No matching subjects found.
               </div>
             `;
@@ -1343,7 +1347,6 @@
             <div class="flow-branch-row">
               <div class="flow-center-node"></div>
               
-              <!-- Left Side -->
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
@@ -1356,7 +1359,6 @@
                 ` : ''}
               </div>
 
-              <!-- Right Side -->
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
