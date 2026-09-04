@@ -60,7 +60,7 @@
     /* 1. TOP HEADER */
     .top-broad-header {
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 55%, var(--brand-navy-800) 100%);
-      padding: 18px 32px;
+      padding: 16px 32px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 12px 28px -8px rgba(6, 11, 20, 0.45);
       position: relative;
@@ -77,7 +77,7 @@
     }
 
     .header-inner {
-      max-width: 1300px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       justify-content: center;
@@ -87,12 +87,12 @@
     .brand-container {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .portal-logo-img {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
@@ -107,7 +107,7 @@
     }
 
     .top-broad-header h1 {
-      font-size: 1.6rem;
+      font-size: 1.55rem;
       font-weight: 800;
       letter-spacing: 0.03em;
       text-transform: uppercase;
@@ -125,9 +125,9 @@
     }
 
     .welcome-bar-inner {
-      max-width: 1300px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 20px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -158,15 +158,30 @@
       50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
     }
 
-    /* 2. FULL-SCREEN WORKSPACE */
+    /* 2. DYNAMIC WORKSPACE */
     main {
       flex: 1;
-      width: 92%;
-      max-width: 1260px;
+      width: 100%;
       margin: 0 auto;
-      padding: 30px 0 46px;
+      padding: 28px 20px 46px;
+      transition: all 0.25s ease;
     }
 
+    main.home-view {
+      max-width: 1050px;
+    }
+
+    main.focus-view {
+      max-width: 96vw;
+      padding-top: 20px;
+    }
+
+    main.reader-view {
+      max-width: 98vw;
+      padding: 14px 10px 24px;
+    }
+
+    /* HOME SEARCH & FILTERS */
     .filter-wrapper {
       background: var(--surface-white);
       border: 1px solid var(--border-light);
@@ -311,11 +326,11 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. BALANCED FULL-WIDTH FLOWCHART SYSTEM */
+    /* 4. FULL-SCREEN FLOWCHART SYSTEM */
     .results-area {
       display: none;
       width: 100%;
-      animation: fadeIn 0.28s ease;
+      animation: fadeIn 0.25s ease;
     }
 
     @keyframes fadeIn {
@@ -328,10 +343,10 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 22px;
-      padding: 0 4px;
+      padding: 0 8px;
     }
 
-    .btn-back-home {
+    .btn-nav-action {
       background: #FFFFFF;
       border: 1.5px solid var(--border-medium);
       color: var(--text-main);
@@ -347,7 +362,7 @@
       box-shadow: var(--shadow-ambient);
     }
 
-    .btn-back-home:hover {
+    .btn-nav-action:hover {
       background: var(--brand-navy-900);
       color: #FFFFFF;
       border-color: var(--brand-navy-900);
@@ -358,25 +373,26 @@
       background: #FFFFFF;
       border: 1px solid var(--border-light);
       border-radius: 24px;
-      padding: 48px 32px 56px;
+      padding: 50px 32px 64px;
       box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
       width: 100%;
+      min-height: 70vh;
     }
 
     .tree-root-head {
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
       color: #FFFFFF;
-      padding: 13px 36px;
+      padding: 14px 42px;
       border-radius: 12px;
-      font-size: 1.02rem;
+      font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: 0.02em;
       border: 1.5px solid var(--primary-blue);
-      box-shadow: 0 10px 24px -4px rgba(11, 19, 43, 0.35);
+      box-shadow: 0 12px 28px -4px rgba(11, 19, 43, 0.4);
       display: inline-flex;
       align-items: center;
       gap: 12px;
@@ -385,31 +401,30 @@
 
     .tree-root-head i {
       color: var(--accent-cyan);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
 
     .tree-stem-start {
-      width: 2px;
-      height: 38px;
+      width: 2.5px;
+      height: 42px;
       background: var(--border-dark);
     }
 
     .flow-tree-spine {
       width: 100%;
-      max-width: 900px;
+      max-width: 1120px;
       display: flex;
       flex-direction: column;
       position: relative;
     }
 
-    /* Central vertical trunk line */
     .flow-tree-spine::before {
       content: '';
       position: absolute;
       top: 0;
-      bottom: 24px;
+      bottom: 26px;
       left: 50%;
-      width: 2px;
+      width: 2.5px;
       background: var(--border-medium);
       transform: translateX(-50%);
       z-index: 1;
@@ -420,7 +435,7 @@
       align-items: center;
       width: 100%;
       position: relative;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
       z-index: 2;
     }
 
@@ -437,7 +452,7 @@
 
     .flow-branch-side.left {
       justify-content: flex-end;
-      padding-right: 40px;
+      padding-right: 50px;
     }
 
     .flow-branch-side.left.has-card::after {
@@ -445,7 +460,7 @@
       position: absolute;
       right: 0;
       top: 50%;
-      width: 40px;
+      width: 50px;
       height: 2px;
       background: var(--border-dark);
       transform: translateY(-50%);
@@ -453,7 +468,7 @@
 
     .flow-branch-side.right {
       justify-content: flex-start;
-      padding-left: 40px;
+      padding-left: 50px;
     }
 
     .flow-branch-side.right.has-card::after {
@@ -461,7 +476,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      width: 40px;
+      width: 50px;
       height: 2px;
       background: var(--border-dark);
       transform: translateY(-50%);
@@ -471,46 +486,46 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background: #FFFFFF;
-      border: 2.5px solid var(--primary-blue);
+      border: 3px solid var(--primary-blue);
       transform: translate(-50%, -50%);
       z-index: 3;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
     }
 
-    /* Standardized Optimum Subject Box */
     .flow-item-card {
       background: #FFFFFF;
       border: 1.5px solid var(--border-light);
       border-radius: 14px;
-      padding: 15px 20px;
+      padding: 16px 24px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       box-shadow: var(--shadow-ambient);
       transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      width: 340px;
+      width: 400px;
+      max-width: 100%;
       box-sizing: border-box;
     }
 
     .flow-item-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       border-color: var(--primary-blue);
       box-shadow: var(--shadow-card-hover);
     }
 
     .flow-item-icon {
-      width: 42px;
-      height: 42px;
+      width: 46px;
+      height: 46px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       flex-shrink: 0;
       transition: transform 0.2s ease;
     }
@@ -520,7 +535,7 @@
     }
 
     .flow-item-title {
-      font-size: 0.94rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: #1E293B;
       line-height: 1.4;
@@ -532,7 +547,58 @@
       color: var(--primary-blue);
     }
 
-    /* 5. MOTIVATIONAL QUOTE */
+    /* 5. SAME-PAGE DOCUMENT READER SECTION (NO EMAIL / NO SIGN-IN) */
+    .reader-stage-section {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .reader-toolbar {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 16px 16px 0 0;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .reader-doc-heading {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .reader-frame-container {
+      width: 100%;
+      height: 84vh;
+      background: #0B132B;
+      border: 1px solid var(--border-light);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .reader-frame-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #FFFFFF;
+      display: block;
+    }
+
+    /* 6. MOTIVATIONAL QUOTE */
     .bottom-quote-section {
       margin-top: 40px;
       padding: 16px 20px;
@@ -559,7 +625,7 @@
       letter-spacing: 0.01em;
     }
 
-    /* 6. FOOTER */
+    /* 7. FOOTER */
     footer {
       background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
       color: #94A3B8;
@@ -571,7 +637,7 @@
     }
 
     .footer-inner {
-      max-width: 1260px;
+      max-width: 1050px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -596,9 +662,9 @@
 
     /* RESPONSIVE MOBILE ADJUSTMENTS */
     @media (max-width: 820px) {
-      main {
-        width: 100%;
-        padding: 20px 14px 34px;
+      main.focus-view, main.home-view, main.reader-view {
+        max-width: 100%;
+        padding: 18px 12px 30px;
       }
 
       .top-broad-header {
@@ -640,7 +706,6 @@
         height: 145px;
       }
 
-      /* Mobile Timeline */
       .tree-flow-canvas {
         padding: 24px 14px 30px;
         border-radius: 18px;
@@ -686,17 +751,32 @@
       .flow-item-card {
         width: 100%;
         max-width: 100%;
-        padding: 12px 14px;
+        padding: 13px 15px;
       }
 
       .flow-item-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
+        width: 38px;
+        height: 38px;
+        font-size: 1.05rem;
       }
 
       .flow-item-title {
-        font-size: 0.88rem;
+        font-size: 0.9rem;
+      }
+
+      .reader-toolbar {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .reader-doc-heading {
+        font-size: 0.92rem;
+        width: 100%;
+      }
+
+      .reader-frame-container {
+        height: 78vh;
       }
 
       footer {
@@ -735,8 +815,9 @@
   </div>
 
   <!-- 2. MAIN WORKSPACE -->
-  <main>
-    <!-- HOME FILTER & SEARCH SECTION -->
+  <main id="mainWorkspace" class="home-view">
+    
+    <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
     <div id="homeFilterSection" class="filter-wrapper">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -751,7 +832,7 @@
       </div>
     </div>
 
-    <!-- 3 SHOWCASE SLIDER -->
+    <!-- LEVEL 1: SHOWCASE SLIDER -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -781,13 +862,13 @@
       </div>
     </div>
 
-    <!-- 4. PURE FOCUS FLOWCHART VIEW (PROPORTIONAL FULL-SCREEN) -->
+    <!-- LEVEL 2: PURE FOCUS FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-top-nav">
-        <button id="clearFilterBtn" class="btn-back-home">
+        <button id="clearFilterBtn" class="btn-nav-action">
           <i class="fa-solid fa-arrow-left"></i> Back to Home
         </button>
-        <span id="cleanStreamTitle" style="font-size: 1rem; font-weight: 700; color: var(--text-muted);">Roadmap</span>
+        <span id="cleanStreamTitle" style="font-size: 1.05rem; font-weight: 700; color: var(--text-muted);">Roadmap</span>
       </div>
 
       <div class="tree-flow-canvas">
@@ -802,7 +883,24 @@
       </div>
     </div>
 
-    <!-- 5. MOTIVATIONAL QUOTE (HOME ONLY) -->
+    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER (NO EMAIL REQUIRED) -->
+    <div id="readerStage" class="reader-stage-section">
+      <div class="reader-toolbar">
+        <button id="backToFlowBtn" class="btn-nav-action">
+          <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
+        </button>
+        <div class="reader-doc-heading">
+          <i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i>
+          <span id="readerDocTitle">Document Viewer</span>
+        </div>
+      </div>
+
+      <div class="reader-frame-container">
+        <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
@@ -810,7 +908,7 @@
     </div>
   </main>
 
-  <!-- 6. FOOTER (HOME ONLY) -->
+  <!-- FOOTER (HOME ONLY) -->
   <footer id="portalFooter">
     <div class="footer-inner">
       <div class="visitor-box">
@@ -891,10 +989,11 @@
       return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
     }
 
-    function formatDirectDrive(url) {
+    /* Embedded preview mode (No email / No login prompted) */
+    function formatDrivePreview(url) {
       if (!url) return "";
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-      return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/view?usp=sharing` : url;
+      return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
     function initVisitorCounter() {
@@ -906,6 +1005,7 @@
       if (display) display.textContent = storedCount.toString().padStart(6, '0');
     }
 
+    const mainWorkspace = document.getElementById('mainWorkspace');
     const homeFilterSection = document.getElementById('homeFilterSection');
     const welcomeStrip = document.getElementById('welcomeStrip');
     const searchInput = document.getElementById('searchInput');
@@ -920,10 +1020,22 @@
     const clearFilterBtn = document.getElementById('clearFilterBtn');
     const filterButtons = document.querySelectorAll('.btn-filter');
 
+    const readerStage = document.getElementById('readerStage');
+    const readerDocTitle = document.getElementById('readerDocTitle');
+    const readerDocIframe = document.getElementById('readerDocIframe');
+    const backToFlowBtn = document.getElementById('backToFlowBtn');
+
     function renderView() {
       const query = (searchInput?.value || '').toLowerCase().trim();
 
+      // Ensure reader stage is reset when browsing
+      readerStage.style.display = 'none';
+      readerDocIframe.src = "";
+
       if (query !== '' || activeStream !== null) {
+        // FOCUS FLOWCHART VIEW
+        mainWorkspace.className = 'focus-view';
+
         homeFilterSection.style.display = 'none';
         welcomeStrip.style.display = 'none';
         trainSlider.style.display = 'none';
@@ -966,7 +1078,7 @@
               <!-- Left Side -->
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
-                  <div class="flow-item-card" onclick="openSubjectDoc('${doc.link}')">
+                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
                     <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
                       <i class="fa-solid ${visual.icon}"></i>
                     </div>
@@ -978,7 +1090,7 @@
               <!-- Right Side -->
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
-                  <div class="flow-item-card" onclick="openSubjectDoc('${doc.link}')">
+                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
                     <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
                       <i class="fa-solid ${visual.icon}"></i>
                     </div>
@@ -991,6 +1103,9 @@
         });
         if (flowTreeSpine) flowTreeSpine.innerHTML = html;
       } else {
+        // STANDARD HOME SCREEN VIEW
+        mainWorkspace.className = 'home-view';
+
         homeFilterSection.style.display = 'block';
         welcomeStrip.style.display = 'block';
         trainSlider.style.display = 'block';
@@ -1000,6 +1115,36 @@
         resultsArea.style.display = 'none';
       }
     }
+
+    /* SAME PAGE IN-APP DOCUMENT OPENER (NO EMAIL / NO SIGN-IN) */
+    window.openDocOnSamePage = function(title, link) {
+      resultsArea.style.display = 'none';
+      mainWorkspace.className = 'reader-view';
+
+      readerDocTitle.textContent = title;
+      readerDocIframe.src = formatDrivePreview(link);
+      readerStage.style.display = 'block';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    /* BACK FROM DOCUMENT TO FLOWCHART */
+    backToFlowBtn.addEventListener('click', () => {
+      readerStage.style.display = 'none';
+      readerDocIframe.src = "";
+      resultsArea.style.display = 'block';
+      mainWorkspace.className = 'focus-view';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* BACK FROM FLOWCHART TO HOME */
+    clearFilterBtn.addEventListener('click', () => {
+      activeStream = null;
+      if (searchInput) searchInput.value = '';
+      filterButtons.forEach(b => b.classList.remove('active'));
+      renderView();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1026,20 +1171,6 @@
         renderView();
       });
     }
-
-    if (clearFilterBtn) {
-      clearFilterBtn.addEventListener('click', () => {
-        activeStream = null;
-        if (searchInput) searchInput.value = '';
-        filterButtons.forEach(b => b.classList.remove('active'));
-        renderView();
-      });
-    }
-
-    window.openSubjectDoc = function(link) {
-      const targetUrl = formatDirectDrive(link);
-      window.open(targetUrl, '_blank', 'noopener,noreferrer');
-    };
 
     initVisitorCounter();
     renderView();
