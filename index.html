@@ -710,29 +710,38 @@
       }
 
       .tree-flow-canvas {
-        padding: 24px 14px 30px;
+        padding: 24px 16px 30px;
         border-radius: 18px;
+        align-items: flex-start; /* Left aligned for mobile */
       }
 
       .tree-root-head {
         font-size: 0.88rem;
         padding: 10px 20px;
+        align-self: center;
       }
 
       .tree-stem-start {
         height: 20px;
+        align-self: center;
+      }
+
+      .flow-tree-spine {
+        padding-left: 20px;
       }
 
       .flow-tree-spine::before {
-        left: 24px;
+        left: 20px;
         bottom: 14px;
+        transform: none;
       }
 
       .flow-branch-row {
         flex-direction: column;
         margin-bottom: 20px;
-        padding-left: 48px;
+        padding-left: 36px;
         position: relative;
+        width: 100%;
       }
 
       .flow-branch-side {
@@ -744,19 +753,20 @@
       .flow-branch-side.has-card::after {
         content: '';
         position: absolute;
-        left: -24px !important;
+        left: -36px !important;
         right: auto !important;
         top: 50%;
-        width: 24px !important;
+        width: 36px !important;
         height: 2px;
         background: var(--border-dark);
         transform: translateY(-50%);
       }
 
       .flow-center-node {
-        left: 24px;
+        left: 20px;
         top: 50%;
         transform: translateY(-50%);
+        margin-left: 0;
       }
 
       .flow-item-card {
