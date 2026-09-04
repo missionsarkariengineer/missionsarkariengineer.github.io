@@ -712,7 +712,7 @@
       .tree-flow-canvas {
         padding: 24px 16px 30px;
         border-radius: 18px;
-        align-items: flex-start; /* Left aligned for mobile */
+        align-items: flex-start;
       }
 
       .tree-root-head {
@@ -727,11 +727,11 @@
       }
 
       .flow-tree-spine {
-        padding-left: 20px;
+        padding-left: 24px;
       }
 
       .flow-tree-spine::before {
-        left: 20px;
+        left: 24px;
         bottom: 14px;
         transform: none;
       }
@@ -739,7 +739,7 @@
       .flow-branch-row {
         flex-direction: column;
         margin-bottom: 20px;
-        padding-left: 36px;
+        padding-left: 40px;
         position: relative;
         width: 100%;
       }
@@ -753,17 +753,17 @@
       .flow-branch-side.has-card::after {
         content: '';
         position: absolute;
-        left: -36px !important;
+        left: -40px !important;
         right: auto !important;
         top: 50%;
-        width: 36px !important;
+        width: 40px !important;
         height: 2px;
         background: var(--border-dark);
         transform: translateY(-50%);
       }
 
       .flow-center-node {
-        left: 20px;
+        left: 24px;
         top: 50%;
         transform: translateY(-50%);
         margin-left: 0;
@@ -1016,13 +1016,20 @@
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    function initVisitorCounter() {
+    async function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
-      const STORAGE_KEY = 'mse_permanent_visit_count_v2';
-      let storedCount = parseInt(localStorage.getItem(STORAGE_KEY) || '1250', 10);
-      storedCount += 1;
-      localStorage.setItem(STORAGE_KEY, storedCount.toString());
-      if (display) display.textContent = storedCount.toString().padStart(6, '0');
+      try {
+        const response = await fetch('https://api.counterapi.dev/v1/mission-sarkari-engineer/visits/up');
+        const data = await response.json();
+        if (data && data.count) {
+          display.textContent = data.count.toString().padStart(6, '0');
+        }
+      } catch (e) {
+        const FALLBACK_KEY = 'mse_permanent_visit_count_v2';
+        let storedCount = parseInt(localStorage.getItem(FALLBACK_KEY) || '1250', 10) + 1;
+        localStorage.setItem(FALLBACK_KEY, storedCount.toString());
+        if (display) display.textContent = storedCount.toString().padStart(6, '0');
+      }
     }
 
     const mainWorkspace = document.getElementById('mainWorkspace');
