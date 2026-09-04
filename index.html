@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
@@ -510,7 +511,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       background: var(--primary-light);
       border: 1px solid #DBEAFE;
       flex-shrink: 0;
@@ -534,7 +535,7 @@
       color: var(--primary-blue);
     }
 
-    /* 5. AUTO-FIT VIEWER */
+    /* 5. ZOOMABLE, PANTABLE & PAGE-AWARE VIEWER */
     .reader-stage-section {
       display: none;
       width: 100%;
@@ -552,6 +553,7 @@
       gap: 16px;
       box-shadow: var(--shadow-ambient);
       width: 100%;
+      flex-wrap: wrap;
     }
 
     .reader-doc-heading {
@@ -566,18 +568,134 @@
       white-space: nowrap;
     }
 
+    .reader-tools-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Page Navigation Toolbar */
+    .page-pagination-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #F8FAFC;
+      padding: 4px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-page-nav {
+      background: #FFFFFF;
+      border: 1px solid var(--border-medium);
+      color: var(--text-main);
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-page-nav:hover {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+    }
+
+    .page-indicator-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0 4px;
+      color: var(--text-muted);
+    }
+
+    /* Zoom Toolbar */
+    .zoom-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #F8FAFC;
+      padding: 4px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-zoom {
+      background: #FFFFFF;
+      border: 1px solid var(--border-medium);
+      color: var(--text-main);
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-zoom:hover {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+    }
+
+    .zoom-display-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-width: 44px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .btn-zoom-reset {
+      background: transparent;
+      border: none;
+      color: var(--primary-blue);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 6px;
+    }
+
+    /* Scrollable / Draggable Viewport */
     .reader-frame-viewport {
       width: 100%;
-      height: 85vh;
-      background: #FFFFFF;
+      height: 84vh;
+      background: #E2E8F0;
       border: 1px solid var(--border-light);
       border-top: none;
       border-radius: 0 0 16px 16px;
-      overflow: hidden;
+      overflow: auto;
       box-shadow: var(--shadow-card);
+      position: relative;
+      cursor: grab;
     }
 
-    .reader-frame-viewport iframe {
+    .reader-frame-viewport:active {
+      cursor: grabbing;
+    }
+
+    .zoomable-frame-wrap {
+      width: 100%;
+      height: 100%;
+      min-width: 1000px;
+      min-height: 1000px;
+      transform-origin: top left;
+      transition: transform 0.1s ease-out;
+      background: #FFFFFF;
+    }
+
+    .zoomable-frame-wrap iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -754,6 +872,11 @@
         width: 100%;
       }
 
+      .reader-tools-group {
+        width: 100%;
+        justify-content: space-between;
+      }
+
       .reader-frame-viewport {
         height: 78vh;
       }
@@ -768,7 +891,6 @@
 </head>
 <body>
 
-  <!-- 1. TOP HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div class="brand-container">
@@ -778,7 +900,6 @@
     </div>
   </div>
 
-  <!-- 1.1 WELCOME STRIP -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
@@ -788,13 +909,11 @@
     </div>
   </div>
 
-  <!-- 2. MAIN WORKSPACE -->
   <main id="mainWorkspace">
     
-    <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
     <div id="homeFilterSection" class="filter-wrapper">
       <div class="search-box">
-        <span class="search-icon-symbol">🔍</span>
+        <i class="fa-solid fa-magnifying-glass search-icon-symbol"></i>
         <input type="text" id="searchInput" placeholder="Search subject (e.g. SOM, Thermodynamics, Production, Fluid Mechanics)..." />
       </div>
 
@@ -806,7 +925,6 @@
       </div>
     </div>
 
-    <!-- LEVEL 1: SHOWCASE SLIDER -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -830,282 +948,3 @@
           <div class="photo-overlay"><p>Central Public Works Department</p></div>
         </div>
         <div class="train-card-photo">
-          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
-          <div class="photo-overlay"><p>Central Water Commission</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LEVEL 2: FULL-WIDTH FLOWCHART -->
-    <div id="resultsArea" class="results-area">
-      <div class="results-top-nav">
-        <button id="clearFilterBtn" class="btn-nav-action">
-          ← Back to Home
-        </button>
-        <span id="cleanStreamTitle" style="font-size: 1.05rem; font-weight: 700; color: var(--text-muted);">Roadmap</span>
-      </div>
-
-      <div class="tree-flow-canvas">
-        <div class="tree-root-head">
-          <span>🗺️</span>
-          <span id="flowRootText">Stream</span>
-        </div>
-
-        <div class="tree-stem-start"></div>
-
-        <div id="flowTreeSpine" class="flow-tree-spine"></div>
-      </div>
-    </div>
-
-    <!-- LEVEL 3: AUTO-FIT VIEWER -->
-    <div id="readerStage" class="reader-stage-section">
-      <div class="reader-toolbar">
-        <button id="backToFlowBtn" class="btn-nav-action">
-          ← Back to Roadmap
-        </button>
-        
-        <div class="reader-doc-heading">
-          <span>📖</span>
-          <span id="readerDocTitle">Document Viewer</span>
-        </div>
-      </div>
-
-      <div class="reader-frame-viewport">
-        <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
-      </div>
-    </div>
-
-    <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
-    <div id="homeQuote" class="bottom-quote-section">
-      <span>💬</span>
-      <p>"If efforts will put towards goal then chance to achieve that goal would be more!"</p>
-    </div>
-  </main>
-
-  <!-- FOOTER (HOME ONLY) -->
-  <footer id="portalFooter">
-    <div class="footer-inner">
-      <div class="visitor-box">
-        <span>👥</span>
-        <span>PORTAL VISITS:</span>
-        <span id="visitorCountDisplay" class="visitor-count">001250</span>
-      </div>
-      <div>&copy; Mission Sarkari Engineer</div>
-    </div>
-  </footer>
-
-  <script>
-    const INITIAL_DOCS = [
-      { id: "1", stream: "Revision & PYQs", title: "Mechanical Theory Revision Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
-      { id: "2", stream: "Revision & PYQs", title: "Mechanical AE/JE & SSC JE Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
-      { id: "3", stream: "Thermal & Fluids", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
-      { id: "4", stream: "Thermal & Fluids", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
-      { id: "5", stream: "Thermal & Fluids", title: "Power Plant Engineering", link: "https://drive.google.com/open?id=19SZ8Te_AdD9nrIaapl0w_1MIuCWyzaEK" },
-      { id: "6", stream: "Thermal & Fluids", title: "Internal Combustion (IC) Engines", link: "https://drive.google.com/open?id=1nfurPBOP3PP9jv9APPZEXxIziAqhj_Ec" },
-      { id: "7", stream: "Thermal & Fluids", title: "Refrigeration & Air Conditioning (RAC)", link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr" },
-      { id: "8", stream: "Design & Mechanics", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
-      { id: "9", stream: "Design & Mechanics", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
-      { id: "10", stream: "Design & Mechanics", title: "Engineering Mechanics", link: "https://drive.google.com/open?id=1chpgFcqsbCCdgIxXAQrtnaIXb-V9K1y9" },
-      { id: "11", stream: "Design & Mechanics", title: "Machine Design", link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw" },
-      { id: "12", stream: "Production & Materials", title: "Production Engineering & Machining", link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz" },
-      { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
-    ];
-
-    let docs = [];
-    try {
-      docs = JSON.parse(localStorage.getItem('mse_sscje_official_docs')) || INITIAL_DOCS;
-    } catch(e) {
-      docs = INITIAL_DOCS;
-    }
-
-    let activeStream = null;
-
-    function getSubjectVisual(title) {
-      const t = title.toLowerCase();
-
-      if (t.includes('thermo') || t.includes('heat')) return '🔥';
-      if (t.includes('fluid') || t.includes('hydraulic')) return '💧';
-      if (t.includes('power plant')) return '⚡';
-      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) return '⚙️';
-      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) return '❄️';
-      if (t.includes('strength of material') || t.includes('som')) return '🦾';
-      if (t.includes('theory of machine') || t.includes('tom')) return '🛠️';
-      if (t.includes('mechanics')) return '📐';
-      if (t.includes('design')) return '✏️';
-      if (t.includes('production') || t.includes('machining')) return '🔨';
-      if (t.includes('material') || t.includes('metallurgy')) return '⚛️';
-      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) return '📚';
-
-      return '📖';
-    }
-
-    function formatDrivePreview(url) {
-      if (!url) return "";
-      const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-      return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
-    }
-
-    function initVisitorCounter() {
-      const display = document.getElementById('visitorCountDisplay');
-      const STORAGE_KEY = 'mse_permanent_visit_count_v2';
-      let storedCount = parseInt(localStorage.getItem(STORAGE_KEY) || '1250', 10);
-      storedCount += 1;
-      localStorage.setItem(STORAGE_KEY, storedCount.toString());
-      if (display) display.textContent = storedCount.toString().padStart(6, '0');
-    }
-
-    const homeFilterSection = document.getElementById('homeFilterSection');
-    const welcomeStrip = document.getElementById('welcomeStrip');
-    const searchInput = document.getElementById('searchInput');
-    const resultsArea = document.getElementById('resultsArea');
-    const trainSlider = document.getElementById('trainSlider');
-    const homeQuote = document.getElementById('homeQuote');
-    const portalFooter = document.getElementById('portalFooter');
-
-    const cleanStreamTitle = document.getElementById('cleanStreamTitle');
-    const flowRootText = document.getElementById('flowRootText');
-    const flowTreeSpine = document.getElementById('flowTreeSpine');
-    const clearFilterBtn = document.getElementById('clearFilterBtn');
-    const filterButtons = document.querySelectorAll('.btn-filter');
-
-    const readerStage = document.getElementById('readerStage');
-    const readerDocTitle = document.getElementById('readerDocTitle');
-    const readerDocIframe = document.getElementById('readerDocIframe');
-    const backToFlowBtn = document.getElementById('backToFlowBtn');
-
-    function renderView() {
-      const query = (searchInput?.value || '').toLowerCase().trim();
-
-      readerStage.style.display = 'none';
-      readerDocIframe.src = "";
-
-      if (query !== '' || activeStream !== null) {
-        homeFilterSection.style.display = 'none';
-        welcomeStrip.style.display = 'none';
-        trainSlider.style.display = 'none';
-        homeQuote.style.display = 'none';
-        portalFooter.style.display = 'none';
-
-        resultsArea.style.display = 'block';
-
-        let filtered = docs;
-        if (activeStream) {
-          filtered = filtered.filter(d => d.stream === activeStream);
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeStream} (${filtered.length} Subjects)`;
-          if (flowRootText) flowRootText.textContent = activeStream;
-        } else if (query) {
-          filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results (${filtered.length})`;
-          if (flowRootText) flowRootText.textContent = `Search: "${query}"`;
-        }
-
-        if (filtered.length === 0) {
-          if (flowTreeSpine) {
-            flowTreeSpine.innerHTML = `
-              <div style="text-align: center; padding: 32px; color: var(--text-subtle); font-size: 0.95rem;">
-                No matching subjects found.
-              </div>
-            `;
-          }
-          return;
-        }
-
-        let html = '';
-        filtered.forEach((doc, idx) => {
-          const emojiIcon = getSubjectVisual(doc.title);
-          const isLeft = idx % 2 === 0;
-
-          html += `
-            <div class="flow-branch-row">
-              <div class="flow-center-node"></div>
-              
-              <!-- Left Side -->
-              <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
-                ${isLeft ? `
-                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon">${emojiIcon}</div>
-                    <span class="flow-item-title">${doc.title}</span>
-                  </div>
-                ` : ''}
-              </div>
-
-              <!-- Right Side -->
-              <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
-                ${!isLeft ? `
-                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon">${emojiIcon}</div>
-                    <span class="flow-item-title">${doc.title}</span>
-                  </div>
-                ` : ''}
-              </div>
-            </div>
-          `;
-        });
-        if (flowTreeSpine) flowTreeSpine.innerHTML = html;
-      } else {
-        homeFilterSection.style.display = 'block';
-        welcomeStrip.style.display = 'block';
-        trainSlider.style.display = 'block';
-        homeQuote.style.display = 'flex';
-        portalFooter.style.display = 'block';
-
-        resultsArea.style.display = 'none';
-      }
-    }
-
-    window.openDocOnSamePage = function(title, link) {
-      resultsArea.style.display = 'none';
-
-      readerDocTitle.textContent = title;
-      readerDocIframe.src = formatDrivePreview(link);
-      
-      readerStage.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    backToFlowBtn.addEventListener('click', () => {
-      readerStage.style.display = 'none';
-      readerDocIframe.src = "";
-      resultsArea.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    clearFilterBtn.addEventListener('click', () => {
-      activeStream = null;
-      if (searchInput) searchInput.value = '';
-      filterButtons.forEach(b => b.classList.remove('active'));
-      renderView();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const stream = btn.getAttribute('data-stream');
-        if (activeStream === stream) {
-          activeStream = null;
-          btn.classList.remove('active');
-        } else {
-          activeStream = stream;
-          filterButtons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        }
-        if (searchInput) searchInput.value = '';
-        renderView();
-      });
-    });
-
-    if (searchInput) {
-      searchInput.addEventListener('input', () => {
-        if (searchInput.value.trim() !== '') {
-          activeStream = null;
-          filterButtons.forEach(b => b.classList.remove('active'));
-        }
-        renderView();
-      });
-    }
-
-    initVisitorCounter();
-    renderView();
-  </script>
-</body>
-</html>
