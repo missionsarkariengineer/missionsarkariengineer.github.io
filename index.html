@@ -47,7 +47,6 @@
       overflow-x: hidden;
     }
 
-    /* 1. TOP HEADER */
     .top-broad-header {
       background: var(--header-bg);
       padding: 24px 36px;
@@ -163,7 +162,6 @@
       transform: translateY(-1px);
     }
 
-    /* LEFT-ALIGNED WELCOME STRIP */
     .welcome-bar {
       background: #060B18;
       border-bottom: 1px solid rgba(59, 130, 246, 0.2);
@@ -204,7 +202,6 @@
       50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
     }
 
-    /* 2. MAIN WORKSPACE */
     main {
       flex: 1;
       max-width: 1000px;
@@ -288,7 +285,6 @@
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
     }
 
-    /* 3. CONTINUOUS PHOTO SLIDER */
     .train-slider-container {
       width: 100%;
       overflow: hidden;
@@ -358,7 +354,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. UPGRADED CIRCUIT MIND MAP FLOWCHART */
     .results-area {
       display: none;
       animation: fadeIn 0.35s ease;
@@ -397,7 +392,6 @@
       transform: translateX(-2px);
     }
 
-    /* Interactive Blueprint Mindmap Board */
     .mindmap-board {
       background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
       border: 1px solid var(--border-subtle);
@@ -420,7 +414,6 @@
       pointer-events: none;
     }
 
-    /* Central Root Node */
     .mindmap-root-node {
       background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
       color: #FFFFFF;
@@ -442,7 +435,6 @@
       font-size: 1.15rem;
     }
 
-    /* Connecting Circuit System */
     .flow-connector-system {
       display: flex;
       flex-direction: column;
@@ -485,7 +477,6 @@
       background: #93C5FD;
     }
 
-    /* Mind Map Nodes Grid */
     .mindmap-nodes-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -496,7 +487,6 @@
       position: relative;
     }
 
-    /* Individual Flow Nodes */
     .mindmap-node-card {
       background: #FFFFFF;
       border: 1.5px solid #E2E8F0;
@@ -525,7 +515,6 @@
       flex: 1;
     }
 
-    /* Dynamic Subject-Specific Icon Badges */
     .node-icon-bubble {
       width: 44px;
       height: 44px;
@@ -602,7 +591,6 @@
       color: #FFFFFF;
     }
 
-    /* 5. BOTTOM MOTIVATIONAL QUOTE */
     .bottom-quote-section {
       margin-top: 40px;
       padding: 16px 20px;
@@ -629,7 +617,6 @@
       letter-spacing: 0.01em;
     }
 
-    /* 6. FOOTER */
     footer {
       background: var(--header-bg);
       color: #94A3B8;
@@ -664,7 +651,6 @@
       letter-spacing: 0.06em;
     }
 
-    /* 7. MODERN E-BOOK READER MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -831,7 +817,6 @@
       background: #FFFFFF;
     }
 
-    /* Admin Login / Upload Modal */
     .modal-icon-badge {
       width: 52px;
       height: 52px;
@@ -1203,15 +1188,22 @@
       { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
     ];
 
-    let docs = JSON.parse(localStorage.getItem('mse_sscje_official_docs')) || INITIAL_DOCS;
+    let docs = [];
+    try {
+      docs = JSON.parse(localStorage.getItem('mse_sscje_official_docs')) || INITIAL_DOCS;
+    } catch(e) {
+      docs = INITIAL_DOCS;
+    }
+
     let isAdmin = sessionStorage.getItem('mse_sscje_official_auth') === 'true';
     let activeStream = null;
 
     function saveState() {
-      localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
+      try {
+        localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
+      } catch(e) {}
     }
 
-    /* Intelligent Subject Icon Resolver (Replaces Boring Book Logo) */
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
@@ -1256,31 +1248,18 @@
     }
 
     function formatDrivePreview(url) {
+      if (!url) return "";
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
     }
 
-    async function initVisitorCounter() {
+    function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       const STORAGE_KEY = 'mse_permanent_visit_count_v2';
       let storedCount = parseInt(localStorage.getItem(STORAGE_KEY) || '1250', 10);
-
-      try {
-        const response = await fetch('https://api.counterapi.dev/v1/missionsarkariengineer-portal/visits/up');
-        if (response.ok) {
-          const data = await response.json();
-          if (data && typeof data.count === 'number') {
-            const finalVal = Math.max(data.count, storedCount + 1);
-            localStorage.setItem(STORAGE_KEY, finalVal.toString());
-            display.textContent = finalVal.toString().padStart(6, '0');
-            return;
-          }
-        }
-      } catch (e) {}
-
       storedCount += 1;
       localStorage.setItem(STORAGE_KEY, storedCount.toString());
-      display.textContent = storedCount.toString().padStart(6, '0');
+      if (display) display.textContent = storedCount.toString().padStart(6, '0');
     }
 
     const searchInput = document.getElementById('searchInput');
@@ -1306,32 +1285,35 @@
     const addModal = document.getElementById('addModal');
 
     function renderView() {
+      if (!authBtn || !addBtn) return;
       authBtn.innerHTML = isAdmin ? '<i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out' : '<i class="fa-solid fa-lock"></i> Admin Login';
       addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
 
-      const query = searchInput.value.toLowerCase().trim();
+      const query = (searchInput?.value || '').toLowerCase().trim();
 
       if (query !== '' || activeStream !== null) {
-        resultsArea.style.display = 'block';
-        trainSlider.style.display = 'none';
+        if (resultsArea) resultsArea.style.display = 'block';
+        if (trainSlider) trainSlider.style.display = 'none';
 
         let filtered = docs;
         if (activeStream) {
           filtered = filtered.filter(d => d.stream === activeStream);
-          mindmapRootTitle.textContent = activeStream;
-          resultsTitle.textContent = `${activeStream} — Mind Map Flowchart (${filtered.length} Subjects)`;
+          if (mindmapRootTitle) mindmapRootTitle.textContent = activeStream;
+          if (resultsTitle) resultsTitle.textContent = `${activeStream} — Mind Map Flowchart (${filtered.length} Subjects)`;
         } else if (query) {
           filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
-          mindmapRootTitle.textContent = `Search: "${query}"`;
-          resultsTitle.textContent = `Search Flowchart (${filtered.length} Results)`;
+          if (mindmapRootTitle) mindmapRootTitle.textContent = `Search: "${query}"`;
+          if (resultsTitle) resultsTitle.textContent = `Search Flowchart (${filtered.length} Results)`;
         }
 
         if (filtered.length === 0) {
-          mindmapNodesContainer.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 26px; color: var(--text-muted); font-size: 0.95rem;">
-              No matching subjects found in this branch.
-            </div>
-          `;
+          if (mindmapNodesContainer) {
+            mindmapNodesContainer.innerHTML = `
+              <div style="grid-column: 1/-1; text-align: center; padding: 26px; color: var(--text-muted); font-size: 0.95rem;">
+                No matching subjects found in this branch.
+              </div>
+            `;
+          }
           return;
         }
 
@@ -1339,7 +1321,7 @@
         filtered.forEach(doc => {
           const visual = getSubjectVisual(doc.title);
           html += `
-            <div class="mindmap-node-card" onclick="openDoc('${doc.title}', '${doc.link}')">
+            <div class="mindmap-node-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
               <div class="node-content-wrap">
                 <div class="node-icon-bubble" style="background: ${visual.bg}; color: ${visual.color}; border: 1.5px solid ${visual.border};">
                   <i class="fa-solid ${visual.icon}"></i>
@@ -1355,10 +1337,10 @@
             </div>
           `;
         });
-        mindmapNodesContainer.innerHTML = html;
+        if (mindmapNodesContainer) mindmapNodesContainer.innerHTML = html;
       } else {
-        resultsArea.style.display = 'none';
-        trainSlider.style.display = 'block';
+        if (resultsArea) resultsArea.style.display = 'none';
+        if (trainSlider) trainSlider.style.display = 'block';
       }
     }
 
@@ -1373,89 +1355,109 @@
           filterButtons.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
         }
-        searchInput.value = '';
+        if (searchInput) searchInput.value = '';
         renderView();
       });
     });
 
-    searchInput.addEventListener('input', () => {
-      if (searchInput.value.trim() !== '') {
-        activeStream = null;
-        filterButtons.forEach(b => b.classList.remove('active'));
-      }
-      renderView();
-    });
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        if (searchInput.value.trim() !== '') {
+          activeStream = null;
+          filterButtons.forEach(b => b.classList.remove('active'));
+        }
+        renderView();
+      });
+    }
 
-    clearFilterBtn.addEventListener('click', () => {
-      activeStream = null;
-      searchInput.value = '';
-      filterButtons.forEach(b => b.classList.remove('active'));
-      renderView();
-    });
+    if (clearFilterBtn) {
+      clearFilterBtn.addEventListener('click', () => {
+        activeStream = null;
+        if (searchInput) searchInput.value = '';
+        filterButtons.forEach(b => b.classList.remove('active'));
+        renderView();
+      });
+    }
 
     window.openDoc = function(title, link) {
-      viewerTitle.textContent = title;
+      if (!viewerModal || !viewerFrame) return;
+      if (viewerTitle) viewerTitle.textContent = title;
       viewerFrame.src = formatDrivePreview(link);
-      externalDriveBtn.href = link;
+      if (externalDriveBtn) externalDriveBtn.href = link;
       viewerModal.classList.add('active');
     };
 
-    closeViewer.addEventListener('click', () => {
-      viewerModal.classList.remove('active');
-      viewerFrame.src = "";
-    });
+    if (closeViewer) {
+      closeViewer.addEventListener('click', () => {
+        if (viewerModal) viewerModal.classList.remove('active');
+        if (viewerFrame) viewerFrame.src = "";
+      });
+    }
 
-    // Passkey: Shiv@1212
-    authBtn.addEventListener('click', () => {
-      if (isAdmin) {
-        isAdmin = false;
-        sessionStorage.removeItem('mse_sscje_official_auth');
+    if (authBtn) {
+      authBtn.addEventListener('click', () => {
+        if (isAdmin) {
+          isAdmin = false;
+          sessionStorage.removeItem('mse_sscje_official_auth');
+          renderView();
+        } else {
+          if (loginModal) loginModal.classList.add('active');
+        }
+      });
+    }
+
+    const cancelLogin = document.getElementById('cancelLogin');
+    if (cancelLogin) cancelLogin.addEventListener('click', () => loginModal.classList.remove('active'));
+
+    const submitLogin = document.getElementById('submitLogin');
+    if (submitLogin) {
+      submitLogin.addEventListener('click', () => {
+        const pass = document.getElementById('authPass');
+        if (pass && pass.value === "Shiv@1212") {
+          isAdmin = true;
+          sessionStorage.setItem('mse_sscje_official_auth', 'true');
+          loginModal.classList.remove('active');
+          pass.value = "";
+          renderView();
+        } else {
+          alert("Incorrect passkey.");
+        }
+      });
+    }
+
+    if (addBtn) {
+      addBtn.addEventListener('click', () => {
+        if (activeStream) {
+          const folder = document.getElementById('docFolder');
+          if (folder) folder.value = activeStream;
+        }
+        if (addModal) addModal.classList.add('active');
+      });
+    }
+
+    const cancelUpload = document.getElementById('cancelUpload');
+    if (cancelUpload) cancelUpload.addEventListener('click', () => addModal.classList.remove('active'));
+
+    const saveDoc = document.getElementById('saveDoc');
+    if (saveDoc) {
+      saveDoc.addEventListener('click', () => {
+        const stream = document.getElementById('docFolder')?.value;
+        const title = document.getElementById('docTitle')?.value.trim();
+        const link = document.getElementById('docLink')?.value.trim();
+
+        if (!title || !link) {
+          alert("Please enter subject name and drive link.");
+          return;
+        }
+
+        docs.unshift({ id: Date.now().toString(), stream, title, link });
+        saveState();
+        addModal.classList.remove('active');
+        document.getElementById('docTitle').value = "";
+        document.getElementById('docLink').value = "";
         renderView();
-      } else {
-        loginModal.classList.add('active');
-      }
-    });
-
-    document.getElementById('cancelLogin').addEventListener('click', () => loginModal.classList.remove('active'));
-
-    document.getElementById('submitLogin').addEventListener('click', () => {
-      if (document.getElementById('authPass').value === "Shiv@1212") {
-        isAdmin = true;
-        sessionStorage.setItem('mse_sscje_official_auth', 'true');
-        loginModal.classList.remove('active');
-        document.getElementById('authPass').value = "";
-        renderView();
-      } else {
-        alert("Incorrect passkey.");
-      }
-    });
-
-    addBtn.addEventListener('click', () => {
-      if (activeStream) {
-        document.getElementById('docFolder').value = activeStream;
-      }
-      addModal.classList.add('active');
-    });
-
-    document.getElementById('cancelUpload').addEventListener('click', () => addModal.classList.remove('active'));
-
-    document.getElementById('saveDoc').addEventListener('click', () => {
-      const stream = document.getElementById('docFolder').value;
-      const title = document.getElementById('docTitle').value.trim();
-      const link = document.getElementById('docLink').value.trim();
-
-      if (!title || !link) {
-        alert("Please enter subject name and drive link.");
-        return;
-      }
-
-      docs.unshift({ id: Date.now().toString(), stream, title, link });
-      saveState();
-      addModal.classList.remove('active');
-      document.getElementById('docTitle').value = "";
-      document.getElementById('docLink').value = "";
-      renderView();
-    });
+      });
+    }
 
     window.deleteDoc = function(event, id) {
       event.stopPropagation();
@@ -1467,10 +1469,11 @@
     };
 
     [viewerModal, loginModal, addModal].forEach(m => {
+      if (!m) return;
       m.addEventListener('click', e => {
         if (e.target === m) {
           m.classList.remove('active');
-          if (m === viewerModal) viewerFrame.src = "";
+          if (m === viewerModal && viewerFrame) viewerFrame.src = "";
         }
       });
     });
