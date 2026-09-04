@@ -358,7 +358,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. CLEAN ORGANIC FLOWCHART SYSTEM */
+    /* 4. BALANCED TREE FLOWCHART */
     .results-area {
       display: none;
       animation: fadeIn 0.35s ease;
@@ -373,12 +373,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       padding: 0 4px;
     }
 
     .results-header-title {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--text);
       letter-spacing: -0.01em;
@@ -402,12 +402,12 @@
       transform: translateX(-2px);
     }
 
-    /* Flowchart Canvas */
-    .flowchart-board {
+    /* Tree Flow Canvas */
+    .tree-flow-canvas {
       background: #FFFFFF;
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 20px 40px;
+      border-radius: 24px;
+      padding: 40px 20px 48px;
       box-shadow: var(--card-shadow);
       display: flex;
       flex-direction: column;
@@ -415,99 +415,146 @@
       position: relative;
     }
 
-    /* Root Head Badge */
-    .flow-root-badge {
+    .tree-root-head {
       background: #0F172A;
       color: #FFFFFF;
-      padding: 12px 28px;
+      padding: 13px 32px;
       border-radius: 12px;
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 800;
       letter-spacing: 0.02em;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
       border: 1.5px solid #3B82F6;
+      box-shadow: 0 10px 24px -4px rgba(15, 23, 42, 0.3);
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      z-index: 2;
+      z-index: 3;
     }
 
-    .flow-root-badge i {
+    .tree-root-head i {
       color: #38BDF8;
     }
 
-    /* Clean Tree Connectors */
-    .flow-tree-wires {
+    .tree-stem-start {
+      width: 2.5px;
+      height: 32px;
+      background: #94A3B8;
+    }
+
+    /* Alternating Branches Tree Spine */
+    .flow-tree-spine {
       width: 100%;
       max-width: 820px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       position: relative;
     }
 
-    .flow-stem-vertical {
-      width: 2px;
-      height: 24px;
+    /* Central vertical line through all branches */
+    .flow-tree-spine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 28px;
+      left: 50%;
+      width: 2.5px;
       background: #CBD5E1;
+      transform: translateX(-50%);
+      z-index: 1;
     }
 
-    .flow-branch-horizontal {
-      width: 75%;
-      height: 2px;
-      background: #CBD5E1;
-      position: relative;
-    }
-
-    .flow-stem-drop {
-      width: 2px;
-      height: 20px;
-      background: #CBD5E1;
-    }
-
-    /* Node Grid */
-    .flow-nodes-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px 24px;
+    .flow-branch-row {
+      display: flex;
       width: 100%;
-      max-width: 860px;
-      margin-top: 2px;
+      position: relative;
+      margin-bottom: 22px;
       z-index: 2;
     }
 
-    /* Clean Flowchart Card */
-    .flow-node-box {
-      background: #FFFFFF;
-      border: 1.5px solid #E2E8F0;
-      border-radius: 14px;
-      padding: 14px 18px;
-      cursor: pointer;
+    .flow-branch-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .flow-branch-side {
+      width: 50%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
-      transition: all 0.22s ease;
       position: relative;
     }
 
-    .flow-node-box:hover {
-      transform: translateY(-2px);
-      border-color: #3B82F6;
-      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.12);
+    .flow-branch-side.left {
+      justify-content: flex-end;
+      padding-right: 32px;
     }
 
-    .flow-node-left {
+    .flow-branch-side.right {
+      justify-content: flex-start;
+      padding-left: 32px;
+    }
+
+    /* Branch Connector Lines */
+    .flow-branch-side.left::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 32px;
+      height: 2.5px;
+      background: #94A3B8;
+      transform: translateY(-50%);
+    }
+
+    .flow-branch-side.right::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 32px;
+      height: 2.5px;
+      background: #94A3B8;
+      transform: translateY(-50%);
+    }
+
+    /* Central Dot Node */
+    .flow-center-node {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 2.5px solid #2563EB;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Flow Card Component */
+    .flow-item-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 13px 18px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 12px;
-      flex: 1;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+      transition: all 0.22s ease;
+      width: 100%;
+      max-width: 340px;
     }
 
-    .flow-node-icon {
-      width: 40px;
-      height: 40px;
+    .flow-item-card:hover {
+      transform: translateY(-2px);
+      border-color: #3B82F6;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+    }
+
+    .flow-item-icon {
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -517,31 +564,21 @@
       transition: transform 0.2s ease;
     }
 
-    .flow-node-box:hover .flow-node-icon {
+    .flow-item-card:hover .flow-item-icon {
       transform: scale(1.08);
     }
 
-    .flow-node-text {
-      font-size: 0.92rem;
+    .flow-item-title {
+      font-size: 0.91rem;
       font-weight: 700;
       color: #1E293B;
       line-height: 1.35;
+      flex: 1;
       transition: color 0.2s ease;
     }
 
-    .flow-node-box:hover .flow-node-text {
+    .flow-item-card:hover .flow-item-title {
       color: #2563EB;
-    }
-
-    .flow-node-arrow {
-      color: #94A3B8;
-      font-size: 0.85rem;
-      transition: all 0.2s ease;
-    }
-
-    .flow-node-box:hover .flow-node-arrow {
-      color: #2563EB;
-      transform: translateX(3px);
     }
 
     .btn-node-del {
@@ -908,17 +945,38 @@
         font-size: 0.78rem;
       }
 
-      .flowchart-board {
-        padding: 24px 12px 30px;
+      /* Mobile tree adjusts to single-side flow */
+      .tree-flow-canvas {
+        padding: 24px 12px 32px;
       }
 
-      .flow-branch-horizontal, .flow-stem-drop {
-        display: none;
+      .flow-tree-spine::before {
+        left: 20px;
       }
 
-      .flow-nodes-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
+      .flow-branch-row {
+        flex-direction: column;
+        margin-bottom: 14px;
+      }
+
+      .flow-branch-side {
+        width: 100%;
+        padding: 0 0 0 38px !important;
+        justify-content: flex-start !important;
+      }
+
+      .flow-branch-side::after {
+        left: 20px !important;
+        right: auto !important;
+        width: 18px !important;
+      }
+
+      .flow-center-node {
+        left: 20px;
+      }
+
+      .flow-item-card {
+        max-width: 100%;
       }
 
       .modal-card.viewer {
@@ -1018,22 +1076,18 @@
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="cleanStreamTitle" class="results-header-title">Stream</span>
-        <button id="clearFilterBtn" class="btn-clear"><i class="fa-solid fa-arrow-left"></i> Back to Showcase</button>
+        <button id="clearFilterBtn" class="btn-clear"><i class="fa-solid fa-arrow-left"></i> Back</button>
       </div>
 
-      <div class="flowchart-board">
-        <div class="flow-root-badge">
+      <div class="tree-flow-canvas">
+        <div class="tree-root-head">
           <i class="fa-solid fa-diagram-project"></i>
           <span id="flowRootText">Stream</span>
         </div>
 
-        <div class="flow-tree-wires">
-          <div class="flow-stem-vertical"></div>
-          <div class="flow-branch-horizontal"></div>
-          <div class="flow-stem-drop"></div>
-        </div>
+        <div class="tree-stem-start"></div>
 
-        <div id="flowNodesContainer" class="flow-nodes-grid"></div>
+        <div id="flowTreeSpine" class="flow-tree-spine"></div>
       </div>
     </div>
 
@@ -1159,7 +1213,6 @@
       } catch(e) {}
     }
 
-    /* Custom Domain Specific Icons */
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
 
@@ -1224,7 +1277,7 @@
     const homeQuote = document.getElementById('homeQuote');
     const cleanStreamTitle = document.getElementById('cleanStreamTitle');
     const flowRootText = document.getElementById('flowRootText');
-    const flowNodesContainer = document.getElementById('flowNodesContainer');
+    const flowTreeSpine = document.getElementById('flowTreeSpine');
     const clearFilterBtn = document.getElementById('clearFilterBtn');
     const filterButtons = document.querySelectorAll('.btn-filter');
 
@@ -1250,7 +1303,7 @@
       if (query !== '' || activeStream !== null) {
         if (resultsArea) resultsArea.style.display = 'block';
         if (trainSlider) trainSlider.style.display = 'none';
-        if (homeQuote) homeQuote.style.display = 'none'; /* Quote hides on search/filter */
+        if (homeQuote) homeQuote.style.display = 'none';
 
         let filtered = docs;
         if (activeStream) {
@@ -1259,14 +1312,14 @@
           if (flowRootText) flowRootText.textContent = activeStream;
         } else if (query) {
           filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results (${filtered.length})`;
-          if (flowRootText) flowRootText.textContent = `Query: "${query}"`;
+          if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results`;
+          if (flowRootText) flowRootText.textContent = `Search: "${query}"`;
         }
 
         if (filtered.length === 0) {
-          if (flowNodesContainer) {
-            flowNodesContainer.innerHTML = `
-              <div style="grid-column: 1/-1; text-align: center; padding: 26px; color: var(--text-muted); font-size: 0.95rem;">
+          if (flowTreeSpine) {
+            flowTreeSpine.innerHTML = `
+              <div style="text-align: center; padding: 28px; color: var(--text-muted); font-size: 0.95rem;">
                 No matching subjects found.
               </div>
             `;
@@ -1275,28 +1328,45 @@
         }
 
         let html = '';
-        filtered.forEach(doc => {
+        filtered.forEach((doc, idx) => {
           const visual = getSubjectVisual(doc.title);
+          const isLeft = idx % 2 === 0;
+
           html += `
-            <div class="flow-node-box" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-              <div class="flow-node-left">
-                <div class="flow-node-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
-                  <i class="fa-solid ${visual.icon}"></i>
-                </div>
-                <span class="flow-node-text">${doc.title}</span>
+            <div class="flow-branch-row">
+              <div class="flow-center-node"></div>
+              
+              <div class="flow-branch-side left">
+                ${isLeft ? `
+                  <div class="flow-item-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
+                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
+                      <i class="fa-solid ${visual.icon}"></i>
+                    </div>
+                    <span class="flow-item-title">${doc.title}</span>
+                    ${isAdmin ? `<button class="btn-node-del" style="display:inline-flex;" onclick="deleteDoc(event, '${doc.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>` : ''}
+                  </div>
+                ` : ''}
               </div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                ${isAdmin ? `<button class="btn-node-del" style="display:inline-flex;" onclick="deleteDoc(event, '${doc.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>` : ''}
-                <i class="fa-solid fa-chevron-right flow-node-arrow"></i>
+
+              <div class="flow-branch-side right">
+                ${!isLeft ? `
+                  <div class="flow-item-card" onclick="openDoc('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
+                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
+                      <i class="fa-solid ${visual.icon}"></i>
+                    </div>
+                    <span class="flow-item-title">${doc.title}</span>
+                    ${isAdmin ? `<button class="btn-node-del" style="display:inline-flex;" onclick="deleteDoc(event, '${doc.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>` : ''}
+                  </div>
+                ` : ''}
               </div>
             </div>
           `;
         });
-        if (flowNodesContainer) flowNodesContainer.innerHTML = html;
+        if (flowTreeSpine) flowTreeSpine.innerHTML = html;
       } else {
         if (resultsArea) resultsArea.style.display = 'none';
         if (trainSlider) trainSlider.style.display = 'block';
-        if (homeQuote) homeQuote.style.display = 'flex'; /* Quote shows only on Home */
+        if (homeQuote) homeQuote.style.display = 'flex';
       }
     }
 
