@@ -10,6 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- Firebase App SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <!-- Firebase Realtime Database SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
   <style>
     :root {
       --brand-navy-950: #060B14;
@@ -942,6 +947,44 @@
   </footer>
 
   <script>
+    // Firebase Configuration keys
+    const firebaseConfig = {
+      apiKey: "AIzaSyCMwAvrhfK2ojZJ5pk8FlANbKN4nfwOHuY",
+      authDomain: "missionsarkariengineer.firebaseapp.com",
+      databaseURL: "https://missionsarkariengineer-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "missionsarkariengineer",
+      storageBucket: "missionsarkariengineer.firebasestorage.app",
+      messagingSenderId: "217166121688",
+      appId: "1:217166121688:web:7bdc0e06a1dc6f2b4b65ad",
+      measurementId: "G-78CJQHZJDE"
+    };
+
+    // Firebase initialize karein
+    firebase.initializeApp(firebaseConfig);
+    const dbRef = firebase.database().ref('portal_visits');
+
+    // Realtime Global Cloud Counter Logic
+    function initVisitorCounter() {
+      const display = document.getElementById('visitorCountDisplay');
+      
+      if (!sessionStorage.getItem('mse_firebase_counted')) {
+        dbRef.transaction(currentVisits => {
+          return (currentVisits || 1250) + 1;
+        }, (error, committed, snapshot) => {
+          if (!error && committed) {
+            const count = snapshot.val();
+            if (display) display.textContent = count.toString().padStart(6, '0');
+            sessionStorage.setItem('mse_firebase_counted', 'true');
+          }
+        });
+      } else {
+        dbRef.once('value').then(snapshot => {
+          const count = snapshot.val() || 1250;
+          if (display) display.textContent = count.toString().padStart(6, '0');
+        });
+      }
+    }
+
     const INITIAL_DOCS = [
       { id: "1", stream: "Revision & PYQs", title: "Mechanical Theory Revision Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
       { id: "2", stream: "Revision & PYQs", title: "Mechanical AE/JE & SSC JE Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
@@ -1014,25 +1057,6 @@
       if (!url) return "";
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
-    }
-
-    // Rock-solid counter that increments correctly on active visits without API failures
-    function initVisitorCounter() {
-      const display = document.getElementById('visitorCountDisplay');
-      const STORAGE_KEY = 'mse_global_portal_visits';
-      
-      let count = parseInt(localStorage.getItem(STORAGE_KEY) || '1250', 10);
-      
-      // Increment only once per session so standard refreshes don't spam, but every new visit/user adds up
-      if (!sessionStorage.getItem('mse_visit_counted')) {
-        count += 1;
-        localStorage.setItem(STORAGE_KEY, count.toString());
-        sessionStorage.setItem('mse_visit_counted', 'true');
-      }
-
-      if (display) {
-        display.textContent = count.toString().padStart(6, '0');
-      }
     }
 
     const mainWorkspace = document.getElementById('mainWorkspace');
