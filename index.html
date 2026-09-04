@@ -607,17 +607,30 @@
 
     /* 6. MOTIVATIONAL QUOTE */
     .bottom-quote-section {
-      margin-top: 35px;
+      margin-top: 40px;
+      padding: 16px 20px;
       background: #FFFFFF;
       border: 1px solid var(--border-light);
-      border-left: 4px solid var(--primary-blue);
       border-radius: 14px;
-      padding: 18px 24px;
+      text-align: center;
       box-shadow: var(--shadow-ambient);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .bottom-quote-section i {
+      color: var(--primary-blue);
+      font-size: 0.9rem;
+    }
+
+    .bottom-quote-section p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 0;
     }
 
     /* 7. FOOTER */
@@ -916,15 +929,9 @@
 
     <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--primary-light); color: var(--primary-blue); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
-        <div>
-          <div style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--primary-blue); margin-bottom: 3px;">Daily Motivation</div>
-          <p style="font-size: 0.92rem; color: var(--text-main); font-weight: 700; margin: 0; line-height: 1.4;">If efforts will put towards goal then chance to achieve that goal would be more!</p>
-        </div>
-      </div>
+      <i class="fa-solid fa-quote-left"></i>
+      <p>If efforts will put towards goal then chance to achieve that goal would be more!</p>
+      <i class="fa-solid fa-quote-right"></i>
     </div>
   </main>
 
