@@ -442,8 +442,8 @@
     }
 
     .subject-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       background: #EFF6FF;
       color: var(--accent);
@@ -543,11 +543,11 @@
       letter-spacing: 0.06em;
     }
 
-    /* 6. DOCUMENT READER MODAL */
+    /* 6. EMBEDDED DIRECT DOCUMENT VIEWER MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(3, 7, 18, 0.85);
+      background: rgba(3, 7, 18, 0.88);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       display: flex;
@@ -582,8 +582,8 @@
 
     .modal-card.viewer {
       max-width: 1150px;
-      width: 95%;
-      height: 92vh;
+      width: 96%;
+      height: 94vh;
       display: flex;
       flex-direction: column;
       padding: 0;
@@ -905,7 +905,7 @@
       </div>
     </div>
 
-    <!-- On-Demand Pure Subject List -->
+    <!-- On-Demand Direct Subject List -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
         <span id="resultsTitle">Select Subject</span>
@@ -928,19 +928,19 @@
     </div>
   </footer>
 
-  <!-- 4. E-BOOK / DOCUMENT READER MODAL -->
+  <!-- 4. DIRECT EMBEDDED DOCUMENT VIEWER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="modal-header book-bar">
         <div class="book-title-tag">
-          <i class="fa-solid fa-book-open"></i>
-          <span id="viewerTitle">Document Reader</span>
+          <i class="fa-solid fa-file-lines"></i>
+          <span id="viewerTitle">Document View</span>
         </div>
         <div class="book-actions">
-          <a id="externalDriveBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-book-action" title="Open Full Screen">
-            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Full Screen
+          <a id="externalDriveBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-book-action" title="Open Full Window">
+            <i class="fa-solid fa-expand"></i> Full Screen
           </a>
-          <button id="closeViewer" class="btn-book-close" title="Close Reader">&times;</button>
+          <button id="closeViewer" class="btn-book-close" title="Close Document">&times;</button>
         </div>
       </div>
       <iframe id="viewerFrame" style="flex:1; width:100%; border:none; background:#0F172A;" src="" allow="autoplay"></iframe>
@@ -952,7 +952,7 @@
     <div class="modal-card">
       <div class="modal-icon-badge"><i class="fa-solid fa-lock"></i></div>
       <h3 class="modal-title">Admin Access</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Enter your passkey to manage documents.</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Enter passkey to add or remove subjects.</p>
       <div class="form-group">
         <input type="password" id="authPass" class="form-control" placeholder="••••••••••••" autofocus />
       </div>
@@ -963,12 +963,12 @@
     </div>
   </div>
 
-  <!-- Upload Modal -->
+  <!-- Add Subject / Upload Modal -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-card">
-      <div class="modal-icon-badge"><i class="fa-solid fa-file-circle-plus"></i></div>
-      <h3 class="modal-title">Upload Document</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Add a new study subject.</p>
+      <div class="modal-icon-badge"><i class="fa-solid fa-folder-plus"></i></div>
+      <h3 class="modal-title">Add New Subject</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Upload or link a subject directly to the portal.</p>
 
       <div class="form-group">
         <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Stream</label>
@@ -981,18 +981,18 @@
       </div>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Title</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Subject Name / Document Title</label>
         <input type="text" id="docTitle" class="form-control" placeholder="e.g. Strength of Materials (SOM)" style="margin-top: 6px;" required />
       </div>
 
       <div class="form-group">
-        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Google Drive Share Link</label>
+        <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Document Link (Drive Share Link)</label>
         <input type="url" id="docLink" class="form-control" placeholder="https://drive.google.com/file/d/..." style="margin-top: 6px;" required />
       </div>
 
       <div class="modal-actions">
         <button id="cancelUpload" class="btn-modal-cancel">Cancel</button>
-        <button id="saveDoc" class="btn-modal-submit">Save Document</button>
+        <button id="saveDoc" class="btn-modal-submit">Save Subject</button>
       </div>
     </div>
   </div>
@@ -1022,6 +1022,7 @@
       localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
     }
 
+    /* Convert standard drive links to direct embedded clean doc preview */
     function formatDrivePreview(url) {
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
       return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
@@ -1146,6 +1147,7 @@
       renderView();
     });
 
+    /* Direct embedded document open */
     window.openDoc = function(title, link) {
       viewerTitle.textContent = title;
       viewerFrame.src = formatDrivePreview(link);
@@ -1158,7 +1160,7 @@
       viewerFrame.src = "";
     });
 
-    // Admin Passkey: Shiv@1212
+    // Passkey authentication: Shiv@1212
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
@@ -1183,6 +1185,7 @@
       }
     });
 
+    /* Open Add Subject Modal */
     addBtn.addEventListener('click', () => {
       if (activeStream) {
         document.getElementById('docFolder').value = activeStream;
@@ -1192,13 +1195,14 @@
 
     document.getElementById('cancelUpload').addEventListener('click', () => addModal.classList.remove('active'));
 
+    /* Save New Subject */
     document.getElementById('saveDoc').addEventListener('click', () => {
       const stream = document.getElementById('docFolder').value;
       const title = document.getElementById('docTitle').value.trim();
       const link = document.getElementById('docLink').value.trim();
 
       if (!title || !link) {
-        alert("Please fill all fields.");
+        alert("Please enter subject name and drive link.");
         return;
       }
 
@@ -1210,9 +1214,10 @@
       renderView();
     });
 
+    /* Delete Subject */
     window.deleteDoc = function(event, id) {
       event.stopPropagation();
-      if (confirm("Delete this document?")) {
+      if (confirm("Do you want to delete this subject?")) {
         docs = docs.filter(d => d.id !== id);
         saveState();
         renderView();
