@@ -963,26 +963,22 @@
     firebase.initializeApp(firebaseConfig);
     const dbRef = firebase.database().ref('portal_visits');
 
-    // Realtime Global Cloud Counter Logic
+    // Realtime Global Cloud Counter Logic (Har visit/refresh par count badhega)
     function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       
-      if (!sessionStorage.getItem('mse_firebase_counted')) {
-        dbRef.transaction(currentVisits => {
-          return (currentVisits || 1250) + 1;
-        }, (error, committed, snapshot) => {
-          if (!error && committed) {
-            const count = snapshot.val();
-            if (display) display.textContent = count.toString().padStart(6, '0');
-            sessionStorage.setItem('mse_firebase_counted', 'true');
+      dbRef.transaction(currentVisits => {
+        return (currentVisits || 1250) + 1;
+      }, (error, committed, snapshot) => {
+        if (!error && committed) {
+          const count = snapshot.val();
+          if (display) {
+            display.textContent = count.toString().padStart(6, '0');
           }
-        });
-      } else {
-        dbRef.once('value').then(snapshot => {
-          const count = snapshot.val() || 1250;
-          if (display) display.textContent = count.toString().padStart(6, '0');
-        });
-      }
+        } else {
+          if (display) display.textContent = "001250";
+        }
+      });
     }
 
     const INITIAL_DOCS = [
@@ -1056,7 +1052,10 @@
     function formatDrivePreview(url) {
       if (!url) return "";
       const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-      return match && match[1] ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
+      if (match && match[1]) {
+        return `https://drive.google.com/file/d/${match[1]}/view?usp=sharing`;
+      }
+      return url;
     }
 
     const mainWorkspace = document.getElementById('mainWorkspace');
