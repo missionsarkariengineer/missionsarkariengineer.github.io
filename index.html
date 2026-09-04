@@ -163,14 +163,14 @@
       background: rgba(37, 99, 235, 0.2);
       color: #BAE6FD;
       border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      cursor: pointer;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
       transition: all 0.2s ease;
       text-decoration: none;
     }
@@ -692,7 +692,7 @@
       letter-spacing: 0.06em;
     }
 
-    /* ADMIN MODAL OVERLAY */
+    /* ADMIN MODALS */
     .admin-modal-overlay {
       display: none;
       position: fixed;
@@ -820,8 +820,9 @@
       }
 
       .admin-upload-btn {
-        padding: 4px 10px;
-        font-size: 0.72rem;
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
       }
 
       .filter-wrapper {
@@ -980,15 +981,15 @@
     </div>
   </div>
 
-  <!-- 1.1 WELCOME STRIP WITH ADMIN MAN ICON -->
+  <!-- 1.1 WELCOME STRIP WITH ONLY ADMIN ICON -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
         <span class="welcome-dot"></span>
         <span>Welcome to Mission Sarkari Engineer</span>
       </div>
-      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="handleAdminLogin(); return false;" title="Admin Upload Panel">
-        <i class="fa-solid fa-user-gear"></i> Admin
+      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="handleAdminLogin(); return false;" title="Admin Login">
+        <i class="fa-solid fa-user-gear"></i>
       </a>
     </div>
   </div>
@@ -1099,6 +1100,23 @@
     </div>
   </footer>
 
+  <!-- ADMIN LOGIN PASSWORD MODAL -->
+  <div id="loginModal" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 380px;">
+      <h3><i class="fa-solid fa-lock" style="color: var(--primary-blue);"></i> Admin Authentication</h3>
+      <form id="loginForm" onsubmit="verifyAdminPassword(event)">
+        <div class="admin-form-group">
+          <label>Enter Admin Password</label>
+          <input type="password" id="adminPasswordInput" placeholder="Enter password..." required autofocus />
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="btn-admin-cancel" onclick="closeLoginModal()">Cancel</button>
+          <button type="submit" class="btn-admin-save">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ADMIN UPLOAD MODAL -->
   <div id="adminModal" class="admin-modal-overlay">
     <div class="admin-modal-box">
@@ -1189,14 +1207,26 @@
 
     let activeStream = null;
 
-    // Admin Login Logic
+    // Custom Professional Login Modal Logic
     function handleAdminLogin() {
-      const pwd = prompt("Enter Admin Password");
-      if (pwd === null) return;
+      document.getElementById('loginModal').style.display = 'flex';
+      document.getElementById('adminPasswordInput').value = '';
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function verifyAdminPassword(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('adminPasswordInput').value;
+      
       if (pwd === "admin123" || pwd === "admin") {
+        closeLoginModal();
         document.getElementById('adminModal').style.display = 'flex';
       } else {
         alert("Incorrect Password!");
+        document.getElementById('adminPasswordInput').value = '';
       }
     }
 
