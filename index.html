@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -15,7 +15,6 @@
       --header-bg: radial-gradient(circle at 50% 0%, #172554 0%, #0B1120 75%, #030712 100%);
       --accent: #3B82F6;
       --accent-hover: #2563EB;
-      --accent-glow: rgba(59, 130, 246, 0.25);
       --bg: #F8FAFC;
       --surface: #FFFFFF;
       --border: #E2E8F0;
@@ -48,7 +47,7 @@
       overflow-x: hidden;
     }
 
-    /* 1. LUXURY AESTHETIC TOP HEADER */
+    /* 1. TOP HEADER */
     .top-broad-header {
       background: var(--header-bg);
       padding: 24px 36px;
@@ -129,7 +128,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.25s ease;
       backdrop-filter: blur(10px);
       white-space: nowrap;
     }
@@ -164,7 +163,7 @@
       transform: translateY(-1px);
     }
 
-    /* 1.1 SLIDING TICKER / MARQUEE BAR */
+    /* SLIDING TICKER */
     .quote-ticker-bar {
       background: #060B18;
       border-bottom: 1px solid rgba(59, 130, 246, 0.2);
@@ -173,7 +172,6 @@
       padding: 8px 0;
       display: flex;
       align-items: center;
-      position: relative;
     }
 
     .ticker-track {
@@ -233,12 +231,6 @@
       padding: 26px;
       box-shadow: var(--card-shadow);
       margin-bottom: 28px;
-      transition: box-shadow 0.3s ease;
-    }
-
-    .filter-wrapper:focus-within {
-      box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.08);
-      border-color: #BFDBFE;
     }
 
     .search-box {
@@ -260,14 +252,9 @@
       transition: all 0.25s ease;
     }
 
-    .search-box input::placeholder {
-      color: #94A3B8;
-      font-weight: 400;
-    }
-
     .search-box input:focus {
       border-color: #3B82F6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(59, 130, 246, 0.08);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
     .search-box i {
@@ -294,8 +281,7 @@
       background: #FFFFFF;
       color: #475569;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
     }
 
     .btn-filter:hover {
@@ -364,10 +350,6 @@
       transition: transform 0.6s ease;
     }
 
-    .train-card-photo:hover img {
-      transform: scale(1.08);
-    }
-
     .photo-overlay {
       position: absolute;
       inset: 0;
@@ -384,10 +366,9 @@
       color: #F8FAFC;
       font-weight: 700;
       letter-spacing: 0.02em;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
-    /* DATA TABLE */
+    /* 4. CLEAN CLICKABLE SUBJECT LIST */
     .results-area {
       display: none;
       animation: fadeIn 0.3s ease;
@@ -402,7 +383,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-muted);
@@ -426,119 +407,109 @@
       transform: translateX(-2px);
     }
 
-    .table-card {
+    .subject-list-card {
       background: var(--surface);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      overflow-x: auto;
+      overflow: hidden;
       box-shadow: var(--card-shadow);
-      -webkit-overflow-scrolling: touch;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.92rem;
-      min-width: 540px;
-    }
-
-    thead {
-      background: #F8FAFC;
-      border-bottom: 1.5px solid var(--border);
-    }
-
-    th {
-      padding: 15px 22px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    tbody tr {
+    .subject-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
       border-bottom: 1px solid #F1F5F9;
-      transition: background 0.15s ease;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    tbody tr:last-child {
+    .subject-item-row:last-child {
       border-bottom: none;
     }
 
-    tbody tr:hover {
+    .subject-item-row:hover {
       background: #F8FAFC;
+      padding-left: 28px;
     }
 
-    td {
-      padding: 16px 22px;
-      vertical-align: middle;
+    .subject-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
     }
 
-    .subject-cell {
+    .subject-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EFF6FF;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .subject-item-row:hover .subject-icon {
+      transform: scale(1.1);
+      background: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .subject-name {
       font-weight: 600;
       color: var(--text);
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
     }
 
-    .stream-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      font-weight: 600;
-      padding: 5px 11px;
-      border-radius: 8px;
-      background: #F1F5F9;
-      color: #334155;
-      border: 1px solid #E2E8F0;
-      text-transform: uppercase;
-      white-space: nowrap;
+    .subject-item-row:hover .subject-name {
+      color: var(--accent);
     }
 
-    .action-group {
+    .subject-row-right {
       display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .btn-action {
-      padding: 8px 15px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      border-radius: 8px;
-      border: 1px solid #E2E8F0;
-      background: #FFFFFF;
-      color: #334155;
-      cursor: pointer;
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      gap: 12px;
     }
 
-    .btn-action:hover {
-      background: #0F172A;
-      color: #FFFFFF;
-      border-color: #0F172A;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+    .arrow-indicator {
+      color: #94A3B8;
+      font-size: 0.85rem;
+      transition: transform 0.2s ease, color 0.2s ease;
     }
 
-    .btn-del {
-      color: var(--danger);
-      border-color: #FEE2E2;
+    .subject-item-row:hover .arrow-indicator {
+      transform: translateX(4px);
+      color: var(--accent);
+    }
+
+    .btn-row-del {
       background: #FEF2F2;
+      border: 1px solid #FEE2E2;
+      color: var(--danger);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
       display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
     }
 
-    .btn-del:hover {
+    .btn-row-del:hover {
       background: var(--danger);
-      border-color: var(--danger);
       color: #FFFFFF;
     }
 
-    /* 4. FOOTER */
+    /* 5. FOOTER */
     footer {
       background: var(--header-bg);
       color: #94A3B8;
@@ -572,7 +543,7 @@
       letter-spacing: 0.06em;
     }
 
-    /* 5. AESTHETIC E-BOOK MODAL SYSTEM */
+    /* 6. DOCUMENT READER MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -671,7 +642,6 @@
     .btn-book-action:hover {
       background: #FFFFFF;
       color: #0F172A;
-      transform: translateY(-1px);
     }
 
     .btn-book-close {
@@ -692,7 +662,6 @@
     .btn-book-close:hover {
       background: #EF4444;
       color: #FFFFFF;
-      transform: scale(1.05);
     }
 
     .modal-icon-badge {
@@ -781,7 +750,6 @@
       transform: translateY(-1px);
     }
 
-    /* 6. RESPONSIVE DESIGN */
     @media (max-width: 768px) {
       .top-broad-header {
         padding: 18px 20px;
@@ -806,20 +774,11 @@
 
       .top-broad-header h1 {
         font-size: 1.35rem;
-        letter-spacing: 0.02em;
       }
 
       .header-actions {
         width: 100%;
         justify-content: center;
-      }
-
-      .quote-ticker-bar {
-        padding: 6px 0;
-      }
-
-      .ticker-item {
-        font-size: 0.76rem;
       }
 
       main {
@@ -828,16 +787,6 @@
 
       .filter-wrapper {
         padding: 18px;
-        border-radius: 14px;
-      }
-
-      .search-box input {
-        padding: 13px 16px 13px 46px;
-        font-size: 0.9rem;
-      }
-
-      .filter-buttons {
-        gap: 8px;
       }
 
       .btn-filter {
@@ -847,23 +796,12 @@
         font-size: 0.78rem;
       }
 
-      .train-card-photo {
-        width: 235px;
-        height: 145px;
+      .subject-item-row {
+        padding: 14px 16px;
       }
 
-      .photo-overlay p {
-        font-size: 0.78rem;
-      }
-
-      footer {
-        padding: 18px 20px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
+      .subject-name {
+        font-size: 0.88rem;
       }
 
       .modal-card.viewer {
@@ -899,25 +837,21 @@
     </div>
   </div>
 
-  <!-- 1.1 MOTIVATIONAL SLIDING TICKER LINE -->
+  <!-- MOTIVATIONAL SLIDING TICKER -->
   <div class="quote-ticker-bar">
     <div class="ticker-track">
-      <!-- Item 1 -->
       <div class="ticker-item">
         <span class="ticker-dot"></span>
         <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
       </div>
-      <!-- Item 2 (Clone for infinite seamless marquee loop) -->
       <div class="ticker-item">
         <span class="ticker-dot"></span>
         <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
       </div>
-      <!-- Item 3 -->
       <div class="ticker-item">
         <span class="ticker-dot"></span>
         <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
       </div>
-      <!-- Item 4 -->
       <div class="ticker-item">
         <span class="ticker-dot"></span>
         <span><strong>Welcome to Mission Sarkari Engineer</strong> — "If efforts will put towards goal then chance to achieve that goal would be more!"</span>
@@ -944,71 +878,41 @@
     <!-- 3 SSC JE Departments Slider -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
-        <!-- Set 1 -->
         <div class="train-card-photo">
           <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
-          <div class="photo-overlay">
-            <p>Military Engineering Services</p>
-          </div>
+          <div class="photo-overlay"><p>Military Engineering Services</p></div>
         </div>
-
         <div class="train-card-photo">
           <img src="CPWD.jpg" alt="National CPWD Academy" />
-          <div class="photo-overlay">
-            <p>Central Public Works Department</p>
-          </div>
+          <div class="photo-overlay"><p>Central Public Works Department</p></div>
         </div>
-
         <div class="train-card-photo">
           <img src="Central Water Commision.jpg" alt="Central Water Commission" />
-          <div class="photo-overlay">
-            <p>Central Water Commission</p>
-          </div>
+          <div class="photo-overlay"><p>Central Water Commission</p></div>
         </div>
-
-        <!-- Set 2 (Seamless Loop Clone) -->
         <div class="train-card-photo">
           <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
-          <div class="photo-overlay">
-            <p>Military Engineering Services</p>
-          </div>
+          <div class="photo-overlay"><p>Military Engineering Services</p></div>
         </div>
-
         <div class="train-card-photo">
           <img src="CPWD.jpg" alt="National CPWD Academy" />
-          <div class="photo-overlay">
-            <p>Central Public Works Department</p>
-          </div>
+          <div class="photo-overlay"><p>Central Public Works Department</p></div>
         </div>
-
         <div class="train-card-photo">
           <img src="Central Water Commision.jpg" alt="Central Water Commission" />
-          <div class="photo-overlay">
-            <p>Central Water Commission</p>
-          </div>
+          <div class="photo-overlay"><p>Central Water Commission</p></div>
         </div>
       </div>
     </div>
 
-    <!-- On-Demand Filtered Documents Table -->
+    <!-- On-Demand Pure Subject List -->
     <div id="resultsArea" class="results-area">
       <div class="results-header">
-        <span id="resultsTitle">Filtered Documents</span>
+        <span id="resultsTitle">Select Subject</span>
         <button id="clearFilterBtn" class="btn-clear"><i class="fa-solid fa-arrow-left"></i> Back to Showcase</button>
       </div>
 
-      <div class="table-card">
-        <table>
-          <thead>
-            <tr>
-              <th>Subject / Document</th>
-              <th style="width: 200px;">Stream</th>
-              <th style="width: 170px; text-align: right;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
+      <div id="subjectListCard" class="subject-list-card"></div>
     </div>
   </main>
 
@@ -1024,7 +928,7 @@
     </div>
   </footer>
 
-  <!-- 4. AESTHETIC E-BOOK / DOCUMENT READER MODAL -->
+  <!-- 4. E-BOOK / DOCUMENT READER MODAL -->
   <div id="viewerModal" class="modal-overlay">
     <div class="modal-card viewer">
       <div class="modal-header book-bar">
@@ -1046,16 +950,12 @@
   <!-- Admin Login Modal -->
   <div id="loginModal" class="modal-overlay">
     <div class="modal-card">
-      <div class="modal-icon-badge">
-        <i class="fa-solid fa-lock"></i>
-      </div>
+      <div class="modal-icon-badge"><i class="fa-solid fa-lock"></i></div>
       <h3 class="modal-title">Admin Access</h3>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Enter your passkey to manage documents.</p>
-
       <div class="form-group">
         <input type="password" id="authPass" class="form-control" placeholder="••••••••••••" autofocus />
       </div>
-
       <div class="modal-actions">
         <button id="cancelLogin" class="btn-modal-cancel">Cancel</button>
         <button id="submitLogin" class="btn-modal-submit">Unlock Portal</button>
@@ -1066,11 +966,9 @@
   <!-- Upload Modal -->
   <div id="addModal" class="modal-overlay">
     <div class="modal-card">
-      <div class="modal-icon-badge">
-        <i class="fa-solid fa-file-circle-plus"></i>
-      </div>
+      <div class="modal-icon-badge"><i class="fa-solid fa-file-circle-plus"></i></div>
       <h3 class="modal-title">Upload Document</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Add a new study module or question bank.</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 18px;">Add a new study subject.</p>
 
       <div class="form-group">
         <label style="font-size: 0.74rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Stream</label>
@@ -1145,7 +1043,7 @@
       display.textContent = current.toString().padStart(6, '0');
     }
 
-    const tableBody = document.getElementById('tableBody');
+    const subjectListCard = document.getElementById('subjectListCard');
     const searchInput = document.getElementById('searchInput');
     const resultsArea = document.getElementById('resultsArea');
     const trainSlider = document.getElementById('trainSlider');
@@ -1178,19 +1076,17 @@
         let filtered = docs;
         if (activeStream) {
           filtered = filtered.filter(d => d.stream === activeStream);
-          resultsTitle.textContent = `${activeStream} (${filtered.length} Items)`;
+          resultsTitle.textContent = `${activeStream} (${filtered.length} Subjects)`;
         } else if (query) {
           filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
-          resultsTitle.textContent = `Search Results for "${query}" (${filtered.length} Items)`;
+          resultsTitle.textContent = `Subjects matching "${query}" (${filtered.length})`;
         }
 
         if (filtered.length === 0) {
-          tableBody.innerHTML = `
-            <tr>
-              <td colspan="3" style="text-align: center; padding: 32px; color: var(--text-muted);">
-                No matching subjects found.
-              </td>
-            </tr>
+          subjectListCard.innerHTML = `
+            <div style="text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 0.95rem;">
+              No matching subjects found.
+            </div>
           `;
           return;
         }
@@ -1198,24 +1094,21 @@
         let html = '';
         filtered.forEach(doc => {
           html += `
-            <tr>
-              <td class="subject-cell">${doc.title}</td>
-              <td><span class="stream-tag">${doc.stream}</span></td>
-              <td>
-                <div class="action-group">
-                  <button class="btn-action" onclick="openDoc('${doc.title}', '${doc.link}')">
-                    <i class="fa-solid fa-book-open"></i> Read
-                  </button>
-                  <a href="${doc.link}" target="_blank" rel="noopener noreferrer" class="btn-action" title="Open Drive Link">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                  </a>
-                  ${isAdmin ? `<button class="btn-action btn-del" style="display:inline-flex;" onclick="deleteDoc('${doc.id}')"><i class="fa-solid fa-trash"></i></button>` : ''}
+            <div class="subject-item-row" onclick="openDoc('${doc.title}', '${doc.link}')">
+              <div class="subject-main">
+                <div class="subject-icon">
+                  <i class="fa-solid fa-book-bookmark"></i>
                 </div>
-              </td>
-            </tr>
+                <span class="subject-name">${doc.title}</span>
+              </div>
+              <div class="subject-row-right">
+                ${isAdmin ? `<button class="btn-row-del" style="display:inline-flex;" onclick="deleteDoc(event, '${doc.id}')" title="Delete"><i class="fa-solid fa-trash"></i></button>` : ''}
+                <i class="fa-solid fa-chevron-right arrow-indicator"></i>
+              </div>
+            </div>
           `;
         });
-        tableBody.innerHTML = html;
+        subjectListCard.innerHTML = html;
       } else {
         resultsArea.style.display = 'none';
         trainSlider.style.display = 'block';
@@ -1265,7 +1158,7 @@
       viewerFrame.src = "";
     });
 
-    // Passkey: Shiv@1212
+    // Admin Passkey: Shiv@1212
     authBtn.addEventListener('click', () => {
       if (isAdmin) {
         isAdmin = false;
@@ -1317,7 +1210,8 @@
       renderView();
     });
 
-    window.deleteDoc = function(id) {
+    window.deleteDoc = function(event, id) {
+      event.stopPropagation();
       if (confirm("Delete this document?")) {
         docs = docs.filter(d => d.id !== id);
         saveState();
