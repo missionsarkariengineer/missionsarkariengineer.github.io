@@ -724,14 +724,15 @@
       }
 
       .flow-tree-spine::before {
-        left: 20px;
+        left: 24px;
         bottom: 14px;
       }
 
       .flow-branch-row {
         flex-direction: column;
-        margin-bottom: 14px;
-        padding-left: 36px;
+        margin-bottom: 20px;
+        padding-left: 48px;
+        position: relative;
       }
 
       .flow-branch-side {
@@ -741,14 +742,21 @@
       }
 
       .flow-branch-side.has-card::after {
-        left: -16px !important;
+        content: '';
+        position: absolute;
+        left: -24px !important;
         right: auto !important;
-        width: 16px !important;
+        top: 50%;
+        width: 24px !important;
+        height: 2px;
+        background: var(--border-dark);
+        transform: translateY(-50%);
       }
 
       .flow-center-node {
-        left: 20px;
-        top: 24px;
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       .flow-item-card {
