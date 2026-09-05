@@ -595,6 +595,35 @@
       align-items: center;
       gap: 14px;
       box-shadow: var(--shadow-ambient);
+      flex-wrap: wrap;
+    }
+
+    .reader-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-direct-external {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+      transition: background 0.2s ease;
+    }
+
+    .btn-direct-external:hover {
+      background: var(--primary-blue-hover);
     }
 
     .reader-doc-heading {
@@ -627,59 +656,6 @@
       border: none;
       background: #FFFFFF;
       display: block;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* FALLBACK OVERLAY FOR CORPORATE FIREWALLS */
-    .reader-fallback-banner {
-      position: absolute;
-      inset: 0;
-      background: #0B132B;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      color: #FFFFFF;
-      z-index: 1;
-    }
-
-    .reader-fallback-banner i {
-      font-size: 2.5rem;
-      color: var(--accent-cyan);
-      margin-bottom: 14px;
-    }
-
-    .reader-fallback-banner h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .reader-fallback-banner p {
-      font-size: 0.88rem;
-      color: #94A3B8;
-      max-width: 450px;
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    .btn-fallback-open {
-      background: var(--primary-blue);
-      color: #FFFFFF;
-      padding: 11px 22px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.88rem;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
-      transition: background 0.2s ease;
-    }
-
-    .btn-fallback-open:hover {
-      background: var(--primary-blue-hover);
     }
 
     /* 6. MOTIVATIONAL QUOTE */
@@ -1210,9 +1186,14 @@
     <!-- LEVEL 3: SAME-PAGE DOCUMENT READER -->
     <div id="readerStage" class="reader-stage-section">
       <div class="reader-toolbar">
-        <button id="backToFlowBtn" class="btn-nav-action">
-          <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
-        </button>
+        <div class="reader-toolbar-actions">
+          <button id="backToFlowBtn" class="btn-nav-action">
+            <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
+          </button>
+          <a id="openExternalBtn" href="#" target="_blank" class="btn-direct-external">
+            <i class="fa-solid fa-external-link-alt"></i> Open in New Tab
+          </a>
+        </div>
         <div class="reader-doc-heading">
           <i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i>
           <span id="readerDocTitle">Document Viewer</span>
@@ -1220,15 +1201,6 @@
       </div>
 
       <div class="reader-frame-container">
-        <!-- Corporate Firewall Fallback Banner -->
-        <div class="reader-fallback-banner">
-          <i class="fa-solid fa-shield-halved"></i>
-          <h4>Network Security Restriction Detected</h4>
-          <p>Your office network or laptop security policy is blocking embedded document previews.</p>
-          <a id="fallbackDirectLink" href="#" target="_blank" class="btn-fallback-open">
-            <i class="fa-solid fa-external-link-alt"></i> Open Document Directly
-          </a>
-        </div>
         <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
       </div>
     </div>
@@ -1573,7 +1545,7 @@
     const readerStage = document.getElementById('readerStage');
     const readerDocTitle = document.getElementById('readerDocTitle');
     const readerDocIframe = document.getElementById('readerDocIframe');
-    const fallbackDirectLink = document.getElementById('fallbackDirectLink');
+    const openExternalBtn = document.getElementById('openExternalBtn');
     const backToFlowBtn = document.getElementById('backToFlowBtn');
 
     function renderView() {
@@ -1670,7 +1642,7 @@
 
       readerDocTitle.textContent = title;
       readerDocIframe.src = formatDrivePreview(link);
-      fallbackDirectLink.href = link;
+      openExternalBtn.href = link;
       readerStage.style.display = 'block';
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
