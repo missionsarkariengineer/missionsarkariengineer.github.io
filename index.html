@@ -10,7 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- Firebase App SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <!-- Firebase Realtime Database SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <style>
@@ -625,6 +627,59 @@
       border: none;
       background: #FFFFFF;
       display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* FALLBACK OVERLAY FOR CORPORATE FIREWALLS */
+    .reader-fallback-banner {
+      position: absolute;
+      inset: 0;
+      background: #0B132B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      color: #FFFFFF;
+      z-index: 1;
+    }
+
+    .reader-fallback-banner i {
+      font-size: 2.5rem;
+      color: var(--accent-cyan);
+      margin-bottom: 14px;
+    }
+
+    .reader-fallback-banner h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .reader-fallback-banner p {
+      font-size: 0.88rem;
+      color: #94A3B8;
+      max-width: 450px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .btn-fallback-open {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+      transition: background 0.2s ease;
+    }
+
+    .btn-fallback-open:hover {
+      background: var(--primary-blue-hover);
     }
 
     /* 6. MOTIVATIONAL QUOTE */
@@ -1060,6 +1115,7 @@
 </head>
 <body>
 
+  <!-- 1. TOP HEADER -->
   <div class="top-broad-header">
     <div class="header-inner">
       <div class="brand-container">
@@ -1069,6 +1125,7 @@
     </div>
   </div>
 
+  <!-- 1.1 WELCOME STRIP WITH ONLY ADMIN ICON -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
@@ -1081,8 +1138,10 @@
     </div>
   </div>
 
+  <!-- 2. MAIN WORKSPACE -->
   <main id="mainWorkspace" class="home-view">
     
+    <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
     <div id="homeFilterSection" class="filter-wrapper">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -1097,6 +1156,7 @@
       </div>
     </div>
 
+    <!-- LEVEL 1: SHOWCASE SLIDER -->
     <div id="trainSlider" class="train-slider-container">
       <div class="train-track">
         <div class="train-card-photo">
@@ -1126,6 +1186,7 @@
       </div>
     </div>
 
+    <!-- LEVEL 2: PURE FOCUS FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-top-nav">
         <button id="clearFilterBtn" class="btn-nav-action">
@@ -1146,6 +1207,7 @@
       </div>
     </div>
 
+    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER -->
     <div id="readerStage" class="reader-stage-section">
       <div class="reader-toolbar">
         <button id="backToFlowBtn" class="btn-nav-action">
@@ -1158,10 +1220,20 @@
       </div>
 
       <div class="reader-frame-container">
+        <!-- Corporate Firewall Fallback Banner -->
+        <div class="reader-fallback-banner">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h4>Network Security Restriction Detected</h4>
+          <p>Your office network or laptop security policy is blocking embedded document previews.</p>
+          <a id="fallbackDirectLink" href="#" target="_blank" class="btn-fallback-open">
+            <i class="fa-solid fa-external-link-alt"></i> Open Document Directly
+          </a>
+        </div>
         <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
       </div>
     </div>
 
+    <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
     <div id="homeQuote" class="bottom-quote-section">
       <i class="fa-solid fa-quote-left"></i>
       <p>If efforts will put towards goal then chance to achieve that goal would be more!</p>
@@ -1169,6 +1241,7 @@
     </div>
   </main>
 
+  <!-- FOOTER (HOME ONLY) -->
   <footer id="portalFooter">
     <div class="footer-inner">
       <div class="visitor-box">
@@ -1180,6 +1253,7 @@
     </div>
   </footer>
 
+  <!-- ADMIN LOGIN PASSWORD MODAL -->
   <div id="loginModal" class="admin-modal-overlay">
     <div class="admin-modal-box" style="max-width: 380px;">
       <h3><i class="fa-solid fa-lock" style="color: var(--primary-blue);"></i> Admin</h3>
@@ -1195,6 +1269,7 @@
     </div>
   </div>
 
+  <!-- ADMIN CHOICE MENU MODAL -->
   <div id="adminMenuModal" class="admin-modal-overlay">
     <div class="admin-modal-box" style="max-width: 440px;">
       <h3><i class="fa-solid fa-sliders" style="color: var(--primary-blue);"></i> Admin Dashboard</h3>
@@ -1217,6 +1292,7 @@
     </div>
   </div>
 
+  <!-- ADMIN UPLOAD MODAL -->
   <div id="adminUploadModal" class="admin-modal-overlay">
     <div class="admin-modal-box">
       <h3><i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary-blue);"></i> Add New Subject Document</h3>
@@ -1246,13 +1322,15 @@
     </div>
   </div>
 
+  <!-- ADMIN MANAGE / DELETE MODAL -->
   <div id="adminManageModal" class="admin-modal-overlay">
     <div class="admin-modal-box">
       <h3><i class="fa-solid fa-trash-can" style="color: #DC2626;"></i> Manage Existing Documents</h3>
       <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">Delete unwanted documents from the list below:</p>
       
       <div id="manageDocsList" class="manage-docs-list">
-        </div>
+        <!-- Dynamically populated document rows -->
+      </div>
 
       <div class="admin-modal-actions" style="margin-top: 16px;">
         <button type="button" class="btn-admin-cancel" onclick="openAdminDashboardMenu()">Back</button>
@@ -1495,6 +1573,7 @@
     const readerStage = document.getElementById('readerStage');
     const readerDocTitle = document.getElementById('readerDocTitle');
     const readerDocIframe = document.getElementById('readerDocIframe');
+    const fallbackDirectLink = document.getElementById('fallbackDirectLink');
     const backToFlowBtn = document.getElementById('backToFlowBtn');
 
     function renderView() {
@@ -1545,6 +1624,7 @@
             <div class="flow-branch-row">
               <div class="flow-center-node"></div>
               
+              <!-- Left Side -->
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
@@ -1556,6 +1636,7 @@
                 ` : ''}
               </div>
 
+              <!-- Right Side -->
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
@@ -1589,6 +1670,7 @@
 
       readerDocTitle.textContent = title;
       readerDocIframe.src = formatDrivePreview(link);
+      fallbackDirectLink.href = link;
       readerStage.style.display = 'block';
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
