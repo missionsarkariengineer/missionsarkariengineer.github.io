@@ -210,7 +210,7 @@
       padding: 14px 10px 24px;
     }
 
-    /* HOME SEARCH & FLOWCHART LEVEL 1 */
+    /* HOME SEARCH & 3-TIER ROOT NAVIGATION */
     .filter-wrapper {
       background: var(--surface-white);
       border: 1px solid var(--border-light);
@@ -1359,9 +1359,16 @@
       { id: "2", stream: "Non-Technical", title: "Reasoning Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
       { id: "3", stream: "Technical", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
       { id: "4", stream: "Technical", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
-      { id: "5", stream: "Technical", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
-      { id: "6", stream: "Technical", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
-      { id: "7", stream: "Practice", title: "Mechanical AE/JE Mock Test Series", link: "https://drive.google.com/open?id=1jn7z-jmVaxiqx7mrH_jsfbtoe0nyotvr" }
+      { id: "5", stream: "Technical", title: "Power Plant Engineering", link: "https://drive.google.com/open?id=19SZ8Te_AdD9nrIaapl0w_1MIuCWyzaEK" },
+      { id: "6", stream: "Technical", title: "Internal Combustion (IC) Engines", link: "https://drive.google.com/open?id=1nfurPBOP3PP9jv9APPZEXxIziAqhj_Ec" },
+      { id: "7", stream: "Technical", title: "Refrigeration & Air Conditioning (RAC)", link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr" },
+      { id: "8", stream: "Technical", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
+      { id: "9", stream: "Technical", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
+      { id: "10", stream: "Technical", title: "Engineering Mechanics", link: "https://drive.google.com/open?id=1chpgFcqsbCCdgIxXAQrtnaIXb-V9K1y9" },
+      { id: "11", stream: "Technical", title: "Machine Design", link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw" },
+      { id: "12", stream: "Technical", title: "Production Engineering & Machining", link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz" },
+      { id: "13", stream: "Technical", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" },
+      { id: "14", stream: "Practice", title: "Mechanical AE/JE Mock Test Series", link: "https://drive.google.com/open?id=1jn7z-jmVaxiqx7mrH_jsfbtoe0nyotvr" }
     ];
 
     let docs = [];
@@ -1371,8 +1378,8 @@
       docs = INITIAL_DOCS;
     }
 
-    let activeRootCategory = null; // 'Non-Technical', 'Technical', 'Practice'
-    let selectedSubOption = null;  // 'Syllabus', 'Content'
+    let activeRootCategory = null; 
+    let selectedSubOption = null;  
 
     // Login & Navigation Functions
     function handleAdminLogin() {
@@ -1518,14 +1525,12 @@
     const openExternalBtn = document.getElementById('openExternalBtn');
     const backToFlowBtn = document.getElementById('backToFlowBtn');
 
-    // Step 1: User clicks Non-Technical, Technical, or Practice
     window.selectRootCategory = function(category) {
       activeRootCategory = category;
       selectedSubOption = null;
       renderView();
     };
 
-    // Step 2: User clicks Syllabus or Content sub-node
     window.selectSubOption = function(subOption) {
       selectedSubOption = subOption;
       renderView();
@@ -1537,7 +1542,6 @@
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
 
-      // If search query is entered or a root category is selected
       if (query !== '' || activeRootCategory !== null) {
         mainWorkspace.className = 'focus-view';
 
@@ -1552,17 +1556,14 @@
         let filtered = docs;
 
         if (query !== '') {
-          // Search Mode
           filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
           if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results (${filtered.length})`;
           if (flowRootText) flowRootText.textContent = `Search: "${query}"`;
         } else if (activeRootCategory === 'Practice') {
-          // Practice goes directly to practice content/questions
           filtered = filtered.filter(d => d.stream === 'Practice');
           if (cleanStreamTitle) cleanStreamTitle.textContent = `Practice Section (${filtered.length})`;
           if (flowRootText) flowRootText.textContent = `Practice`;
         } else if (activeRootCategory && selectedSubOption === null) {
-          // LEVEL 2: Show branch nodes -> "Syllabus" and "Content"
           if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} Roadmap`;
           if (flowRootText) flowRootText.textContent = activeRootCategory;
 
@@ -1597,7 +1598,6 @@
           }
           return;
         } else if (activeRootCategory && selectedSubOption !== null) {
-          // LEVEL 3: Show documents for Syllabus or Content
           filtered = filtered.filter(d => d.stream === activeRootCategory);
           if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} - ${selectedSubOption} (${filtered.length})`;
           if (flowRootText) flowRootText.textContent = `${activeRootCategory} > ${selectedSubOption}`;
@@ -1652,7 +1652,6 @@
         if (flowTreeSpine) flowTreeSpine.innerHTML = html;
 
       } else {
-        // HOME VIEW
         mainWorkspace.className = 'home-view';
 
         homeFilterSection.style.display = 'block';
