@@ -1,1689 +1,1698 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Mission Sarkari Engineer</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Firebase App SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <!-- Firebase Realtime Database SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-
-  <style>
-    :root {
-      --brand-navy-950: #060B14;
-      --brand-navy-900: #0B132B;
-      --brand-navy-800: #1C2541;
-
-      --primary-blue: #2563EB;
-      --primary-blue-hover: #1D4ED8;
-      --primary-light: #EFF6FF;
-      --accent-cyan: #38BDF8;
-
-      --bg-page: #F8FAFC;
-      --surface-white: #FFFFFF;
-
-      --border-light: #E2E8F0;
-      --border-medium: #CBD5E1;
-      --border-dark: #94A3B8;
-
-      --text-main: #0F172A;
-      --text-muted: #475569;
-      --text-subtle: #64748B;
-
-      --shadow-ambient: 0 4px 18px -2px rgba(15, 23, 42, 0.05);
-      --shadow-card: 0 10px 30px -4px rgba(15, 23, 42, 0.06);
-      --shadow-card-hover: 0 16px 32px -4px rgba(37, 99, 235, 0.16);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-page);
-      background-image: 
-        radial-gradient(at 10% 10%, rgba(37, 99, 235, 0.035) 0px, transparent 45%),
-        radial-gradient(at 90% 90%, rgba(56, 189, 248, 0.035) 0px, transparent 45%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    /* 1. TOP HEADER */
-    .top-broad-header {
-      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 55%, var(--brand-navy-800) 100%);
-      padding: 16px 32px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 12px 28px -8px rgba(6, 11, 20, 0.45);
-      position: relative;
-    }
-
-    .top-broad-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--primary-blue) 25%, var(--accent-cyan) 50%, var(--primary-blue) 75%, transparent);
-    }
-
-    .header-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .brand-container {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .portal-logo-img {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-      background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 8px 20px rgba(0, 0, 0, 0.35);
-      transition: transform 0.3s ease;
-      flex-shrink: 0;
-    }
-
-    .brand-container:hover .portal-logo-img {
-      transform: rotate(12deg) scale(1.05);
-    }
-
-    .top-broad-header h1 {
-      font-size: 1.55rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #FFFFFF 40%, #BAE6FD 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      white-space: nowrap;
-    }
-
-    /* WELCOME STRIP */
-    .welcome-bar {
-      background: linear-gradient(90deg, var(--brand-navy-950) 0%, #0F172A 50%, var(--brand-navy-950) 100%);
-      border-bottom: 1px solid rgba(56, 189, 248, 0.22);
-      padding: 10px 0;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    }
-
-    .welcome-bar-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .welcome-text {
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: var(--accent-cyan);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      animation: slowBlink 4s ease-in-out infinite;
-    }
-
-    .welcome-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 10px var(--accent-cyan);
-      display: inline-block;
-    }
-
-    .admin-upload-btn {
-      background: rgba(37, 99, 235, 0.2);
-      color: #BAE6FD;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-decoration: none;
-    }
-
-    .admin-upload-btn:hover {
-      background: var(--primary-blue);
-      color: #FFFFFF;
-      border-color: var(--primary-blue);
-      transform: translateY(-1px);
-    }
-
-    @keyframes slowBlink {
-      0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6)); }
-      50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
-    }
-
-    /* 2. DYNAMIC WORKSPACE */
-    main {
-      flex: 1;
-      width: 100%;
-      margin: 0 auto;
-      padding: 28px 20px 46px;
-      transition: all 0.25s ease;
-      max-width: 1050px; /* Uniform width across views */
-    }
-
-    main.reader-view {
-      max-width: 98vw;
-      padding: 14px 10px 24px;
-    }
-
-    /* HOME SEARCH & 3-TIER ROOT NAVIGATION */
-    .filter-wrapper {
-      background: var(--surface-white);
-      border: 1px solid var(--border-light);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: var(--shadow-card);
-      margin-bottom: 24px;
-    }
-
-    .search-box {
-      position: relative;
-      margin-bottom: 18px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 15px 22px 15px 54px;
-      border: 1.5px solid var(--border-medium);
-      border-radius: 12px;
-      font-size: 0.94rem;
-      font-weight: 500;
-      outline: none;
-      background: #FFFFFF;
-      color: var(--text-main);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-      transition: all 0.2s ease;
-    }
-
-    .search-box input:focus {
-      border-color: var(--primary-blue);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--primary-blue);
-      font-size: 1.15rem;
-    }
-
-    .filter-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn-filter {
-      flex: 1;
-      padding: 14px 20px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      border-radius: 12px;
-      border: 1.5px solid var(--border-light);
-      background: #FFFFFF;
-      color: var(--text-main);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .btn-filter:hover {
-      border-color: var(--primary-blue);
-      color: var(--primary-blue);
-      background: var(--primary-light);
-      transform: translateY(-2px);
-    }
-
-    .btn-filter.active {
-      background: var(--brand-navy-900);
-      color: #FFFFFF;
-      border-color: var(--brand-navy-900);
-      box-shadow: 0 4px 14px rgba(11, 19, 43, 0.25);
-    }
-
-    /* 3. SHOWCASE SLIDER */
-    .train-slider-container {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      border-radius: 18px;
-      padding: 8px 0;
-      margin-top: 6px;
-    }
-
-    .train-track {
-      display: flex;
-      gap: 22px;
-      width: max-content;
-      animation: trainSlide 28s linear infinite;
-    }
-
-    .train-track:hover {
-      animation-play-state: paused;
-    }
-
-    @keyframes trainSlide {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .train-card-photo {
-      width: 300px;
-      height: 180px;
-      border-radius: 16px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-ambient);
-      border: 1px solid var(--border-light);
-      flex-shrink: 0;
-      cursor: default;
-      background: #E2E8F0;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    .train-card-photo:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-card-hover);
-    }
-
-    .train-card-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
-    }
-
-    .photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(6, 11, 20, 0.95) 0%, rgba(6, 11, 20, 0.35) 60%, transparent 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 16px 18px;
-      color: #FFFFFF;
-    }
-
-    .photo-overlay p {
-      font-size: 0.88rem;
-      color: #F8FAFC;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    /* 4. UNIFORM FLOWCHART SYSTEM */
-    .results-area {
-      display: none;
-      width: 100%;
-      animation: fadeIn 0.25s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .results-top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 22px;
-      padding: 0 8px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn-nav-action {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-medium);
-      color: var(--text-main);
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.88rem;
-      padding: 10px 20px;
-      border-radius: 10px;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: var(--shadow-ambient);
-    }
-
-    .btn-nav-action:hover {
-      background: var(--brand-navy-900);
-      color: #FFFFFF;
-      border-color: var(--brand-navy-900);
-      transform: translateX(-3px);
-    }
-
-    .tree-flow-canvas {
-      background: #FFFFFF;
-      border: 1px solid var(--border-light);
-      border-radius: 24px;
-      padding: 40px 32px;
-      box-shadow: var(--shadow-card);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      width: 100%;
-      min-height: 480px;
-    }
-
-    .tree-root-head {
-      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
-      color: #FFFFFF;
-      padding: 14px 42px;
-      border-radius: 12px;
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      border: 1.5px solid var(--primary-blue);
-      box-shadow: 0 12px 28px -4px rgba(11, 19, 43, 0.4);
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 3;
-    }
-
-    .tree-root-head i {
-      color: var(--accent-cyan);
-      font-size: 1.15rem;
-    }
-
-    .tree-stem-start {
-      width: 2.5px;
-      height: 36px;
-      background: var(--border-dark);
-    }
-
-    .flow-tree-spine {
-      width: 100%;
-      max-width: 1120px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .flow-tree-spine::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 26px;
-      left: 50%;
-      width: 2.5px;
-      background: var(--border-medium);
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .flow-branch-row {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      position: relative;
-      margin-bottom: 28px;
-      z-index: 2;
-    }
-
-    .flow-branch-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .flow-branch-side {
-      width: 50%;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-
-    .flow-branch-side.left {
-      justify-content: flex-end;
-      padding-right: 50px;
-    }
-
-    .flow-branch-side.left.has-card::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 50%;
-      width: 50px;
-      height: 2px;
-      background: var(--border-dark);
-      transform: translateY(-50%);
-    }
-
-    .flow-branch-side.right {
-      justify-content: flex-start;
-      padding-left: 50px;
-    }
-
-    .flow-branch-side.right.has-card::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 50px;
-      height: 2px;
-      background: var(--border-dark);
-      transform: translateY(-50%);
-    }
-
-    .flow-center-node {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #FFFFFF;
-      border: 3px solid var(--primary-blue);
-      transform: translate(-50%, -50%);
-      z-index: 3;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
-    }
-
-    .flow-item-card {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-light);
-      border-radius: 14px;
-      padding: 16px 24px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: var(--shadow-ambient);
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-      width: 400px;
-      max-width: 100%;
-      box-sizing: border-box;
-    }
-
-    .flow-item-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary-blue);
-      box-shadow: var(--shadow-card-hover);
-    }
-
-    .flow-item-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
-    }
-
-    .flow-item-card:hover .flow-item-icon {
-      transform: scale(1.08);
-    }
-
-    .flow-item-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #1E293B;
-      line-height: 1.4;
-      flex: 1;
-      transition: color 0.2s ease;
-    }
-
-    .flow-item-card:hover .flow-item-title {
-      color: var(--primary-blue);
-    }
-
-    /* 5. SAME-PAGE DOCUMENT READER SECTION */
-    .reader-stage-section {
-      display: none;
-      width: 100%;
-      animation: fadeIn 0.25s ease;
-    }
-
-    .reader-toolbar {
-      background: #FFFFFF;
-      border: 1px solid var(--border-light);
-      border-radius: 16px 16px 0 0;
-      padding: 14px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow-ambient);
-      flex-wrap: wrap;
-    }
-
-    .reader-toolbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn-direct-external {
-      background: var(--primary-blue);
-      color: #FFFFFF;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
-      transition: background 0.2s ease;
-    }
-
-    .btn-direct-external:hover {
-      background: var(--primary-blue-hover);
-    }
-
-    .reader-doc-heading {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .reader-frame-container {
-      width: 100%;
-      height: 84vh;
-      background: #0B132B;
-      border: 1px solid var(--border-light);
-      border-top: none;
-      border-radius: 0 0 16px 16px;
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      position: relative;
-    }
-
-    .reader-frame-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #FFFFFF;
-      display: block;
-    }
-
-    /* 6. MOTIVATIONAL QUOTE */
-    .bottom-quote-section {
-      margin-top: 40px;
-      padding: 16px 20px;
-      background: #FFFFFF;
-      border: 1px solid var(--border-light);
-      border-radius: 14px;
-      text-align: center;
-      box-shadow: var(--shadow-ambient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .bottom-quote-section i {
-      color: var(--primary-blue);
-      font-size: 0.9rem;
-    }
-
-    .bottom-quote-section p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      margin: 0;
-    }
-
-    /* 7. FOOTER */
-    footer {
-      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
-      color: #94A3B8;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 20px 36px;
-      font-size: 0.84rem;
-      width: 100%;
-      margin-top: auto;
-    }
-
-    .footer-inner {
-      max-width: 1050px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .visitor-box {
-      font-family: 'JetBrains Mono', monospace;
-      color: #CBD5E1;
-      font-size: 0.84rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .visitor-count {
-      color: var(--accent-cyan);
-      font-weight: 700;
-      letter-spacing: 0.06em;
-    }
-
-    /* ADMIN MODALS */
-    .admin-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(6, 11, 20, 0.8);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      backdrop-filter: blur(4px);
-    }
-
-    .admin-modal-box {
-      background: #FFFFFF;
-      width: 100%;
-      max-width: 480px;
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: fadeIn 0.25s ease;
-    }
-
-    .admin-modal-box h3 {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--brand-navy-950);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .admin-form-group {
-      margin-bottom: 16px;
-    }
-
-    .admin-form-group label {
-      display: block;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .admin-form-group input, .admin-form-group select {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--border-medium);
-      border-radius: 10px;
-      font-size: 0.9rem;
-      outline: none;
-      background: #F8FAFC;
-      color: var(--text-main);
-    }
-
-    .admin-form-group input:focus, .admin-form-group select:focus {
-      border-color: var(--primary-blue);
-      background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-    }
-
-    .admin-modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .btn-admin-cancel {
-      background: #F1F5F9;
-      border: 1px solid var(--border-medium);
-      color: var(--text-muted);
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.88rem;
-    }
-
-    .btn-admin-save {
-      background: var(--primary-blue);
-      border: none;
-      color: #FFFFFF;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.88rem;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
-    }
-
-    .btn-admin-save:hover {
-      background: var(--primary-blue-hover);
-    }
-
-    .admin-menu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 10px;
-    }
-
-    .admin-menu-card {
-      background: #F8FAFC;
-      border: 1.5px solid var(--border-light);
-      border-radius: 14px;
-      padding: 20px 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .admin-menu-card:hover {
-      background: var(--primary-light);
-      border-color: var(--primary-blue);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-ambient);
-    }
-
-    .admin-menu-card i {
-      font-size: 1.8rem;
-      color: var(--primary-blue);
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .admin-menu-card span {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .manage-docs-list {
-      overflow-y: auto;
-      max-height: 300px;
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      background: #F8FAFC;
-    }
-
-    .manage-doc-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border-light);
-      gap: 12px;
-      background: #FFFFFF;
-    }
-
-    .manage-doc-item:last-child {
-      border-bottom: none;
-    }
-
-    .manage-doc-info h4 {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .manage-doc-info span {
-      font-size: 0.75rem;
-      color: var(--text-subtle);
-    }
-
-    .btn-delete-doc {
-      background: #FEF2F2;
-      color: #DC2626;
-      border: 1px solid #FCA5A5;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .btn-delete-doc:hover {
-      background: #DC2626;
-      color: #FFFFFF;
-      border-color: #DC2626;
-    }
-
-    /* RESPONSIVE MOBILE ADJUSTMENTS */
-    @media (max-width: 820px) {
-      main {
-        max-width: 100%;
-        padding: 16px 10px 24px;
-      }
-
-      .top-broad-header {
-        padding: 14px 16px;
-      }
-
-      .portal-logo-img {
-        width: 38px;
-        height: 38px;
-      }
-
-      .top-broad-header h1 {
-        font-size: 1.2rem;
-      }
-
-      .welcome-bar-inner {
-        padding: 0 14px;
-        gap: 8px;
-      }
-
-      .welcome-text {
-        font-size: 0.76rem;
-      }
-
-      .admin-upload-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 0.8rem;
-      }
-
-      .filter-wrapper {
-        padding: 16px 14px;
-        border-radius: 16px;
-      }
-
-      .search-box input {
-        padding: 12px 16px 12px 42px;
-        font-size: 0.88rem;
-      }
-
-      .filter-buttons {
-        gap: 8px;
-        flex-direction: column;
-      }
-
-      .btn-filter {
-        width: 100%;
-        padding: 12px;
-        font-size: 0.88rem;
-      }
-
-      .results-top-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .tree-flow-canvas {
-        padding: 20px 12px 24px;
-        border-radius: 16px;
-        align-items: stretch;
-        min-height: auto;
-      }
-
-      .tree-root-head {
-        font-size: 0.88rem;
-        padding: 10px 16px;
-        align-self: center;
-        text-align: center;
-      }
-
-      .tree-stem-start {
-        height: 20px;
-        align-self: center;
-      }
-
-      .flow-tree-spine {
-        width: 100%;
-        padding-left: 0;
-      }
-
-      .flow-tree-spine::before {
-        left: 20px;
-        transform: none;
-        bottom: 20px;
-      }
-
-      .flow-branch-row {
-        flex-direction: column;
-        margin-bottom: 22px;
-        padding-left: 42px;
-        position: relative;
-        width: 100%;
-      }
-
-      .flow-branch-side {
-        width: 100% !important;
-        padding: 0 !important;
-        justify-content: flex-start !important;
-      }
-
-      .flow-branch-side.left.has-card::after,
-      .flow-branch-side.right.has-card::after {
-        content: '';
-        position: absolute;
-        left: -42px !important;
-        right: auto !important;
-        top: 50%;
-        width: 42px !important;
-        height: 2px;
-        background: var(--border-dark);
-        transform: translateY(-50%);
-      }
-
-      .flow-center-node {
-        left: 20px !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-      }
-
-      .flow-item-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 14px 16px;
-      }
-
-      .flow-item-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
-      }
-
-      .flow-item-title {
-        font-size: 0.9rem;
-      }
-
-      .bottom-quote-section {
-        padding: 14px 14px;
-        gap: 8px;
-        text-align: center;
-        margin-top: 24px;
-      }
-      .bottom-quote-section p {
-        font-size: 0.82rem;
-        line-height: 1.4;
-      }
-
-      .reader-toolbar {
-        padding: 12px 16px;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .reader-doc-heading {
-        font-size: 0.92rem;
-        width: 100%;
-      }
-
-      .reader-frame-container {
-        height: 78vh;
-      }
-
-      footer {
-        padding: 16px 20px;
-        font-size: 0.76rem;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Mission Sarkari Engineer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Firebase App SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <!-- Firebase Realtime Database SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <style>
+    :root {
+      --brand-navy-950: #060B14;
+      --brand-navy-900: #0B132B;
+      --brand-navy-800: #1C2541;
+
+      --primary-blue: #2563EB;
+      --primary-blue-hover: #1D4ED8;
+      --primary-light: #EFF6FF;
+      --accent-cyan: #38BDF8;
+
+      --bg-page: #F8FAFC;
+      --surface-white: #FFFFFF;
+
+      --border-light: #E2E8F0;
+      --border-medium: #CBD5E1;
+      --border-dark: #94A3B8;
+
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-subtle: #64748B;
+
+      --shadow-ambient: 0 4px 18px -2px rgba(15, 23, 42, 0.05);
+      --shadow-card: 0 10px 30px -4px rgba(15, 23, 42, 0.06);
+      --shadow-card-hover: 0 16px 32px -4px rgba(37, 99, 235, 0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(37, 99, 235, 0.035) 0px, transparent 45%),
+        radial-gradient(at 90% 90%, rgba(56, 189, 248, 0.035) 0px, transparent 45%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* 1. TOP HEADER */
+    .top-broad-header {
+      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 55%, var(--brand-navy-800) 100%);
+      padding: 16px 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 28px -8px rgba(6, 11, 20, 0.45);
+      position: relative;
+    }
+
+    .top-broad-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-blue) 25%, var(--accent-cyan) 50%, var(--primary-blue) 75%, transparent);
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .portal-logo-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 8px 20px rgba(0, 0, 0, 0.35);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .brand-container:hover .portal-logo-img {
+      transform: rotate(12deg) scale(1.05);
+    }
+
+    .top-broad-header h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #FFFFFF 40%, #BAE6FD 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+    }
+
+    /* WELCOME STRIP */
+    .welcome-bar {
+      background: linear-gradient(90deg, var(--brand-navy-950) 0%, #0F172A 50%, var(--brand-navy-950) 100%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+      padding: 10px 0;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .welcome-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .welcome-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--accent-cyan);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      animation: slowBlink 4s ease-in-out infinite;
+    }
+
+    .welcome-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+      display: inline-block;
+    }
+
+    .admin-upload-btn {
+      background: rgba(37, 99, 235, 0.2);
+      color: #BAE6FD;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .admin-upload-btn:hover {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border-color: var(--primary-blue);
+      transform: translateY(-1px);
+    }
+
+    @keyframes slowBlink {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6)); }
+      50% { opacity: 0.3; filter: drop-shadow(0 0 0px transparent); }
+    }
+
+    /* 2. DYNAMIC WORKSPACE */
+    main {
+      flex: 1;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 20px 46px;
+      transition: all 0.25s ease;
+    }
+
+    main.home-view {
+      max-width: 1050px;
+    }
+
+    main.focus-view {
+      max-width: 96vw;
+      padding-top: 20px;
+    }
+
+    main.reader-view {
+      max-width: 98vw;
+      padding: 14px 10px 24px;
+    }
+
+    /* HOME SEARCH & FILTERS */
+    .filter-wrapper {
+      background: var(--surface-white);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 24px;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px 22px 15px 54px;
+      border: 1.5px solid var(--border-medium);
+      border-radius: 12px;
+      font-size: 0.94rem;
+      font-weight: 500;
+      outline: none;
+      background: #FFFFFF;
+      color: var(--text-main);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-blue);
+      font-size: 1.15rem;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-filter {
+      padding: 11px 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-filter:hover {
+      border-color: #93C5FD;
+      color: var(--primary-blue);
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-filter.active {
+      background: var(--brand-navy-900);
+      color: #FFFFFF;
+      border-color: var(--brand-navy-900);
+      box-shadow: 0 4px 14px rgba(11, 19, 43, 0.25);
+    }
+
+    /* 3. SHOWCASE SLIDER */
+    .train-slider-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      border-radius: 18px;
+      padding: 8px 0;
+      margin-top: 6px;
+    }
+
+    .train-track {
+      display: flex;
+      gap: 22px;
+      width: max-content;
+      animation: trainSlide 28s linear infinite;
+    }
+
+    .train-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes trainSlide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .train-card-photo {
+      width: 300px;
+      height: 180px;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-ambient);
+      border: 1px solid var(--border-light);
+      flex-shrink: 0;
+      cursor: default;
+      background: #E2E8F0;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .train-card-photo:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .train-card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6, 11, 20, 0.95) 0%, rgba(6, 11, 20, 0.35) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px 18px;
+      color: #FFFFFF;
+    }
+
+    .photo-overlay p {
+      font-size: 0.88rem;
+      color: #F8FAFC;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* 4. FULL-SCREEN FLOWCHART SYSTEM */
+    .results-area {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      padding: 0 8px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-nav-action {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-medium);
+      color: var(--text-main);
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 20px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .btn-nav-action:hover {
+      background: var(--brand-navy-900);
+      color: #FFFFFF;
+      border-color: var(--brand-navy-900);
+      transform: translateX(-3px);
+    }
+
+    .tree-flow-canvas {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      padding: 50px 32px 64px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      min-height: 70vh;
+    }
+
+    .tree-root-head {
+      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
+      color: #FFFFFF;
+      padding: 14px 42px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      border: 1.5px solid var(--primary-blue);
+      box-shadow: 0 12px 28px -4px rgba(11, 19, 43, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .tree-root-head i {
+      color: var(--accent-cyan);
+      font-size: 1.15rem;
+    }
+
+    .tree-stem-start {
+      width: 2.5px;
+      height: 42px;
+      background: var(--border-dark);
+    }
+
+    .flow-tree-spine {
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .flow-tree-spine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 26px;
+      left: 50%;
+      width: 2.5px;
+      background: var(--border-medium);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .flow-branch-row {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      margin-bottom: 28px;
+      z-index: 2;
+    }
+
+    .flow-branch-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .flow-branch-side {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .flow-branch-side.left {
+      justify-content: flex-end;
+      padding-right: 50px;
+    }
+
+    .flow-branch-side.left.has-card::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 50px;
+      height: 2px;
+      background: var(--border-dark);
+      transform: translateY(-50%);
+    }
+
+    .flow-branch-side.right {
+      justify-content: flex-start;
+      padding-left: 50px;
+    }
+
+    .flow-branch-side.right.has-card::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 50px;
+      height: 2px;
+      background: var(--border-dark);
+      transform: translateY(-50%);
+    }
+
+    .flow-center-node {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--primary-blue);
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+    }
+
+    .flow-item-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-light);
+      border-radius: 14px;
+      padding: 16px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-ambient);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 400px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .flow-item-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary-blue);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .flow-item-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .flow-item-card:hover .flow-item-icon {
+      transform: scale(1.08);
+    }
+
+    .flow-item-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.4;
+      flex: 1;
+      transition: color 0.2s ease;
+    }
+
+    .flow-item-card:hover .flow-item-title {
+      color: var(--primary-blue);
+    }
+
+    /* 5. SAME-PAGE DOCUMENT READER SECTION */
+    .reader-stage-section {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .reader-toolbar {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 16px 16px 0 0;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-ambient);
+      flex-wrap: wrap;
+    }
+
+    .reader-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-direct-external {
+      background: var(--primary-blue);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+      transition: background 0.2s ease;
+    }
+
+    .btn-direct-external:hover {
+      background: var(--primary-blue-hover);
+    }
+
+    .reader-doc-heading {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .reader-frame-container {
+      width: 100%;
+      height: 84vh;
+      background: #0B132B;
+      border: 1px solid var(--border-light);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .reader-frame-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #FFFFFF;
+      display: block;
+    }
+
+    /* 6. MOTIVATIONAL QUOTE */
+    .bottom-quote-section {
+      margin-top: 40px;
+      padding: 16px 20px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: var(--shadow-ambient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .bottom-quote-section i {
+      color: var(--primary-blue);
+      font-size: 0.9rem;
+    }
+
+    .bottom-quote-section p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 0;
+    }
+
+    /* 7. FOOTER */
+    footer {
+      background: linear-gradient(135deg, var(--brand-navy-950) 0%, var(--brand-navy-900) 100%);
+      color: #94A3B8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px 36px;
+      font-size: 0.84rem;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .visitor-box {
+      font-family: 'JetBrains Mono', monospace;
+      color: #CBD5E1;
+      font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .visitor-count {
+      color: var(--accent-cyan);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    /* ADMIN MODALS */
+    .admin-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 11, 20, 0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .admin-modal-box {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 0.25s ease;
+    }
+
+    .admin-modal-box h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--brand-navy-950);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-form-group {
+      margin-bottom: 16px;
+    }
+
+    .admin-form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-form-group input, .admin-form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-medium);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      outline: none;
+      background: #F8FAFC;
+      color: var(--text-main);
+    }
+
+    .admin-form-group input:focus, .admin-form-group select:focus {
+      border-color: var(--primary-blue);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    .admin-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-admin-cancel {
+      background: #F1F5F9;
+      border: 1px solid var(--border-medium);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+
+    .btn-admin-save {
+      background: var(--primary-blue);
+      border: none;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+    }
+
+    .btn-admin-save:hover {
+      background: var(--primary-blue-hover);
+    }
+
+    /* DUAL OPTION CHOICE MENU */
+    .admin-menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .admin-menu-card {
+      background: #F8FAFC;
+      border: 1.5px solid var(--border-light);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .admin-menu-card:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-blue);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-ambient);
+    }
+
+    .admin-menu-card i {
+      font-size: 1.8rem;
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .admin-menu-card span {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .manage-docs-list {
+      overflow-y: auto;
+      max-height: 300px;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      background: #F8FAFC;
+    }
+
+    .manage-doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      gap: 12px;
+      background: #FFFFFF;
+    }
+
+    .manage-doc-item:last-child {
+      border-bottom: none;
+    }
+
+    .manage-doc-info h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .manage-doc-info span {
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+    }
+
+    .btn-delete-doc {
+      background: #FEF2F2;
+      color: #DC2626;
+      border: 1px solid #FCA5A5;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-delete-doc:hover {
+      background: #DC2626;
+      color: #FFFFFF;
+      border-color: #DC2626;
+    }
+
+    /* RESPONSIVE MOBILE ADJUSTMENTS */
+    @media (max-width: 820px) {
+      main.focus-view, main.home-view, main.reader-view {
+        max-width: 100%;
+        padding: 16px 10px 24px;
+      }
+
+      .top-broad-header {
+        padding: 14px 16px;
+      }
+
+      .portal-logo-img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .top-broad-header h1 {
+        font-size: 1.2rem;
+      }
+
+      .welcome-bar-inner {
+        padding: 0 14px;
+        gap: 8px;
+      }
+
+      .welcome-text {
+        font-size: 0.76rem;
+      }
+
+      .admin-upload-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+      }
+
+      .filter-wrapper {
+        padding: 16px 14px;
+        border-radius: 16px;
+      }
+
+      .search-box input {
+        padding: 12px 16px 12px 42px;
+        font-size: 0.88rem;
+      }
+
+      .filter-buttons {
+        gap: 6px;
+      }
+
+      .btn-filter {
+        flex: 1 1 calc(50% - 6px);
+        text-align: center;
+        padding: 9px 8px;
+        font-size: 0.78rem;
+      }
+
+      .results-top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .tree-flow-canvas {
+        padding: 20px 12px 24px;
+        border-radius: 16px;
+        align-items: stretch;
+      }
+
+      .tree-root-head {
+        font-size: 0.88rem;
+        padding: 10px 16px;
+        align-self: center;
+        text-align: center;
+      }
+
+      .tree-stem-start {
+        height: 20px;
+        align-self: center;
+      }
+
+      .flow-tree-spine {
+        width: 100%;
+        padding-left: 0;
+      }
+
+      .flow-tree-spine::before {
+        left: 20px;
+        transform: none;
+        bottom: 20px;
+      }
+
+      .flow-branch-row {
+        flex-direction: column;
+        margin-bottom: 22px;
+        padding-left: 42px;
+        position: relative;
+        width: 100%;
+      }
+
+      .flow-branch-side {
+        width: 100% !important;
+        padding: 0 !important;
+        justify-content: flex-start !important;
+      }
+
+      .flow-branch-side.left.has-card::after,
+      .flow-branch-side.right.has-card::after {
+        content: '';
+        position: absolute;
+        left: -42px !important;
+        right: auto !important;
+        top: 50%;
+        width: 42px !important;
+        height: 2px;
+        background: var(--border-dark);
+        transform: translateY(-50%);
+      }
+
+      .flow-center-node {
+        left: 20px !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+      }
+
+      .flow-item-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 14px 16px;
+      }
+
+      .flow-item-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
+
+      .flow-item-title {
+        font-size: 0.9rem;
+      }
+
+      .bottom-quote-section {
+        padding: 14px 14px;
+        gap: 8px;
+        text-align: center;
+        margin-top: 24px;
+      }
+      .bottom-quote-section p {
+        font-size: 0.82rem;
+        line-height: 1.4;
+      }
+
+      .reader-toolbar {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .reader-doc-heading {
+        font-size: 0.92rem;
+        width: 100%;
+      }
+
+      .reader-frame-container {
+        height: 78vh;
+      }
+
+      footer {
+        padding: 16px 20px;
+        font-size: 0.76rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 1. TOP HEADER -->
-  <div class="top-broad-header">
-    <div class="header-inner">
-      <div class="brand-container">
-        <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
-        <h1>Mission Sarkari Engineer</h1>
-      </div>
-    </div>
-  </div>
-
-  <!-- 1.1 WELCOME STRIP -->
-  <div id="welcomeStrip" class="welcome-bar">
-    <div class="welcome-bar-inner">
-      <div class="welcome-text">
-        <span class="welcome-dot"></span>
-        <span>Welcome to Mission Sarkari Engineer</span>
-      </div>
-      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="handleAdminLogin(); return false;" title="Admin Login">
-        <i class="fa-solid fa-user-gear"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- 2. MAIN WORKSPACE -->
-  <main id="mainWorkspace">
-    
-    <!-- LEVEL 1: HOME SEARCH & 3-TIER ROOT NAVIGATION BUTTONS -->
-    <div id="homeFilterSection" class="filter-wrapper">
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" placeholder="Search subject (e.g. SOM, Thermodynamics, Production, Fluid Mechanics)..." />
-      </div>
-
-      <div class="filter-buttons">
-        <button class="btn-filter" onclick="selectRootCategory('Non-Technical')">
-          <i class="fa-solid fa-book-bookmark" style="color: var(--primary-blue);"></i> Non-Technical
-        </button>
-        <button class="btn-filter" onclick="selectRootCategory('Technical')">
-          <i class="fa-solid fa-gears" style="color: var(--primary-blue);"></i> Technical
-        </button>
-        <button class="btn-filter" onclick="selectRootCategory('Practice')">
-          <i class="fa-solid fa-bolt-lightning" style="color: var(--primary-blue);"></i> Practice
-        </button>
-      </div>
-    </div>
-
-    <!-- LEVEL 1: SHOWCASE SLIDER -->
-    <div id="trainSlider" class="train-slider-container">
-      <div class="train-track">
-        <div class="train-card-photo">
-          <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
-          <div class="photo-overlay"><p>Military Engineering Services</p></div>
-        </div>
-        <div class="train-card-photo">
-          <img src="CPWD.jpg" alt="National CPWD Academy" />
-          <div class="photo-overlay"><p>Central Public Works Department</p></div>
-        </div>
-        <div class="train-card-photo">
-          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
-          <div class="photo-overlay"><p>Central Water Commission</p></div>
-        </div>
-        <div class="train-card-photo">
-          <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
-          <div class="photo-overlay"><p>Military Engineering Services</p></div>
-        </div>
-        <div class="train-card-photo">
-          <img src="CPWD.jpg" alt="National CPWD Academy" />
-          <div class="photo-overlay"><p>Central Public Works Department</p></div>
-        </div>
-        <div class="train-card-photo">
-          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
-          <div class="photo-overlay"><p>Central Water Commission</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LEVEL 2 & DOCUMENTS FLOWCHART VIEW -->
-    <div id="resultsArea" class="results-area">
-      <div class="results-top-nav">
-        <button id="clearFilterBtn" class="btn-nav-action">
-          <i class="fa-solid fa-arrow-left"></i> Back to Home
-        </button>
-        <span id="cleanStreamTitle" style="font-size: 1.05rem; font-weight: 700; color: var(--text-muted);">Roadmap</span>
-      </div>
-
-      <div class="tree-flow-canvas">
-        <div class="tree-root-head">
-          <i class="fa-solid fa-diagram-project"></i>
-          <span id="flowRootText">Category</span>
-        </div>
-
-        <div class="tree-stem-start"></div>
-
-        <div id="flowTreeSpine" class="flow-tree-spine"></div>
-      </div>
-    </div>
-
-    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER -->
-    <div id="readerStage" class="reader-stage-section">
-      <div class="reader-toolbar">
-        <div class="reader-toolbar-actions">
-          <button id="backToFlowBtn" class="btn-nav-action">
-            <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
-          </button>
-          <a id="openExternalBtn" href="#" target="_blank" class="btn-direct-external">
-            <i class="fa-solid fa-external-link-alt"></i> Open in New Tab
-          </a>
-        </div>
-        <div class="reader-doc-heading">
-          <i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i>
-          <span id="readerDocTitle">Document Viewer</span>
-        </div>
-      </div>
-
-      <div class="reader-frame-container">
-        <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
-      </div>
-    </div>
-
-    <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
-    <div id="homeQuote" class="bottom-quote-section">
-      <i class="fa-solid fa-quote-left"></i>
-      <p>If efforts will put towards goal then chance to achieve that goal would be more!</p>
-      <i class="fa-solid fa-quote-right"></i>
-    </div>
-  </main>
-
-  <!-- FOOTER (HOME ONLY) -->
-  <footer id="portalFooter">
-    <div class="footer-inner">
-      <div class="visitor-box">
-        <i class="fa-solid fa-users"></i>
-        <span>PORTAL VISITS:</span>
-        <span id="visitorCountDisplay" class="visitor-count">000000</span>
-      </div>
-      <div>&copy; Mission Sarkari Engineer</div>
-    </div>
-  </footer>
-
-  <!-- ADMIN LOGIN PASSWORD MODAL -->
-  <div id="loginModal" class="admin-modal-overlay">
-    <div class="admin-modal-box" style="max-width: 380px;">
-      <h3><i class="fa-solid fa-lock" style="color: var(--primary-blue);"></i> Admin</h3>
-      <form id="loginForm" onsubmit="verifyAdminPassword(event)">
-        <div class="admin-form-group" style="margin-bottom: 0;">
-          <input type="password" id="adminPasswordInput" placeholder="Enter password..." required autofocus />
-        </div>
-        <div class="admin-modal-actions">
-          <button type="button" class="btn-admin-cancel" onclick="closeLoginModal()">Cancel</button>
-          <button type="submit" class="btn-admin-save">Login</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ADMIN CHOICE MENU MODAL -->
-  <div id="adminMenuModal" class="admin-modal-overlay">
-    <div class="admin-modal-box" style="max-width: 440px;">
-      <h3><i class="fa-solid fa-sliders" style="color: var(--primary-blue);"></i> Admin Dashboard</h3>
-      <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 20px;">Choose an action to proceed:</p>
-      
-      <div class="admin-menu-grid">
-        <div class="admin-menu-card" onclick="openUploadModal()">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          <span>Add New Document</span>
-        </div>
-        <div class="admin-menu-card" onclick="openManageModal()">
-          <i class="fa-solid fa-trash-can-arrow-up"></i>
-          <span>Manage / Delete</span>
-        </div>
-      </div>
-
-      <div class="admin-modal-actions" style="margin-top: 24px;">
-        <button type="button" class="btn-admin-cancel" onclick="closeAllModals()">Close Panel</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN UPLOAD MODAL -->
-  <div id="adminUploadModal" class="admin-modal-overlay">
-    <div class="admin-modal-box">
-      <h3><i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary-blue);"></i> Add New Subject Document</h3>
-      <form id="adminUploadForm" onsubmit="saveNewDocument(event)">
-        <div class="admin-form-group">
-          <label>Subject / Document Title</label>
-          <input type="text" id="newDocTitle" placeholder="e.g. Advanced Fluid Mechanics" required />
-        </div>
-        <div class="admin-form-group">
-          <label>Select Category / Type</label>
-          <select id="newDocStream" required>
-            <option value="Non-Technical">Non-Technical (Content)</option>
-            <option value="Non-Technical-Syllabus">Non-Technical (Syllabus)</option>
-            <option value="Technical">Technical (Content)</option>
-            <option value="Technical-Syllabus">Technical (Syllabus)</option>
-            <option value="Practice">Practice</option>
-          </select>
-        </div>
-        <div class="admin-form-group">
-          <label>Google Drive Share Link</label>
-          <input type="text" id="newDocLink" placeholder="https://drive.google.com/file/d/..." required />
-        </div>
-        <div class="admin-modal-actions" style="margin-top: 16px;">
-          <button type="button" class="btn-admin-cancel" onclick="openAdminDashboardMenu()">Back</button>
-          <button type="submit" class="btn-admin-save">Upload Document</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ADMIN MANAGE / DELETE MODAL -->
-  <div id="adminManageModal" class="admin-modal-overlay">
-    <div class="admin-modal-box">
-      <h3><i class="fa-solid fa-trash-can" style="color: #DC2626;"></i> Manage Existing Documents</h3>
-      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">Delete unwanted documents from the list below:</p>
-      
-      <div id="manageDocsList" class="manage-docs-list">
-        <!-- Dynamically populated document rows -->
-      </div>
-
-      <div class="admin-modal-actions" style="margin-top: 16px;">
-        <button type="button" class="btn-admin-cancel" onclick="openAdminDashboardMenu()">Back</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Firebase Configuration keys
-    const firebaseConfig = {
-      apiKey: "AIzaSyCMwAvrhfK2ojZJ5pk8FlANbKN4nfwOHuY",
-      authDomain: "missionsarkariengineer.firebaseapp.com",
-      databaseURL: "https://missionsarkariengineer-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "missionsarkariengineer",
-      storageBucket: "missionsarkariengineer.firebasestorage.app",
-      messagingSenderId: "217166121688",
-      appId: "1:217166121688:web:7bdc0e06a1dc6f2b4b65ad",
-      measurementId: "G-78CJQHZJDE"
-    };
-
-    // Firebase initialize karein
-    firebase.initializeApp(firebaseConfig);
-    const dbRef = firebase.database().ref('portal_visits');
-
-    // Realtime Global Cloud Counter Logic
-    function initVisitorCounter() {
-      const display = document.getElementById('visitorCountDisplay');
-      
-      dbRef.transaction(currentVisits => {
-        return (currentVisits || 0) + 1;
-      }, (error, committed, snapshot) => {
-        if (!error && committed) {
-          const count = snapshot.val();
-          if (display) {
-            display.textContent = count.toString().padStart(6, '0');
-          }
-        } else {
-          if (display) display.textContent = "000001";
-        }
-      });
-    }
-
-    const INITIAL_DOCS = [
-      { id: "1", stream: "Non-Technical", title: "General Awareness & GS Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
-      { id: "2", stream: "Non-Technical-Syllabus", title: "Non-Technical Official Syllabus PDF", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
-      { id: "3", stream: "Technical", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
-      { id: "4", stream: "Technical", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
-      { id: "5", stream: "Technical-Syllabus", title: "Technical Official Syllabus PDF", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
-      { id: "6", stream: "Practice", title: "Mechanical AE/JE Mock Test Series", link: "https://drive.google.com/open?id=1jn7z-jmVaxiqx7mrH_jsfbtoe0nyotvr" }
-    ];
-
-    let docs = [];
-    try {
-      docs = JSON.parse(localStorage.getItem('mse_sscje_official_docs')) || INITIAL_DOCS;
-    } catch(e) {
-      docs = INITIAL_DOCS;
-    }
-
-    let activeRootCategory = null; 
-    let selectedSubOption = null;  
-
-    // Login & Navigation Functions
-    function handleAdminLogin() {
-      document.getElementById('loginModal').style.display = 'flex';
-      document.getElementById('adminPasswordInput').value = '';
-    }
-
-    function closeLoginModal() {
-      document.getElementById('loginModal').style.display = 'none';
-    }
-
-    function verifyAdminPassword(e) {
-      e.preventDefault();
-      const pwd = document.getElementById('adminPasswordInput').value;
-      
-      if (pwd === "Shiv@1212") {
-        closeLoginModal();
-        openAdminDashboardMenu();
-      } else {
-        alert("Incorrect Password!");
-        document.getElementById('adminPasswordInput').value = '';
-      }
-    }
-
-    function openAdminDashboardMenu() {
-      closeAllModals();
-      document.getElementById('adminMenuModal').style.display = 'flex';
-    }
-
-    function openUploadModal() {
-      closeAllModals();
-      document.getElementById('adminUploadModal').style.display = 'flex';
-    }
-
-    function openManageModal() {
-      closeAllModals();
-      renderManageDocsList();
-      document.getElementById('adminManageModal').style.display = 'flex';
-    }
-
-    function closeAllModals() {
-      document.getElementById('loginModal').style.display = 'none';
-      document.getElementById('adminMenuModal').style.display = 'none';
-      document.getElementById('adminUploadModal').style.display = 'none';
-      document.getElementById('adminManageModal').style.display = 'none';
-    }
-
-    function renderManageDocsList() {
-      const listContainer = document.getElementById('manageDocsList');
-      if (!listContainer) return;
-
-      if (docs.length === 0) {
-        listContainer.innerHTML = `<div style="padding: 16px; text-align: center; color: var(--text-subtle); font-size: 0.85rem;">No documents available.</div>`;
-        return;
-      }
-
-      let html = '';
-      docs.forEach(doc => {
-        html += `
-          <div class="manage-doc-item">
-            <div class="manage-doc-info">
-              <h4>${doc.title}</h4>
-              <span>Category: ${doc.stream}</span>
-            </div>
-            <button type="button" class="btn-delete-doc" onclick="deleteDocument('${doc.id}')">
-              <i class="fa-solid fa-trash-can"></i> Delete
-            </button>
-          </div>
-        `;
-      });
-      listContainer.innerHTML = html;
-    }
-
-    function deleteDocument(id) {
-      if (confirm("Are you sure you want to delete this document?")) {
-        docs = docs.filter(d => d.id !== id);
-        localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
-        renderManageDocsList();
-        renderView();
-      }
-    }
-
-    function saveNewDocument(e) {
-      e.preventDefault();
-      const title = document.getElementById('newDocTitle').value.trim();
-      const stream = document.getElementById('newDocStream').value;
-      const link = document.getElementById('newDocLink').value.trim();
-
-      if (!title || !link) return;
-
-      const newDoc = {
-        id: Date.now().toString(),
-        stream: stream,
-        title: title,
-        link: link
-      };
-
-      docs.unshift(newDoc);
-      localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
-
-      document.getElementById('adminUploadForm').reset();
-      alert("New document added successfully!");
-      openAdminDashboardMenu();
-      renderView();
-    }
-
-    function getSubjectVisual(title) {
-      const t = title.toLowerCase();
-      if (t.includes('syllabus')) return { icon: 'fa-file-lines', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
-      if (t.includes('thermo') || t.includes('heat')) return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
-      if (t.includes('fluid') || t.includes('hydraulic')) return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
-      if (t.includes('practice') || t.includes('mock')) return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
-      return { icon: 'fa-book-bookmark', bg: '#F0FDF4', color: '#16A34A', border: '#DCFCE7' };
-    }
-
-    function formatDrivePreview(url) {
-      if (!url) return "";
-      const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-      if (match && match[1]) {
-        return `https://drive.google.com/file/d/${match[1]}/preview`;
-      }
-      return url;
-    }
-
-    const mainWorkspace = document.getElementById('mainWorkspace');
-    const homeFilterSection = document.getElementById('homeFilterSection');
-    const welcomeStrip = document.getElementById('welcomeStrip');
-    const searchInput = document.getElementById('searchInput');
-    const resultsArea = document.getElementById('resultsArea');
-    const trainSlider = document.getElementById('trainSlider');
-    const homeQuote = document.getElementById('homeQuote');
-    const portalFooter = document.getElementById('portalFooter');
-
-    const cleanStreamTitle = document.getElementById('cleanStreamTitle');
-    const flowRootText = document.getElementById('flowRootText');
-    const flowTreeSpine = document.getElementById('flowTreeSpine');
-    const clearFilterBtn = document.getElementById('clearFilterBtn');
-
-    const readerStage = document.getElementById('readerStage');
-    const readerDocTitle = document.getElementById('readerDocTitle');
-    const readerDocIframe = document.getElementById('readerDocIframe');
-    const openExternalBtn = document.getElementById('openExternalBtn');
-    const backToFlowBtn = document.getElementById('backToFlowBtn');
-
-    window.selectRootCategory = function(category) {
-      activeRootCategory = category;
-      selectedSubOption = null;
-      renderView();
-    };
-
-    window.selectSubOption = function(subOption) {
-      selectedSubOption = subOption;
-      renderView();
-    };
-
-    function renderView() {
-      const query = (searchInput?.value || '').toLowerCase().trim();
-
-      readerStage.style.display = 'none';
-      readerDocIframe.src = "";
-
-      if (query !== '' || activeRootCategory !== null) {
-        homeFilterSection.style.display = 'none';
-        welcomeStrip.style.display = 'none';
-        trainSlider.style.display = 'none';
-        homeQuote.style.display = 'none';
-        portalFooter.style.display = 'none';
-
-        resultsArea.style.display = 'block';
-
-        let filtered = docs;
-
-        if (query !== '') {
-          filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results (${filtered.length})`;
-          if (flowRootText) flowRootText.textContent = `Search: "${query}"`;
-        } else if (activeRootCategory === 'Practice') {
-          filtered = filtered.filter(d => d.stream === 'Practice');
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `Practice Section (${filtered.length})`;
-          if (flowRootText) flowRootText.textContent = `Practice`;
-        } else if (activeRootCategory && selectedSubOption === null) {
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} Roadmap`;
-          if (flowRootText) flowRootText.textContent = activeRootCategory;
-
-          if (flowTreeSpine) {
-            flowTreeSpine.innerHTML = `
-              <div class="flow-branch-row">
-                <div class="flow-center-node"></div>
-                <div class="flow-branch-side left has-card">
-                  <div class="flow-item-card" onclick="selectSubOption('Syllabus')">
-                    <div class="flow-item-icon" style="background: #EFF6FF; color: #1D4ED8; border: 1px solid #DBEAFE;">
-                      <i class="fa-solid fa-file-lines"></i>
-                    </div>
-                    <span class="flow-item-title">Syllabus</span>
-                  </div>
-                </div>
-                <div class="flow-branch-side right"></div>
-              </div>
-
-              <div class="flow-branch-row">
-                <div class="flow-center-node"></div>
-                <div class="flow-branch-side left"></div>
-                <div class="flow-branch-side right has-card">
-                  <div class="flow-item-card" onclick="selectSubOption('Content')">
-                    <div class="flow-item-icon" style="background: #F0FDF4; color: #16A34A; border: 1px solid #DCFCE7;">
-                      <i class="fa-solid fa-diagram-project"></i>
-                    </div>
-                    <span class="flow-item-title">Content</span>
-                  </div>
-                </div>
-              </div>
-            `;
-          }
-          return;
-        } else if (activeRootCategory && selectedSubOption !== null) {
-          const targetStream = selectedSubOption === 'Syllabus' ? `${activeRootCategory}-Syllabus` : activeRootCategory;
-          filtered = filtered.filter(d => d.stream === targetStream);
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} - ${selectedSubOption} (${filtered.length})`;
-          if (flowRootText) flowRootText.textContent = `${activeRootCategory} > ${selectedSubOption}`;
-        }
-
-        if (filtered.length === 0) {
-          if (flowTreeSpine) {
-            flowTreeSpine.innerHTML = `
-              <div style="text-align: center; padding: 32px; color: var(--text-subtle); font-size: 0.95rem;">
-                No documents found for this section. Admin can upload documents.
-              </div>
-            `;
-          }
-          return;
-        }
-
-        let html = '';
-        filtered.forEach((doc, idx) => {
-          const visual = getSubjectVisual(doc.title);
-          const isLeft = idx % 2 === 0;
-
-          html += `
-            <div class="flow-branch-row">
-              <div class="flow-center-node"></div>
-              
-              <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
-                ${isLeft ? `
-                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
-                      <i class="fa-solid ${visual.icon}"></i>
-                    </div>
-                    <span class="flow-item-title">${doc.title}</span>
-                  </div>
-                ` : ''}
-              </div>
-
-              <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
-                ${!isLeft ? `
-                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
-                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
-                      <i class="fa-solid ${visual.icon}"></i>
-                    </div>
-                    <span class="flow-item-title">${doc.title}</span>
-                  </div>
-                ` : ''}
-              </div>
-            </div>
-          `;
-        });
-        if (flowTreeSpine) flowTreeSpine.innerHTML = html;
-
-      } else {
-        homeFilterSection.style.display = 'block';
-        welcomeStrip.style.display = 'block';
-        trainSlider.style.display = 'block';
-        homeQuote.style.display = 'flex';
-        portalFooter.style.display = 'block';
-
-        resultsArea.style.display = 'none';
-      }
-    }
-
-    window.openDocOnSamePage = function(title, link) {
-      resultsArea.style.display = 'none';
-      mainWorkspace.className = 'reader-view';
-
-      readerDocTitle.textContent = title;
-      readerDocIframe.src = formatDrivePreview(link);
-      openExternalBtn.href = link;
-      readerStage.style.display = 'block';
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    backToFlowBtn.addEventListener('click', () => {
-      readerStage.style.display = 'none';
-      readerDocIframe.src = "";
-      resultsArea.style.display = 'block';
-      mainWorkspace.className = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    clearFilterBtn.addEventListener('click', () => {
-      activeRootCategory = null;
-      selectedSubOption = null;
-      if (searchInput) searchInput.value = '';
-      renderView();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    if (searchInput) {
-      searchInput.addEventListener('input', () => {
-        if (searchInput.value.trim() !== '') {
-          activeRootCategory = null;
-          selectedSubOption = null;
-        }
-        renderView();
-      });
-    }
-
-    initVisitorCounter();
-    renderView();
-  </script>
+  <!-- 1. TOP HEADER -->
+  <div class="top-broad-header">
+    <div class="header-inner">
+      <div class="brand-container">
+        <img src="logo.png" alt="Mission Sarkari Engineer Logo" class="portal-logo-img" />
+        <h1>Mission Sarkari Engineer</h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1.1 WELCOME STRIP WITH ONLY ADMIN ICON -->
+  <div id="welcomeStrip" class="welcome-bar">
+    <div class="welcome-bar-inner">
+      <div class="welcome-text">
+        <span class="welcome-dot"></span>
+        <span>Welcome to Mission Sarkari Engineer</span>
+      </div>
+      <a href="#" id="adminTriggerBtn" class="admin-upload-btn" onclick="handleAdminLogin(); return false;" title="Admin Login">
+        <i class="fa-solid fa-user-gear"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- 2. MAIN WORKSPACE -->
+  <main id="mainWorkspace" class="home-view">
+    
+    <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
+    <div id="homeFilterSection" class="filter-wrapper">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search subject (e.g. SOM, Thermodynamics, Production, Fluid Mechanics)..." />
+      </div>
+
+      <div class="filter-buttons">
+        <button class="btn-filter" data-stream="Thermal & Fluids">Thermal & Fluids</button>
+        <button class="btn-filter" data-stream="Design & Mechanics">Design & Mechanics</button>
+        <button class="btn-filter" data-stream="Production & Materials">Production & Materials</button>
+        <button class="btn-filter" data-stream="Revision & PYQs">Revision & PYQs</button>
+      </div>
+    </div>
+
+    <!-- LEVEL 1: SHOWCASE SLIDER -->
+    <div id="trainSlider" class="train-slider-container">
+      <div class="train-track">
+        <div class="train-card-photo">
+          <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
+          <div class="photo-overlay"><p>Military Engineering Services</p></div>
+        </div>
+        <div class="train-card-photo">
+          <img src="CPWD.jpg" alt="National CPWD Academy" />
+          <div class="photo-overlay"><p>Central Public Works Department</p></div>
+        </div>
+        <div class="train-card-photo">
+          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
+          <div class="photo-overlay"><p>Central Water Commission</p></div>
+        </div>
+        <div class="train-card-photo">
+          <img src="Military Engineering Services.jpg" alt="Military Engineering Services" />
+          <div class="photo-overlay"><p>Military Engineering Services</p></div>
+        </div>
+        <div class="train-card-photo">
+          <img src="CPWD.jpg" alt="National CPWD Academy" />
+          <div class="photo-overlay"><p>Central Public Works Department</p></div>
+        </div>
+        <div class="train-card-photo">
+          <img src="Central Water Commision.jpg" alt="Central Water Commission" />
+          <div class="photo-overlay"><p>Central Water Commission</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEVEL 2: PURE FOCUS FLOWCHART VIEW -->
+    <div id="resultsArea" class="results-area">
+      <div class="results-top-nav">
+        <button id="clearFilterBtn" class="btn-nav-action">
+          <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </button>
+        <span id="cleanStreamTitle" style="font-size: 1.05rem; font-weight: 700; color: var(--text-muted);">Roadmap</span>
+      </div>
+
+      <div class="tree-flow-canvas">
+        <div class="tree-root-head">
+          <i class="fa-solid fa-diagram-project"></i>
+          <span id="flowRootText">Stream</span>
+        </div>
+
+        <div class="tree-stem-start"></div>
+
+        <div id="flowTreeSpine" class="flow-tree-spine"></div>
+      </div>
+    </div>
+
+    <!-- LEVEL 3: SAME-PAGE DOCUMENT READER -->
+    <div id="readerStage" class="reader-stage-section">
+      <div class="reader-toolbar">
+        <div class="reader-toolbar-actions">
+          <button id="backToFlowBtn" class="btn-nav-action">
+            <i class="fa-solid fa-arrow-left"></i> Back to Roadmap
+          </button>
+          <a id="openExternalBtn" href="#" target="_blank" class="btn-direct-external">
+            <i class="fa-solid fa-external-link-alt"></i> Open in New Tab
+          </a>
+        </div>
+        <div class="reader-doc-heading">
+          <i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i>
+          <span id="readerDocTitle">Document Viewer</span>
+        </div>
+      </div>
+
+      <div class="reader-frame-container">
+        <iframe id="readerDocIframe" src="" allow="autoplay" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- MOTIVATIONAL QUOTE (HOME ONLY) -->
+    <div id="homeQuote" class="bottom-quote-section">
+      <i class="fa-solid fa-quote-left"></i>
+      <p>If efforts will put towards goal then chance to achieve that goal would be more!</p>
+      <i class="fa-solid fa-quote-right"></i>
+    </div>
+  </main>
+
+  <!-- FOOTER (HOME ONLY) -->
+  <footer id="portalFooter">
+    <div class="footer-inner">
+      <div class="visitor-box">
+        <i class="fa-solid fa-users"></i>
+        <span>PORTAL VISITS:</span>
+        <span id="visitorCountDisplay" class="visitor-count">000000</span>
+      </div>
+      <div>&copy; Mission Sarkari Engineer</div>
+    </div>
+  </footer>
+
+  <!-- ADMIN LOGIN PASSWORD MODAL -->
+  <div id="loginModal" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 380px;">
+      <h3><i class="fa-solid fa-lock" style="color: var(--primary-blue);"></i> Admin</h3>
+      <form id="loginForm" onsubmit="verifyAdminPassword(event)">
+        <div class="admin-form-group" style="margin-bottom: 0;">
+          <input type="password" id="adminPasswordInput" placeholder="Enter password..." required autofocus />
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="btn-admin-cancel" onclick="closeLoginModal()">Cancel</button>
+          <button type="submit" class="btn-admin-save">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN CHOICE MENU MODAL -->
+  <div id="adminMenuModal" class="admin-modal-overlay">
+    <div class="admin-modal-box" style="max-width: 440px;">
+      <h3><i class="fa-solid fa-sliders" style="color: var(--primary-blue);"></i> Admin Dashboard</h3>
+      <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 20px;">Choose an action to proceed:</p>
+      
+      <div class="admin-menu-grid">
+        <div class="admin-menu-card" onclick="openUploadModal()">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>Add New Document</span>
+        </div>
+        <div class="admin-menu-card" onclick="openManageModal()">
+          <i class="fa-solid fa-trash-can-arrow-up"></i>
+          <span>Manage / Delete</span>
+        </div>
+      </div>
+
+      <div class="admin-modal-actions" style="margin-top: 24px;">
+        <button type="button" class="btn-admin-cancel" onclick="closeAllModals()">Close Panel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN UPLOAD MODAL -->
+  <div id="adminUploadModal" class="admin-modal-overlay">
+    <div class="admin-modal-box">
+      <h3><i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary-blue);"></i> Add New Subject Document</h3>
+      <form id="adminUploadForm" onsubmit="saveNewDocument(event)">
+        <div class="admin-form-group">
+          <label>Subject / Document Title</label>
+          <input type="text" id="newDocTitle" placeholder="e.g. Advanced Fluid Mechanics" required />
+        </div>
+        <div class="admin-form-group">
+          <label>Select Stream</label>
+          <select id="newDocStream" required>
+            <option value="Thermal & Fluids">Thermal & Fluids</option>
+            <option value="Design & Mechanics">Design & Mechanics</option>
+            <option value="Production & Materials">Production & Materials</option>
+            <option value="Revision & PYQs">Revision & PYQs</option>
+          </select>
+        </div>
+        <div class="admin-form-group">
+          <label>Google Drive Share Link</label>
+          <input type="text" id="newDocLink" placeholder="https://drive.google.com/file/d/..." required />
+        </div>
+        <div class="admin-modal-actions" style="margin-top: 16px;">
+          <button type="button" class="btn-admin-cancel" onclick="openAdminDashboardMenu()">Back</button>
+          <button type="submit" class="btn-admin-save">Upload Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN MANAGE / DELETE MODAL -->
+  <div id="adminManageModal" class="admin-modal-overlay">
+    <div class="admin-modal-box">
+      <h3><i class="fa-solid fa-trash-can" style="color: #DC2626;"></i> Manage Existing Documents</h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px;">Delete unwanted documents from the list below:</p>
+      
+      <div id="manageDocsList" class="manage-docs-list">
+        <!-- Dynamically populated document rows -->
+      </div>
+
+      <div class="admin-modal-actions" style="margin-top: 16px;">
+        <button type="button" class="btn-admin-cancel" onclick="openAdminDashboardMenu()">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Firebase Configuration keys
+    const firebaseConfig = {
+      apiKey: "AIzaSyCMwAvrhfK2ojZJ5pk8FlANbKN4nfwOHuY",
+      authDomain: "missionsarkariengineer.firebaseapp.com",
+      databaseURL: "https://missionsarkariengineer-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "missionsarkariengineer",
+      storageBucket: "missionsarkariengineer.firebasestorage.app",
+      messagingSenderId: "217166121688",
+      appId: "1:217166121688:web:7bdc0e06a1dc6f2b4b65ad",
+      measurementId: "G-78CJQHZJDE"
+    };
+
+    // Firebase initialize karein
+    firebase.initializeApp(firebaseConfig);
+    const dbRef = firebase.database().ref('portal_visits');
+
+    // Realtime Global Cloud Counter Logic (Increments on every refresh/visit)
+    function initVisitorCounter() {
+      const display = document.getElementById('visitorCountDisplay');
+      
+      dbRef.transaction(currentVisits => {
+        return (currentVisits || 0) + 1;
+      }, (error, committed, snapshot) => {
+        if (!error && committed) {
+          const count = snapshot.val();
+          if (display) {
+            display.textContent = count.toString().padStart(6, '0');
+          }
+        } else {
+          if (display) display.textContent = "000001";
+        }
+      });
+    }
+
+    const INITIAL_DOCS = [
+      { id: "1", stream: "Revision & PYQs", title: "Mechanical Theory Revision Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
+      { id: "2", stream: "Revision & PYQs", title: "Mechanical AE/JE & SSC JE Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
+      { id: "3", stream: "Thermal & Fluids", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
+      { id: "4", stream: "Thermal & Fluids", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
+      { id: "5", stream: "Thermal & Fluids", title: "Power Plant Engineering", link: "https://drive.google.com/open?id=19SZ8Te_AdD9nrIaapl0w_1MIuCWyzaEK" },
+      { id: "6", stream: "Thermal & Fluids", title: "Internal Combustion (IC) Engines", link: "https://drive.google.com/open?id=1nfurPBOP3PP9jv9APPZEXxIziAqhj_Ec" },
+      { id: "7", stream: "Thermal & Fluids", title: "Refrigeration & Air Conditioning (RAC)", link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr" },
+      { id: "8", stream: "Design & Mechanics", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
+      { id: "9", stream: "Design & Mechanics", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
+      { id: "10", stream: "Design & Mechanics", title: "Engineering Mechanics", link: "https://drive.google.com/open?id=1chpgFcqsbCCdgIxXAQrtnaIXb-V9K1y9" },
+      { id: "11", stream: "Design & Mechanics", title: "Machine Design", link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw" },
+      { id: "12", stream: "Production & Materials", title: "Production Engineering & Machining", link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz" },
+      { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
+    ];
+
+    let docs = [];
+    try {
+      docs = JSON.parse(localStorage.getItem('mse_sscje_official_docs')) || INITIAL_DOCS;
+    } catch(e) {
+      docs = INITIAL_DOCS;
+    }
+
+    let activeStream = null;
+
+    // Login & Navigation Functions
+    function handleAdminLogin() {
+      document.getElementById('loginModal').style.display = 'flex';
+      document.getElementById('adminPasswordInput').value = '';
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function verifyAdminPassword(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('adminPasswordInput').value;
+      
+      if (pwd === "Shiv@1212") {
+        closeLoginModal();
+        openAdminDashboardMenu();
+      } else {
+        alert("Incorrect Password!");
+        document.getElementById('adminPasswordInput').value = '';
+      }
+    }
+
+    function openAdminDashboardMenu() {
+      closeAllModals();
+      document.getElementById('adminMenuModal').style.display = 'flex';
+    }
+
+    function openUploadModal() {
+      closeAllModals();
+      document.getElementById('adminUploadModal').style.display = 'flex';
+    }
+
+    function openManageModal() {
+      closeAllModals();
+      renderManageDocsList();
+      document.getElementById('adminManageModal').style.display = 'flex';
+    }
+
+    function closeAllModals() {
+      document.getElementById('loginModal').style.display = 'none';
+      document.getElementById('adminMenuModal').style.display = 'none';
+      document.getElementById('adminUploadModal').style.display = 'none';
+      document.getElementById('adminManageModal').style.display = 'none';
+    }
+
+    function renderManageDocsList() {
+      const listContainer = document.getElementById('manageDocsList');
+      if (!listContainer) return;
+
+      if (docs.length === 0) {
+        listContainer.innerHTML = `<div style="padding: 16px; text-align: center; color: var(--text-subtle); font-size: 0.85rem;">No documents available.</div>`;
+        return;
+      }
+
+      let html = '';
+      docs.forEach(doc => {
+        html += `
+          <div class="manage-doc-item">
+            <div class="manage-doc-info">
+              <h4>${doc.title}</h4>
+              <span>Stream: ${doc.stream}</span>
+            </div>
+            <button type="button" class="btn-delete-doc" onclick="deleteDocument('${doc.id}')">
+              <i class="fa-solid fa-trash-can"></i> Delete
+            </button>
+          </div>
+        `;
+      });
+      listContainer.innerHTML = html;
+    }
+
+    function deleteDocument(id) {
+      if (confirm("Are you sure you want to delete this document?")) {
+        docs = docs.filter(d => d.id !== id);
+        localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
+        renderManageDocsList();
+        renderView();
+      }
+    }
+
+    function saveNewDocument(e) {
+      e.preventDefault();
+      const title = document.getElementById('newDocTitle').value.trim();
+      const stream = document.getElementById('newDocStream').value;
+      const link = document.getElementById('newDocLink').value.trim();
+
+      if (!title || !link) return;
+
+      const newDoc = {
+        id: Date.now().toString(),
+        stream: stream,
+        title: title,
+        link: link
+      };
+
+      docs.unshift(newDoc);
+      localStorage.setItem('mse_sscje_official_docs', JSON.stringify(docs));
+
+      document.getElementById('adminUploadForm').reset();
+      alert("New document added successfully!");
+      openAdminDashboardMenu();
+      renderView();
+    }
+
+    function getSubjectVisual(title) {
+      const t = title.toLowerCase();
+
+      if (t.includes('thermo') || t.includes('heat')) {
+        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
+      }
+      if (t.includes('fluid') || t.includes('hydraulic')) {
+        return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
+      }
+      if (t.includes('power plant')) {
+        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#A16207', border: '#FEF08A' };
+      }
+      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) {
+        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#7E22CE', border: '#F3E8FF' };
+      }
+      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) {
+        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0369A1', border: '#E0F2FE' };
+      }
+      if (t.includes('strength of material') || t.includes('som')) {
+        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#BE123C', border: '#FFE4E6' };
+      }
+      if (t.includes('theory of machine') || t.includes('tom')) {
+        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0E7490', border: '#CFFAFE' };
+      }
+      if (t.includes('mechanics')) {
+        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#6D28D9', border: '#EDE9FE' };
+      }
+      if (t.includes('design')) {
+        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#E2E8F0' };
+      }
+      if (t.includes('production') || t.includes('machining')) {
+        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#B45309', border: '#FEF3C7' };
+      }
+      if (t.includes('material') || t.includes('metallurgy')) {
+        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4338CA', border: '#E0E7FF' };
+      }
+      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) {
+        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
+      }
+
+      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
+    }
+
+    function formatDrivePreview(url) {
+      if (!url) return "";
+      const match = url.match(/id=([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        return `https://drive.google.com/file/d/${match[1]}/preview`;
+      }
+      return url;
+    }
+
+    const mainWorkspace = document.getElementById('mainWorkspace');
+    const homeFilterSection = document.getElementById('homeFilterSection');
+    const welcomeStrip = document.getElementById('welcomeStrip');
+    const searchInput = document.getElementById('searchInput');
+    const resultsArea = document.getElementById('resultsArea');
+    const trainSlider = document.getElementById('trainSlider');
+    const homeQuote = document.getElementById('homeQuote');
+    const portalFooter = document.getElementById('portalFooter');
+
+    const cleanStreamTitle = document.getElementById('cleanStreamTitle');
+    const flowRootText = document.getElementById('flowRootText');
+    const flowTreeSpine = document.getElementById('flowTreeSpine');
+    const clearFilterBtn = document.getElementById('clearFilterBtn');
+    const filterButtons = document.querySelectorAll('.btn-filter');
+
+    const readerStage = document.getElementById('readerStage');
+    const readerDocTitle = document.getElementById('readerDocTitle');
+    const readerDocIframe = document.getElementById('readerDocIframe');
+    const openExternalBtn = document.getElementById('openExternalBtn');
+    const backToFlowBtn = document.getElementById('backToFlowBtn');
+
+    function renderView() {
+      const query = (searchInput?.value || '').toLowerCase().trim();
+
+      readerStage.style.display = 'none';
+      readerDocIframe.src = "";
+
+      if (query !== '' || activeStream !== null) {
+        mainWorkspace.className = 'focus-view';
+
+        homeFilterSection.style.display = 'none';
+        welcomeStrip.style.display = 'none';
+        trainSlider.style.display = 'none';
+        homeQuote.style.display = 'none';
+        portalFooter.style.display = 'none';
+
+        resultsArea.style.display = 'block';
+
+        let filtered = docs;
+        if (activeStream) {
+          filtered = filtered.filter(d => d.stream === activeStream);
+          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeStream} (${filtered.length} Subjects)`;
+          if (flowRootText) flowRootText.textContent = activeStream;
+        } else if (query) {
+          filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
+          if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results (${filtered.length})`;
+          if (flowRootText) flowRootText.textContent = `Search: "${query}"`;
+        }
+
+        if (filtered.length === 0) {
+          if (flowTreeSpine) {
+            flowTreeSpine.innerHTML = `
+              <div style="text-align: center; padding: 32px; color: var(--text-subtle); font-size: 0.95rem;">
+                No matching subjects found.
+              </div>
+            `;
+          }
+          return;
+        }
+
+        let html = '';
+        filtered.forEach((doc, idx) => {
+          const visual = getSubjectVisual(doc.title);
+          const isLeft = idx % 2 === 0;
+
+          html += `
+            <div class="flow-branch-row">
+              <div class="flow-center-node"></div>
+              
+              <!-- Left Side -->
+              <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
+                ${isLeft ? `
+                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
+                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
+                      <i class="fa-solid ${visual.icon}"></i>
+                    </div>
+                    <span class="flow-item-title">${doc.title}</span>
+                  </div>
+                ` : ''}
+              </div>
+
+              <!-- Right Side -->
+              <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
+                ${!isLeft ? `
+                  <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
+                    <div class="flow-item-icon" style="background: ${visual.bg}; color: ${visual.color}; border: 1px solid ${visual.border};">
+                      <i class="fa-solid ${visual.icon}"></i>
+                    </div>
+                    <span class="flow-item-title">${doc.title}</span>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        });
+        if (flowTreeSpine) flowTreeSpine.innerHTML = html;
+      } else {
+        mainWorkspace.className = 'home-view';
+
+        homeFilterSection.style.display = 'block';
+        welcomeStrip.style.display = 'block';
+        trainSlider.style.display = 'block';
+        homeQuote.style.display = 'flex';
+        portalFooter.style.display = 'block';
+
+        resultsArea.style.display = 'none';
+      }
+    }
+
+    window.openDocOnSamePage = function(title, link) {
+      resultsArea.style.display = 'none';
+      mainWorkspace.className = 'reader-view';
+
+      readerDocTitle.textContent = title;
+      readerDocIframe.src = formatDrivePreview(link);
+      openExternalBtn.href = link;
+      readerStage.style.display = 'block';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    backToFlowBtn.addEventListener('click', () => {
+      readerStage.style.display = 'none';
+      readerDocIframe.src = "";
+      resultsArea.style.display = 'block';
+      mainWorkspace.className = 'focus-view';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    clearFilterBtn.addEventListener('click', () => {
+      activeStream = null;
+      if (searchInput) searchInput.value = '';
+      filterButtons.forEach(b => b.classList.remove('active'));
+      renderView();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const stream = btn.getAttribute('data-stream');
+        if (activeStream === stream) {
+          activeStream = null;
+          btn.classList.remove('active');
+        } else {
+          activeStream = stream;
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+        if (searchInput) searchInput.value = '';
+        renderView();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        if (searchInput.value.trim() !== '') {
+          activeStream = null;
+          filterButtons.forEach(b => b.classList.remove('active'));
+        }
+        renderView();
+      });
+    }
+
+    initVisitorCounter();
+    renderView();
+  </script>
 </body>
 </html>
+ phle wala ye tha
