@@ -210,7 +210,7 @@
       padding: 14px 10px 24px;
     }
 
-    /* HOME SEARCH & FILTERS */
+    /* HOME SEARCH & FLOWCHART LEVEL 1 */
     .filter-wrapper {
       background: var(--surface-white);
       border: 1px solid var(--border-light);
@@ -260,22 +260,27 @@
     }
 
     .btn-filter {
-      padding: 11px 20px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border-radius: 10px;
-      border: 1px solid var(--border-light);
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-light);
       background: #FFFFFF;
-      color: var(--text-muted);
+      color: var(--text-main);
       cursor: pointer;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
     .btn-filter:hover {
-      border-color: #93C5FD;
+      border-color: var(--primary-blue);
       color: var(--primary-blue);
       background: var(--primary-light);
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
     .btn-filter.active {
@@ -956,14 +961,14 @@
       }
 
       .filter-buttons {
-        gap: 6px;
+        gap: 8px;
+        flex-direction: column;
       }
 
       .btn-filter {
-        flex: 1 1 calc(50% - 6px);
-        text-align: center;
-        padding: 9px 8px;
-        font-size: 0.78rem;
+        width: 100%;
+        padding: 12px;
+        font-size: 0.88rem;
       }
 
       .results-top-nav {
@@ -1117,7 +1122,7 @@
   <!-- 2. MAIN WORKSPACE -->
   <main id="mainWorkspace" class="home-view">
     
-    <!-- LEVEL 1: HOME FILTER & SEARCH SECTION -->
+    <!-- LEVEL 1: HOME SEARCH & 3-TIER ROOT NAVIGATION BUTTONS -->
     <div id="homeFilterSection" class="filter-wrapper">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -1125,10 +1130,15 @@
       </div>
 
       <div class="filter-buttons">
-        <button class="btn-filter" data-stream="Thermal & Fluids">Thermal & Fluids</button>
-        <button class="btn-filter" data-stream="Design & Mechanics">Design & Mechanics</button>
-        <button class="btn-filter" data-stream="Production & Materials">Production & Materials</button>
-        <button class="btn-filter" data-stream="Revision & PYQs">Revision & PYQs</button>
+        <button class="btn-filter" onclick="selectRootCategory('Non-Technical')">
+          <i class="fa-solid fa-book-bookmark" style="color: var(--primary-blue);"></i> Non-Technical
+        </button>
+        <button class="btn-filter" onclick="selectRootCategory('Technical')">
+          <i class="fa-solid fa-gears" style="color: var(--primary-blue);"></i> Technical
+        </button>
+        <button class="btn-filter" onclick="selectRootCategory('Practice')">
+          <i class="fa-solid fa-bolt-lightning" style="color: var(--primary-blue);"></i> Practice
+        </button>
       </div>
     </div>
 
@@ -1174,7 +1184,7 @@
       <div class="tree-flow-canvas">
         <div class="tree-root-head">
           <i class="fa-solid fa-diagram-project"></i>
-          <span id="flowRootText">Stream</span>
+          <span id="flowRootText">Category</span>
         </div>
 
         <div class="tree-stem-start"></div>
@@ -1274,12 +1284,11 @@
           <input type="text" id="newDocTitle" placeholder="e.g. Advanced Fluid Mechanics" required />
         </div>
         <div class="admin-form-group">
-          <label>Select Stream</label>
+          <label>Select Category</label>
           <select id="newDocStream" required>
-            <option value="Thermal & Fluids">Thermal & Fluids</option>
-            <option value="Design & Mechanics">Design & Mechanics</option>
-            <option value="Production & Materials">Production & Materials</option>
-            <option value="Revision & PYQs">Revision & PYQs</option>
+            <option value="Non-Technical">Non-Technical</option>
+            <option value="Technical">Technical</option>
+            <option value="Practice">Practice</option>
           </select>
         </div>
         <div class="admin-form-group">
@@ -1327,7 +1336,7 @@
     firebase.initializeApp(firebaseConfig);
     const dbRef = firebase.database().ref('portal_visits');
 
-    // Realtime Global Cloud Counter Logic (Increments on every refresh/visit)
+    // Realtime Global Cloud Counter Logic
     function initVisitorCounter() {
       const display = document.getElementById('visitorCountDisplay');
       
@@ -1346,19 +1355,13 @@
     }
 
     const INITIAL_DOCS = [
-      { id: "1", stream: "Revision & PYQs", title: "Mechanical Theory Revision Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
-      { id: "2", stream: "Revision & PYQs", title: "Mechanical AE/JE & SSC JE Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
-      { id: "3", stream: "Thermal & Fluids", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
-      { id: "4", stream: "Thermal & Fluids", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
-      { id: "5", stream: "Thermal & Fluids", title: "Power Plant Engineering", link: "https://drive.google.com/open?id=19SZ8Te_AdD9nrIaapl0w_1MIuCWyzaEK" },
-      { id: "6", stream: "Thermal & Fluids", title: "Internal Combustion (IC) Engines", link: "https://drive.google.com/open?id=1nfurPBOP3PP9jv9APPZEXxIziAqhj_Ec" },
-      { id: "7", stream: "Thermal & Fluids", title: "Refrigeration & Air Conditioning (RAC)", link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr" },
-      { id: "8", stream: "Design & Mechanics", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
-      { id: "9", stream: "Design & Mechanics", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
-      { id: "10", stream: "Design & Mechanics", title: "Engineering Mechanics", link: "https://drive.google.com/open?id=1chpgFcqsbCCdgIxXAQrtnaIXb-V9K1y9" },
-      { id: "11", stream: "Design & Mechanics", title: "Machine Design", link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw" },
-      { id: "12", stream: "Production & Materials", title: "Production Engineering & Machining", link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz" },
-      { id: "13", stream: "Production & Materials", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" }
+      { id: "1", stream: "Non-Technical", title: "General Awareness & GS Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
+      { id: "2", stream: "Non-Technical", title: "Reasoning Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
+      { id: "3", stream: "Technical", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
+      { id: "4", stream: "Technical", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
+      { id: "5", stream: "Technical", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
+      { id: "6", stream: "Technical", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
+      { id: "7", stream: "Practice", title: "Mechanical AE/JE Mock Test Series", link: "https://drive.google.com/open?id=1jn7z-jmVaxiqx7mrH_jsfbtoe0nyotvr" }
     ];
 
     let docs = [];
@@ -1368,7 +1371,8 @@
       docs = INITIAL_DOCS;
     }
 
-    let activeStream = null;
+    let activeRootCategory = null; // 'Non-Technical', 'Technical', 'Practice'
+    let selectedSubOption = null;  // 'Syllabus', 'Content'
 
     // Login & Navigation Functions
     function handleAdminLogin() {
@@ -1431,7 +1435,7 @@
           <div class="manage-doc-item">
             <div class="manage-doc-info">
               <h4>${doc.title}</h4>
-              <span>Stream: ${doc.stream}</span>
+              <span>Category: ${doc.stream}</span>
             </div>
             <button type="button" class="btn-delete-doc" onclick="deleteDocument('${doc.id}')">
               <i class="fa-solid fa-trash-can"></i> Delete
@@ -1477,45 +1481,12 @@
 
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
-
-      if (t.includes('thermo') || t.includes('heat')) {
-        return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
-      }
-      if (t.includes('fluid') || t.includes('hydraulic')) {
-        return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
-      }
-      if (t.includes('power plant')) {
-        return { icon: 'fa-industry', bg: '#FEFCE8', color: '#A16207', border: '#FEF08A' };
-      }
-      if (t.includes('ic engine') || t.includes('combustion') || t.includes('engine')) {
-        return { icon: 'fa-gear', bg: '#FAF5FF', color: '#7E22CE', border: '#F3E8FF' };
-      }
-      if (t.includes('rac') || t.includes('refrigeration') || t.includes('air conditioning')) {
-        return { icon: 'fa-snowflake', bg: '#F0F9FF', color: '#0369A1', border: '#E0F2FE' };
-      }
-      if (t.includes('strength of material') || t.includes('som')) {
-        return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#BE123C', border: '#FFE4E6' };
-      }
-      if (t.includes('theory of machine') || t.includes('tom')) {
-        return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0E7490', border: '#CFFAFE' };
-      }
-      if (t.includes('mechanics')) {
-        return { icon: 'fa-compass-drafting', bg: '#F5F3FF', color: '#6D28D9', border: '#EDE9FE' };
-      }
-      if (t.includes('design')) {
-        return { icon: 'fa-pen-ruler', bg: '#F8FAFC', color: '#334155', border: '#E2E8F0' };
-      }
-      if (t.includes('production') || t.includes('machining')) {
-        return { icon: 'fa-hammer', bg: '#FFFBEB', color: '#B45309', border: '#FEF3C7' };
-      }
-      if (t.includes('material') || t.includes('metallurgy')) {
-        return { icon: 'fa-atom', bg: '#EEF2FF', color: '#4338CA', border: '#E0E7FF' };
-      }
-      if (t.includes('pyq') || t.includes('question') || t.includes('bank') || t.includes('capsule')) {
-        return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
-      }
-
-      return { icon: 'fa-microchip', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
+      if (t.includes('thermo') || t.includes('heat')) return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
+      if (t.includes('fluid') || t.includes('hydraulic')) return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
+      if (t.includes('som') || t.includes('strength')) return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#BE123C', border: '#FFE4E6' };
+      if (t.includes('tom') || t.includes('theory')) return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0E7490', border: '#CFFAFE' };
+      if (t.includes('practice') || t.includes('mock') || t.includes('question')) return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
+      return { icon: 'fa-book-bookmark', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
     }
 
     function formatDrivePreview(url) {
@@ -1540,7 +1511,6 @@
     const flowRootText = document.getElementById('flowRootText');
     const flowTreeSpine = document.getElementById('flowTreeSpine');
     const clearFilterBtn = document.getElementById('clearFilterBtn');
-    const filterButtons = document.querySelectorAll('.btn-filter');
 
     const readerStage = document.getElementById('readerStage');
     const readerDocTitle = document.getElementById('readerDocTitle');
@@ -1548,13 +1518,27 @@
     const openExternalBtn = document.getElementById('openExternalBtn');
     const backToFlowBtn = document.getElementById('backToFlowBtn');
 
+    // Step 1: User clicks Non-Technical, Technical, or Practice
+    window.selectRootCategory = function(category) {
+      activeRootCategory = category;
+      selectedSubOption = null;
+      renderView();
+    };
+
+    // Step 2: User clicks Syllabus or Content sub-node
+    window.selectSubOption = function(subOption) {
+      selectedSubOption = subOption;
+      renderView();
+    };
+
     function renderView() {
       const query = (searchInput?.value || '').toLowerCase().trim();
 
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
 
-      if (query !== '' || activeStream !== null) {
+      // If search query is entered or a root category is selected
+      if (query !== '' || activeRootCategory !== null) {
         mainWorkspace.className = 'focus-view';
 
         homeFilterSection.style.display = 'none';
@@ -1566,21 +1550,64 @@
         resultsArea.style.display = 'block';
 
         let filtered = docs;
-        if (activeStream) {
-          filtered = filtered.filter(d => d.stream === activeStream);
-          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeStream} (${filtered.length} Subjects)`;
-          if (flowRootText) flowRootText.textContent = activeStream;
-        } else if (query) {
+
+        if (query !== '') {
+          // Search Mode
           filtered = filtered.filter(d => d.title.toLowerCase().includes(query) || d.stream.toLowerCase().includes(query));
           if (cleanStreamTitle) cleanStreamTitle.textContent = `Search Results (${filtered.length})`;
           if (flowRootText) flowRootText.textContent = `Search: "${query}"`;
+        } else if (activeRootCategory === 'Practice') {
+          // Practice goes directly to practice content/questions
+          filtered = filtered.filter(d => d.stream === 'Practice');
+          if (cleanStreamTitle) cleanStreamTitle.textContent = `Practice Section (${filtered.length})`;
+          if (flowRootText) flowRootText.textContent = `Practice`;
+        } else if (activeRootCategory && selectedSubOption === null) {
+          // LEVEL 2: Show branch nodes -> "Syllabus" and "Content"
+          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} Roadmap`;
+          if (flowRootText) flowRootText.textContent = activeRootCategory;
+
+          if (flowTreeSpine) {
+            flowTreeSpine.innerHTML = `
+              <div class="flow-branch-row">
+                <div class="flow-center-node"></div>
+                <div class="flow-branch-side left has-card">
+                  <div class="flow-item-card" onclick="selectSubOption('Syllabus')">
+                    <div class="flow-item-icon" style="background: #EFF6FF; color: #1D4ED8; border: 1px solid #DBEAFE;">
+                      <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <span class="flow-item-title">Syllabus</span>
+                  </div>
+                </div>
+                <div class="flow-branch-side right"></div>
+              </div>
+
+              <div class="flow-branch-row">
+                <div class="flow-center-node"></div>
+                <div class="flow-branch-side left"></div>
+                <div class="flow-branch-side right has-card">
+                  <div class="flow-item-card" onclick="selectSubOption('Content')">
+                    <div class="flow-item-icon" style="background: #F0FDF4; color: #16A34A; border: 1px solid #DCFCE7;">
+                      <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <span class="flow-item-title">Content (Mind Maps / Flowcharts)</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+          return;
+        } else if (activeRootCategory && selectedSubOption !== null) {
+          // LEVEL 3: Show documents for Syllabus or Content
+          filtered = filtered.filter(d => d.stream === activeRootCategory);
+          if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} - ${selectedSubOption} (${filtered.length})`;
+          if (flowRootText) flowRootText.textContent = `${activeRootCategory} > ${selectedSubOption}`;
         }
 
         if (filtered.length === 0) {
           if (flowTreeSpine) {
             flowTreeSpine.innerHTML = `
               <div style="text-align: center; padding: 32px; color: var(--text-subtle); font-size: 0.95rem;">
-                No matching subjects found.
+                No documents found for this section. Admin can add new documents.
               </div>
             `;
           }
@@ -1623,7 +1650,9 @@
           `;
         });
         if (flowTreeSpine) flowTreeSpine.innerHTML = html;
+
       } else {
+        // HOME VIEW
         mainWorkspace.className = 'home-view';
 
         homeFilterSection.style.display = 'block';
@@ -1657,34 +1686,18 @@
     });
 
     clearFilterBtn.addEventListener('click', () => {
-      activeStream = null;
+      activeRootCategory = null;
+      selectedSubOption = null;
       if (searchInput) searchInput.value = '';
-      filterButtons.forEach(b => b.classList.remove('active'));
       renderView();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const stream = btn.getAttribute('data-stream');
-        if (activeStream === stream) {
-          activeStream = null;
-          btn.classList.remove('active');
-        } else {
-          activeStream = stream;
-          filterButtons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-        }
-        if (searchInput) searchInput.value = '';
-        renderView();
-      });
     });
 
     if (searchInput) {
       searchInput.addEventListener('input', () => {
         if (searchInput.value.trim() !== '') {
-          activeStream = null;
-          filterButtons.forEach(b => b.classList.remove('active'));
+          activeRootCategory = null;
+          selectedSubOption = null;
         }
         renderView();
       });
