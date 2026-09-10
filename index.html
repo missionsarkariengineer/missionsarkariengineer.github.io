@@ -194,15 +194,7 @@
       margin: 0 auto;
       padding: 28px 20px 46px;
       transition: all 0.25s ease;
-    }
-
-    main.home-view {
-      max-width: 1050px;
-    }
-
-    main.focus-view {
-      max-width: 96vw;
-      padding-top: 20px;
+      max-width: 1050px; /* Uniform width across all views to prevent layout jumping */
     }
 
     main.reader-view {
@@ -360,7 +352,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* 4. FULL-SCREEN FLOWCHART SYSTEM */
+    /* 4. UNIFORM FULL-SCREEN FLOWCHART SYSTEM */
     .results-area {
       display: none;
       width: 100%;
@@ -409,14 +401,14 @@
       background: #FFFFFF;
       border: 1px solid var(--border-light);
       border-radius: 24px;
-      padding: 50px 32px 64px;
+      padding: 40px 32px;
       box-shadow: var(--shadow-card);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
       width: 100%;
-      min-height: 70vh;
+      min-height: 480px; /* Uniform height container */
     }
 
     .tree-root-head {
@@ -442,7 +434,7 @@
 
     .tree-stem-start {
       width: 2.5px;
-      height: 42px;
+      height: 36px;
       background: var(--border-dark);
     }
 
@@ -824,7 +816,6 @@
       background: var(--primary-blue-hover);
     }
 
-    /* DUAL OPTION CHOICE MENU */
     .admin-menu-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -917,7 +908,7 @@
 
     /* RESPONSIVE MOBILE ADJUSTMENTS */
     @media (max-width: 820px) {
-      main.focus-view, main.home-view, main.reader-view {
+      main {
         max-width: 100%;
         padding: 16px 10px 24px;
       }
@@ -981,6 +972,7 @@
         padding: 20px 12px 24px;
         border-radius: 16px;
         align-items: stretch;
+        min-height: auto;
       }
 
       .tree-root-head {
@@ -1106,7 +1098,7 @@
     </div>
   </div>
 
-  <!-- 1.1 WELCOME STRIP WITH ONLY ADMIN ICON -->
+  <!-- 1.1 WELCOME STRIP -->
   <div id="welcomeStrip" class="welcome-bar">
     <div class="welcome-bar-inner">
       <div class="welcome-text">
@@ -1120,7 +1112,7 @@
   </div>
 
   <!-- 2. MAIN WORKSPACE -->
-  <main id="mainWorkspace" class="home-view">
+  <main id="mainWorkspace">
     
     <!-- LEVEL 1: HOME SEARCH & 3-TIER ROOT NAVIGATION BUTTONS -->
     <div id="homeFilterSection" class="filter-wrapper">
@@ -1172,7 +1164,7 @@
       </div>
     </div>
 
-    <!-- LEVEL 2: PURE FOCUS FLOWCHART VIEW -->
+    <!-- LEVEL 2 & DOCUMENTS FLOWCHART VIEW -->
     <div id="resultsArea" class="results-area">
       <div class="results-top-nav">
         <button id="clearFilterBtn" class="btn-nav-action">
@@ -1284,10 +1276,12 @@
           <input type="text" id="newDocTitle" placeholder="e.g. Advanced Fluid Mechanics" required />
         </div>
         <div class="admin-form-group">
-          <label>Select Category</label>
+          <label>Select Category / Type</label>
           <select id="newDocStream" required>
-            <option value="Non-Technical">Non-Technical</option>
-            <option value="Technical">Technical</option>
+            <option value="Non-Technical">Non-Technical (Content)</option>
+            <option value="Non-Technical-Syllabus">Non-Technical (Syllabus)</option>
+            <option value="Technical">Technical (Content)</option>
+            <option value="Technical-Syllabus">Technical (Syllabus)</option>
             <option value="Practice">Practice</option>
           </select>
         </div>
@@ -1356,19 +1350,11 @@
 
     const INITIAL_DOCS = [
       { id: "1", stream: "Non-Technical", title: "General Awareness & GS Capsule", link: "https://drive.google.com/open?id=1nyXHDl0-xdNMWxLeAzCayeLnB-nwTDH-" },
-      { id: "2", stream: "Non-Technical", title: "Reasoning Solved Question Bank", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
+      { id: "2", stream: "Non-Technical-Syllabus", title: "Non-Technical Official Syllabus PDF", link: "https://drive.google.com/open?id=1xPqE7Dsv1FeGlr8Sf0BU7jbisB74YrGQ" },
       { id: "3", stream: "Technical", title: "Thermodynamics & Heat Engines", link: "https://drive.google.com/open?id=18czooBJGIBgsI6T4iLX98hFbL2cdF6nc" },
       { id: "4", stream: "Technical", title: "Fluid Mechanics & Hydraulic Machinery", link: "https://drive.google.com/open?id=1B4X4SMLfN_4f0gOZDxYs-RNxypPdOMYI" },
-      { id: "5", stream: "Technical", title: "Power Plant Engineering", link: "https://drive.google.com/open?id=19SZ8Te_AdD9nrIaapl0w_1MIuCWyzaEK" },
-      { id: "6", stream: "Technical", title: "Internal Combustion (IC) Engines", link: "https://drive.google.com/open?id=1nfurPBOP3PP9jv9APPZEXxIziAqhj_Ec" },
-      { id: "7", stream: "Technical", title: "Refrigeration & Air Conditioning (RAC)", link: "https://drive.google.com/open?id=1JN7Z-jmVaxIqX7mrH_jsFbTOE0NYoTVr" },
-      { id: "8", stream: "Technical", title: "Strength of Materials (SOM)", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
-      { id: "9", stream: "Technical", title: "Theory of Machines (TOM)", link: "https://drive.google.com/open?id=1BDCRGBZZ615tPYn14sJ5CqKeNKOsEQqf" },
-      { id: "10", stream: "Technical", title: "Engineering Mechanics", link: "https://drive.google.com/open?id=1chpgFcqsbCCdgIxXAQrtnaIXb-V9K1y9" },
-      { id: "11", stream: "Technical", title: "Machine Design", link: "https://drive.google.com/open?id=1KKV8iSFvNp0pO-KneMsLpW0YUGQEtQxw" },
-      { id: "12", stream: "Technical", title: "Production Engineering & Machining", link: "https://drive.google.com/open?id=1bvMWaqplzVdYoL3XgktcqMlHhXDbMSxz" },
-      { id: "13", stream: "Technical", title: "Materials Science & Metallurgy", link: "https://drive.google.com/open?id=1pjQraeK_c5-vkddSHdMvh_rO2VKIJugH" },
-      { id: "14", stream: "Practice", title: "Mechanical AE/JE Mock Test Series", link: "https://drive.google.com/open?id=1jn7z-jmVaxiqx7mrH_jsfbtoe0nyotvr" }
+      { id: "5", stream: "Technical-Syllabus", title: "Technical Official Syllabus PDF", link: "https://drive.google.com/open?id=189Jk_yEKq4bD_LXdCxT-mTFrntrQ0IbN" },
+      { id: "6", stream: "Practice", title: "Mechanical AE/JE Mock Test Series", link: "https://drive.google.com/open?id=1jn7z-jmVaxiqx7mrH_jsfbtoe0nyotvr" }
     ];
 
     let docs = [];
@@ -1488,12 +1474,11 @@
 
     function getSubjectVisual(title) {
       const t = title.toLowerCase();
+      if (t.includes('syllabus')) return { icon: 'fa-file-lines', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
       if (t.includes('thermo') || t.includes('heat')) return { icon: 'fa-fire-flame-curved', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5' };
       if (t.includes('fluid') || t.includes('hydraulic')) return { icon: 'fa-water', bg: '#F0FDFA', color: '#0F766E', border: '#CCFBF1' };
-      if (t.includes('som') || t.includes('strength')) return { icon: 'fa-dumbbell', bg: '#FFF1F2', color: '#BE123C', border: '#FFE4E6' };
-      if (t.includes('tom') || t.includes('theory')) return { icon: 'fa-gears', bg: '#ECFEFF', color: '#0E7490', border: '#CFFAFE' };
-      if (t.includes('practice') || t.includes('mock') || t.includes('question')) return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
-      return { icon: 'fa-book-bookmark', bg: '#EFF6FF', color: '#1D4ED8', border: '#DBEAFE' };
+      if (t.includes('practice') || t.includes('mock')) return { icon: 'fa-bolt-lightning', bg: '#FEF08A', color: '#854D0E', border: '#FDE047' };
+      return { icon: 'fa-book-bookmark', bg: '#F0FDF4', color: '#16A34A', border: '#DCFCE7' };
     }
 
     function formatDrivePreview(url) {
@@ -1543,8 +1528,6 @@
       readerDocIframe.src = "";
 
       if (query !== '' || activeRootCategory !== null) {
-        mainWorkspace.className = 'focus-view';
-
         homeFilterSection.style.display = 'none';
         welcomeStrip.style.display = 'none';
         trainSlider.style.display = 'none';
@@ -1590,7 +1573,7 @@
                     <div class="flow-item-icon" style="background: #F0FDF4; color: #16A34A; border: 1px solid #DCFCE7;">
                       <i class="fa-solid fa-diagram-project"></i>
                     </div>
-                    <span class="flow-item-title">Content (Mind Maps / Flowcharts)</span>
+                    <span class="flow-item-title">Content</span>
                   </div>
                 </div>
               </div>
@@ -1598,7 +1581,8 @@
           }
           return;
         } else if (activeRootCategory && selectedSubOption !== null) {
-          filtered = filtered.filter(d => d.stream === activeRootCategory);
+          const targetStream = selectedSubOption === 'Syllabus' ? `${activeRootCategory}-Syllabus` : activeRootCategory;
+          filtered = filtered.filter(d => d.stream === targetStream);
           if (cleanStreamTitle) cleanStreamTitle.textContent = `${activeRootCategory} - ${selectedSubOption} (${filtered.length})`;
           if (flowRootText) flowRootText.textContent = `${activeRootCategory} > ${selectedSubOption}`;
         }
@@ -1607,7 +1591,7 @@
           if (flowTreeSpine) {
             flowTreeSpine.innerHTML = `
               <div style="text-align: center; padding: 32px; color: var(--text-subtle); font-size: 0.95rem;">
-                No documents found for this section. Admin can add new documents.
+                No documents found for this section. Admin can upload documents.
               </div>
             `;
           }
@@ -1623,7 +1607,6 @@
             <div class="flow-branch-row">
               <div class="flow-center-node"></div>
               
-              <!-- Left Side -->
               <div class="flow-branch-side left ${isLeft ? 'has-card' : ''}">
                 ${isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
@@ -1635,7 +1618,6 @@
                 ` : ''}
               </div>
 
-              <!-- Right Side -->
               <div class="flow-branch-side right ${!isLeft ? 'has-card' : ''}">
                 ${!isLeft ? `
                   <div class="flow-item-card" onclick="openDocOnSamePage('${doc.title.replace(/'/g, "\\'")}', '${doc.link}')">
@@ -1652,8 +1634,6 @@
         if (flowTreeSpine) flowTreeSpine.innerHTML = html;
 
       } else {
-        mainWorkspace.className = 'home-view';
-
         homeFilterSection.style.display = 'block';
         welcomeStrip.style.display = 'block';
         trainSlider.style.display = 'block';
@@ -1680,7 +1660,7 @@
       readerStage.style.display = 'none';
       readerDocIframe.src = "";
       resultsArea.style.display = 'block';
-      mainWorkspace.className = 'focus-view';
+      mainWorkspace.className = '';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
